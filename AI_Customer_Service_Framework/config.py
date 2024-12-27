@@ -8,7 +8,7 @@ GEMINI_API_KEY = os.environ.get("GOOGLE_API_KEY")
 MODEL_NAME = "gemini-pro" # or another suitable model
 
 # Knowledge base settings
-KNOWLEDGE_BASE_PATH = "data/knowledge_base.txt"
+KNOWLEDGE_BASE_PATH = "data"
 
 # Prompt settings
 PROMPT_TEMPLATE_PATH = "data/prompts.json"
