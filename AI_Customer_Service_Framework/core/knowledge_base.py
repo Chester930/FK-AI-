@@ -5,6 +5,7 @@ import docx
 import openpyxl
 import PyPDF2
 import fitz  # PyMuPDF
+import jieba
 
 class KnowledgeBase:
     def __init__(self, folderpath=KNOWLEDGE_BASE_PATH):
@@ -24,7 +25,7 @@ class KnowledgeBase:
                 all_text += self.read_xlsx(filepath) + "\n"
             elif filename.endswith(".pdf"):
                 all_text += self.read_pdf(filepath) + "\n"
-            elif os.path.isdir(filepath):  # 如果是資料夾，遞迴處理
+            elif os.path.isdir(filepath):
                 all_text += self.read_folder(filepath) + "\n"
         return all_text
 
@@ -63,7 +64,7 @@ class KnowledgeBase:
         except Exception as e:
             print(f"Error reading XLSX file {filepath}: {e}")
             return ""
-    
+
     def read_pdf(self, filepath):
         """Reads text from a PDF file."""
         try:
@@ -90,17 +91,34 @@ class KnowledgeBase:
                 all_text += self.read_xlsx(filepath) + "\n"
             elif filename.endswith(".pdf"):
                 all_text += self.read_pdf(filepath) + "\n"
-            elif os.path.isdir(filepath):  # 如果是資料夾，遞迴處理
+            elif os.path.isdir(filepath):
                 all_text += self.read_folder(filepath) + "\n"
         return all_text
 
     def search(self, query):
-        """Searches the knowledge base for a query using regular expressions."""
+        """Searches the knowledge base for a query.
+
+        Args:
+            query (str): The search query.
+
+        Returns:
+            str: A relevant portion of the knowledge base, or a message
+                 indicating that no relevant information was found.
+        """
         if not self.data:
             return "Knowledge base is empty."
 
-        matches = re.findall(r".*?" + re.escape(query) + r".*?", self.data, re.IGNORECASE)
-        if matches:
-            return "\n".join(matches[:3])
+        # 使用 jieba 進行分詞
+        query_words = jieba.lcut(query)
+
+        # 使用布林搜尋 (AND 邏輯)
+        matched_lines = []
+        for line in self.data.split("\n"):
+            if all(word.lower() in line.lower() for word in query_words):
+                matched_lines.append(line)
+
+        if matched_lines:
+            # 只返回前 3 個匹配項
+            return "\n".join(matched_lines[:3])
         else:
             return "No relevant information found in the knowledge base."
