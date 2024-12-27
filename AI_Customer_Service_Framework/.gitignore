@@ -1,0 +1,20 @@
+# Virtual environment
+venv/
+*.pyc
+__pycache__/
+
+# Environment variables
+.env
+
+# Streamlit secrets
+.streamlit/secrets.toml
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# DS Store (macOS)
+.DS_Store
+
+# data files (你可能不想要把資料庫檔案上傳)
+data/*.txt
+data/*.json
