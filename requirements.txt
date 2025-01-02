@@ -5,3 +5,15 @@ openpyxl
 PyPDF2
 PyMuPDF
 jieba
+# 啟動虛擬環境
+#venv\Scripts\activate
+
+
+#執行 Streamlit 應用程式
+#streamlit run ui/streamlit_ui.py
+
+#建立工作流程，先判斷問題的類別，再根據類別切換角色，再根據角色切換知識庫來源，讀取知識庫後再來回答問題。
+#建立檔案上傳方式，可以根據上傳的檔案來回答問題
+
+
+

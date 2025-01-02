@@ -8,31 +8,31 @@ import streamlit as st
 from core.ai_engine import AIEngine
 from core.knowledge_base import KnowledgeBase
 from core.prompts import PromptManager
+from config import KNOWLEDGE_BASE_PATHS
 
 # Initialize the core components
 ai_engine = AIEngine()
-knowledge_base = KnowledgeBase()
 prompt_manager = PromptManager()
 
 # --- UI 設定 ---
-st.set_page_config(page_title="FK AI 神學博士", page_icon="✝️", layout="wide") # 設定網頁標題、圖示、版面
+st.set_page_config(page_title="Fight.K AI助手", page_icon="✝️", layout="wide")
 
-st.title("FK AI 神學博士 ✝️")
-st.write("我是 FK AI 神學博士，你的 AI 神學夥伴。")
+st.title("Fight.K AI助手 ✝️")
+st.write("我是 Fight.K AI助手，幫助你了解Fight.K")
 
 # --- 側邊欄 (Sidebar) ---
 st.sidebar.header("設定")
 prompt_category = st.sidebar.selectbox(
     "問題類別：",
-    ("general_theology", "bible_interpretation", "church_history", "apologetics"),
+    ("FK helper", "FK teacher", "FK Prophet", "FK Business"), # 新增 "test" 選項
     format_func=lambda x: {
-        "general_theology": "一般神學問題",
-        "bible_interpretation": "聖經經文解釋",
-        "church_history": "教會歷史問題",
-        "apologetics": "護教學問題"
-    }.get(x, x)  # 將 key 映射為更友善的標籤
+        "FK helper": "Fight.K 小幫手",
+        "FK teacher": "FK裝備課程",
+        "FK Prophet": "Fight.K 策士",
+        "FK Business": "Fight.K 商業專家"
+    }.get(x, x)
 )
-show_knowledge = st.sidebar.checkbox("顯示相關知識", value=False) # 可以根據需求增加選項
+show_knowledge = st.sidebar.checkbox("顯示相關知識", value=False)
 
 # --- 主畫面 ---
 user_input = st.text_input("請輸入你的問題：", key="user_input")
@@ -40,32 +40,43 @@ user_input = st.text_input("請輸入你的問題：", key="user_input")
 if st.button("送出"):
     if user_input:
         with st.spinner("思考中..."):
-            # Retrieve relevant knowledge (if any)
-            relevant_knowledge = knowledge_base.search(user_input)
+            try:
+                # Initialize KnowledgeBase with the selected category
+                knowledge_base = KnowledgeBase(KNOWLEDGE_BASE_PATHS[prompt_category])
 
-            # Get a prompt based on user input or a default one
-            prompt = prompt_manager.get_prompt(prompt_category)
+                # Retrieve relevant knowledge (if any)
+                relevant_knowledge = knowledge_base.search(user_input)
+                
+                # Get a prompt based on user input or a default one
+                prompt = prompt_manager.get_prompt(prompt_category)
+                
+                if not prompt:
+                    st.error(f"找不到 {prompt_category} 的提示詞")
+                else:
+                    # 修改提示詞組合方式
+                    full_prompt = f"{prompt}\n\n背景知識：\n{relevant_knowledge}\n\n問題：{user_input}\n回答："
 
-            # Combine the prompt, relevant knowledge, and user input for the AI
-            if relevant_knowledge and show_knowledge:
-                full_prompt = f"{prompt}\n\n相關知識：\n{relevant_knowledge}\n\n使用者：{user_input}\nAI："
-            else:
-                full_prompt = f"{prompt}\n使用者：{user_input}\nAI："
+                # Generate a response
+                response = ai_engine.generate_response(full_prompt)
+                
+                st.write("---")
+                st.markdown(f"**Fight.K AI助手 ✝️:** {response}")
 
-            # Generate a response
-            response = ai_engine.generate_response(full_prompt, user_input)
+                if show_knowledge and relevant_knowledge:
+                    with st.expander("顯示相關知識"):
+                        st.text(relevant_knowledge)
 
-        st.write("---")  # 分隔線
-        
-        # 使用 Markdown 格式化輸出
-        st.markdown(f"**FK AI 神學博士:** {response}")
+                # 在初始化 KnowledgeBase 之前添加
+                st.write("Debug: Selected category paths:")
+                for path in KNOWLEDGE_BASE_PATHS[prompt_category]:
+                    st.write(f"Checking path: {path}")
+                    st.write(f"Path exists: {os.path.exists(path)}")
 
-        if show_knowledge and relevant_knowledge:
-            with st.expander("顯示相關知識"):
-                st.text(relevant_knowledge)
+            except Exception as e:
+                st.error(f"發生錯誤：{str(e)}")
     else:
         st.warning("請輸入問題！")
 
 # --- 頁尾 ---
 st.write("---")
-st.markdown("© 2023 FK AI 神學博士")
+st.markdown("© 2025 Fight.K AI助手 ✝️")
