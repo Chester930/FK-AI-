@@ -16,7 +16,8 @@ COMMON_PATHS = [
 # 個別角色的專屬資料路徑
 ROLE_SPECIFIC_PATHS = {
     "FK helper": [
-        os.path.join(BASE_DIR, "data", "夥伴單位簡介.xlsx"),
+        os.path.join(BASE_DIR, "data", "撒瑪利亞教會", "夥伴單位簡介.xlsx"),
+        os.path.join(BASE_DIR, "data", "撒瑪利亞教會", "撒瑪利亞教會說明文件.txt"),
     ],
     "FK teacher": [
         os.path.join(BASE_DIR, "data", "聖經"),
