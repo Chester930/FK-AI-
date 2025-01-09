@@ -14,7 +14,7 @@ def get_ngrok_url():
         tunnels = json.loads(response.text)['tunnels']
         # 獲取 https 的 URL
         return next((tunnel['public_url'] for tunnel in tunnels if tunnel['proto'] == 'https'), None)
-    except:
+    except (requests.RequestException, json.JSONDecodeError, KeyError):
         return None
 
 def run_streamlit():
