@@ -54,3 +54,11 @@ MAX_OUTPUT_TOKENS = 2048  # 最大輸出長度
 
 # Prompt settings
 PROMPT_TEMPLATE_PATH = os.path.join(os.path.dirname(__file__), "data/prompts.json")
+
+# LINE Bot Settings
+LINE_CHANNEL_SECRET = os.environ.get('LINE_CHANNEL_SECRET')
+LINE_CHANNEL_ACCESS_TOKEN = os.environ.get('LINE_CHANNEL_ACCESS_TOKEN')
+
+# 確保在找不到環境變數時給出警告
+if not LINE_CHANNEL_SECRET or not LINE_CHANNEL_ACCESS_TOKEN:
+    print("警告: 未設置 LINE Bot 相關的環境變數")

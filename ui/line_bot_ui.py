@@ -31,6 +31,7 @@ import subprocess
 import json
 import os
 from dotenv import load_dotenv
+import logging
 
 from core.ai_engine import AIEngine
 from core.knowledge_base import KnowledgeBase
@@ -40,6 +41,10 @@ from config import KNOWLEDGE_BASE_PATHS, LINE_CHANNEL_SECRET, LINE_CHANNEL_ACCES
 load_dotenv()  # 加載 .env 檔案中的環境變數
 
 app = Flask(__name__)
+
+# 設置日誌
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 # 初始化 LINE Bot API
 configuration = Configuration(access_token=os.environ.get('LINE_CHANNEL_ACCESS_TOKEN'))
@@ -93,53 +98,76 @@ def create_role_selection_message():
 def callback():
     signature = request.headers['X-Line-Signature']
     body = request.get_data(as_text=True)
+    logger.info("Request body: %s", body)
     
     try:
         handler.handle(body, signature)
+        logger.info("Message handled successfully")
     except InvalidSignatureError:
+        logger.error("Invalid signature")
         abort(400)
+    except Exception as e:
+        logger.error(f"Error handling message: {e}")
+        abort(500)
     return 'OK'
 
 @handler.add(MessageEvent)
 def handle_message(event):
-    if not isinstance(event, MessageEvent) or event.message.type != 'text':
+    logger.info(f"Received message event: {event}")
+    if not isinstance(event.message, TextMessageContent):
+        logger.info("Not a text message")
         return
         
     user_id = event.source.user_id
     text = event.message.text.strip()
+    logger.info(f"Processing message: {text} from user: {user_id}")
     
-    # 如果使用者尚未選擇角色或輸入 "切換身分"
-    if user_id not in user_states or text.lower() == "切換身分":
-        user_states[user_id] = {"role": None}
-        line_bot_api.reply_message(event.reply_token, create_role_selection_message())
-        return
-
-    # 處理角色選擇
-    if text in ROLE_OPTIONS:
-        user_states[user_id]["role"] = ROLE_OPTIONS[text]
-        response = (
-            f"您已選擇 {ROLE_DESCRIPTIONS[text]}，請問有什麼我可以協助您的嗎？\n\n"
-            "💡 如果要更換諮詢對象，隨時可以輸入「切換身分」"
-        )
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=response))
-        return
-
     try:
+        # 如果使用者尚未選擇角色或輸入 "切換身分"
+        if user_id not in user_states or text.lower() == "切換身分":
+            user_states[user_id] = {"role": None}
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[create_role_selection_message()]
+                )
+            )
+            logger.info("Sent role selection message")
+            return
+
+        # 處理角色選擇
+        if text in ROLE_OPTIONS:
+            user_states[user_id]["role"] = ROLE_OPTIONS[text]
+            response = (
+                f"您已選擇 {ROLE_DESCRIPTIONS[text]}，請問有什麼我可以協助您的嗎？\n\n"
+                "💡 如果要更換諮詢對象，隨時可以輸入「切換身分」"
+            )
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[TextMessage(text=response)]
+                )
+            )
+            logger.info(f"User selected role: {ROLE_OPTIONS[text]}")
+            return
+
         # 處理一般對話
         current_role = user_states[user_id]["role"]
-        print(f"處理用戶 {user_id} 的訊息，當前角色: {current_role}")  # 偵錯日誌
+        logger.info(f"Current role for user {user_id}: {current_role}")
         
-        # 先確保有選擇角色
         if not current_role:
             line_bot_api.reply_message(
-                event.reply_token, 
-                TextSendMessage(text="請先選擇一個諮詢對象。")
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[TextMessage(text="請先選擇一個諮詢對象。")]
+                )
             )
+            logger.info("Asked user to select role first")
             return
             
-        # 暫時跳過知識庫搜尋，直接使用簡單回應測試
         prompt = f"你現在是 {current_role} 的角色。\n\n問題：{text}\n回答："
         response = ai_engine.generate_response(prompt)
+        logger.info(f"AI response generated: {response[:100]}...")
         
         if not response:
             response = "抱歉，我現在無法回答。請稍後再試。"
@@ -150,9 +178,10 @@ def handle_message(event):
                 messages=[TextMessage(text=response)]
             )
         )
+        logger.info("Response sent successfully")
         
     except Exception as e:
-        print("發生錯誤：{}".format(str(e)))
+        logger.error(f"Error in handle_message: {e}", exc_info=True)
         error_message = "系統發生錯誤，請稍後再試"
         try:
             line_bot_api.reply_message(
@@ -162,11 +191,11 @@ def handle_message(event):
                 )
             )
         except Exception as reply_error:
-            print("回傳錯誤訊息失敗：{}".format(str(reply_error)))
+            logger.error(f"Error sending error message: {reply_error}", exc_info=True)
 
 if __name__ == "__main__":
     try:
-        # 建立 ngrok 設定檔 (使用 YAML 格式)
+        # 建立 ngrok 設定檔
         ngrok_config = {
             "version": "2",
             "authtoken": os.environ.get("NGROK_AUTH_TOKEN"),
@@ -178,21 +207,23 @@ if __name__ == "__main__":
             }
         }
         
-        # 將設定寫入臨時檔案 (使用 YAML 格式)
         config_path = "ngrok.yml"
         with open(config_path, "w") as f:
             yaml.dump(ngrok_config, f)
         
         # 啟動 ngrok
-        subprocess.Popen(["ngrok", "start", "line-bot", "--config", config_path])
+        ngrok_process = subprocess.Popen(["ngrok", "start", "line-bot", "--config", config_path])
         
         # 等待 ngrok 啟動
         time.sleep(3)
         
-        # 啟動 Flask 應用
-        print('LINE Bot 已啟動於 port 5000')
-        app.run(port=5000)
-        
+        try:
+            print('LINE Bot 已啟動於 port 5000')
+            app.run(port=5000)
+        finally:
+            # 確保程序結束時關閉 ngrok
+            ngrok_process.terminate()
+            
     except Exception as e:
         print(f"啟動時發生錯誤: {str(e)}")
     finally:
