@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv()  # 添加在文件開頭
+
 # Configuration for the AI customer service
 import os
 
@@ -22,7 +25,8 @@ ROLE_SPECIFIC_PATHS = {
     "FK teacher": [
         os.path.join(BASE_DIR, "data", "聖經"),
         os.path.join(BASE_DIR, "data", "裝備課程", "雲端神學院"),
-        os.path.join(BASE_DIR, "data", "裝備課程", "DNA"),
+        os.path.join(BASE_DIR, "data", "裝備課程", "DNA","AI大意"),
+        os.path.join(BASE_DIR, "data", "裝備課程", "DNA", "AI重點整理"),
         os.path.join(BASE_DIR, "data", "裝備課程", "DNA", "DNA講義"),
     ],
     "FK Prophet": [
@@ -43,13 +47,24 @@ KNOWLEDGE_BASE_PATHS = {
 }
 
 # Retrieve API key from environment variable
-GEMINI_API_KEY = os.environ.get("GOOGLE_API_KEY")
+GEMINI_API_KEY = os.getenv("GOOGLE_API_KEY")
+if not GEMINI_API_KEY:
+    raise ValueError("GOOGLE_API_KEY environment variable is not set")
 
 # Model settings
-MODEL_NAME = "gemini-2.0-flash-exp"  # 可以更換為其他模型
+MODEL_NAME = "gemini-pro"  # 目前只能使用 gemini-pro 或 gemini-pro-vision
 MODEL_TEMPERATURE = 0.7    # 控制創意程度 (0.0-1.0)
 MODEL_TOP_P = 0.8         # 控制輸出多樣性
 MAX_OUTPUT_TOKENS = 2048  # 最大輸出長度
 
 # Prompt settings
 PROMPT_TEMPLATE_PATH = os.path.join(os.path.dirname(__file__), "data/prompts.json")
+
+# LINE Bot Settings
+LINE_CHANNEL_SECRET = os.environ.get("LINE_CHANNEL_SECRET")
+if not LINE_CHANNEL_SECRET:
+    raise ValueError("LINE_CHANNEL_SECRET environment variable is not set")
+
+LINE_CHANNEL_ACCESS_TOKEN = os.environ.get("LINE_CHANNEL_ACCESS_TOKEN")
+if not LINE_CHANNEL_ACCESS_TOKEN:
+    raise ValueError("LINE_CHANNEL_ACCESS_TOKEN environment variable is not set")
