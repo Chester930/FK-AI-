@@ -15,5 +15,19 @@ jieba
 #建立工作流程，先判斷問題的類別，再根據類別切換角色，再根據角色切換知識庫來源，讀取知識庫後再來回答問題。
 #建立檔案上傳方式，可以根據上傳的檔案來回答問題
 
+#建立LINE bot
+#streamlit run ui/line_bot_ui.py
+
+#建立LINE bot的webhook
+#https://api.line.me/v2/bot/channel/webhook/test    
+
+#建立LINE bot的webhook的驗證碼
+#https://api.line.me/v2/bot/channel/webhook/test                
+
+#Https資訊
+# 主機紀錄:_acme-challenge.FKKnowledge.com
+# 紀錄類型:CNAME
+# 紀錄值:_acme-challenge.3zx6l8kv1zx0pjkq.ohttps.com
+
 
 

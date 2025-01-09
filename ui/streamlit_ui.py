@@ -1,5 +1,6 @@
 import sys
 import os
+import logging
 
 # 將專案根目錄加入到 sys.path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -14,6 +15,10 @@ from config import KNOWLEDGE_BASE_PATHS
 ai_engine = AIEngine()
 prompt_manager = PromptManager()
 
+# Initialize session state for chat history if it doesn't exist
+if 'chat_history' not in st.session_state:
+    st.session_state.chat_history = []
+
 # --- UI 設定 ---
 st.set_page_config(page_title="Fight.K AI助手", page_icon="✝️", layout="wide")
 
@@ -24,58 +29,107 @@ st.write("我是 Fight.K AI助手，幫助你了解Fight.K")
 st.sidebar.header("設定")
 prompt_category = st.sidebar.selectbox(
     "問題類別：",
-    ("FK helper", "FK teacher", "FK Prophet", "FK Business"), # 新增 "test" 選項
+    ("FK helper", "FK teacher", "FK Prophet", "FK Business"),
     format_func=lambda x: {
         "FK helper": "Fight.K 小幫手",
-        "FK teacher": "FK裝備課程",
+        "FK teacher": "Fight.K 裝備課程",
         "FK Prophet": "Fight.K 策士",
         "FK Business": "Fight.K 商業專家"
     }.get(x, x)
 )
-show_knowledge = st.sidebar.checkbox("顯示相關知識", value=False)
 
-# --- 主畫面 ---
-user_input = st.text_input("請輸入你的問題：", key="user_input")
+# --- 聊天區域 ---
+# 顯示聊天歷史
+for message in st.session_state.chat_history:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
 
-if st.button("送出"):
-    if user_input:
-        with st.spinner("思考中..."):
-            try:
-                # Initialize KnowledgeBase with the selected category
-                knowledge_base = KnowledgeBase(KNOWLEDGE_BASE_PATHS[prompt_category])
+# --- 輸入區域 ---
+# 使用兩個 columns 用於主要輸入區
+col1, col2 = st.columns([0.925, 0.075])
 
-                # Retrieve relevant knowledge (if any)
-                relevant_knowledge = knowledge_base.search(user_input)
+with col1:
+    user_input = st.chat_input("請輸入你的問題：")
+
+with col2:
+    if st.button("🧹", help="清除對話歷史"):
+        st.session_state.chat_history = []
+        st.rerun()
+
+# 上傳區域使用自適應寬度
+uploaded_file = st.file_uploader(
+    "拖曳檔案到此處或點擊上傳",
+    type=["txt", "pdf", "doc", "docx"],
+    help="上傳文件 (最大 200MB)\n支援格式：TXT, PDF, DOC, DOCX"
+)
+
+if uploaded_file:
+    st.info(f"已上傳：{uploaded_file.name}")
+
+# 添加日誌
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# 處理使用者輸入
+if user_input:
+    st.session_state.chat_history.append({"role": "user", "content": user_input})
+    
+    with st.spinner("思考中..."):
+        try:
+            # 添加日誌
+            logger.info(f"Processing input for category: {prompt_category}")
+            
+            # Initialize KnowledgeBase with the selected category
+            knowledge_base = KnowledgeBase(KNOWLEDGE_BASE_PATHS[prompt_category])
+            relevant_knowledge = knowledge_base.search(user_input)
+            
+            # 添加檢查
+            if not relevant_knowledge:
+                logger.warning("No relevant knowledge found")
+                relevant_knowledge = "無相關資料"
+            
+            prompt = prompt_manager.get_prompt(prompt_category)
+            
+            if not prompt:
+                raise ValueError(f"找不到 {prompt_category} 的提示詞")
                 
-                # Get a prompt based on user input or a default one
-                prompt = prompt_manager.get_prompt(prompt_category)
+            full_prompt = f"{prompt}\n\n背景知識：\n{relevant_knowledge}\n\n問題：{user_input}\n回答："
+            
+            # 添加日誌
+            logger.info("Generating AI response...")
+            
+            # Generate a response with timeout
+            response = ai_engine.generate_response(full_prompt)
+            
+            if not response:
+                raise ValueError("AI 未能生成回應")
                 
-                if not prompt:
-                    st.error(f"找不到 {prompt_category} 的提示詞")
-                else:
-                    # 修改提示詞組合方式
-                    full_prompt = f"{prompt}\n\n背景知識：\n{relevant_knowledge}\n\n問題：{user_input}\n回答："
+            # 添加 AI 回應到歷史記錄
+            st.session_state.chat_history.append({"role": "assistant", "content": response})
+            
+            # 顯示相關知識在可展開的區域中
+            with st.expander("參考資料", expanded=False):
+                st.text(relevant_knowledge)
 
-                # Generate a response
-                response = ai_engine.generate_response(full_prompt)
-                
-                st.write("---")
-                st.markdown(f"**Fight.K AI助手 ✝️:** {response}")
-
-                if show_knowledge and relevant_knowledge:
-                    with st.expander("顯示相關知識"):
-                        st.text(relevant_knowledge)
-
-                # 在初始化 KnowledgeBase 之前添加
-                st.write("Debug: Selected category paths:")
-                for path in KNOWLEDGE_BASE_PATHS[prompt_category]:
-                    st.write(f"Checking path: {path}")
-                    st.write(f"Path exists: {os.path.exists(path)}")
-
-            except Exception as e:
-                st.error(f"發生錯誤：{str(e)}")
-    else:
-        st.warning("請輸入問題！")
+        except Exception as e:
+            logger.error(f"Error occurred: {str(e)}", exc_info=True)
+            st.error(f"發生錯誤：{str(e)}")
+            # 添加錯誤到聊天歷史
+            st.session_state.chat_history.append({
+                "role": "assistant", 
+                "content": f"抱歉，處理您的請求時發生錯誤。錯誤訊息：{str(e)}"
+            })
+        
+        # 確保 AIEngine 的資源被正確釋放
+        finally:
+            if 'ai_engine' in locals():
+                try:
+                    ai_engine.close()  # 假設有 close 方法
+                except:
+                    pass
+    
+    # 重新載入頁面以更新聊天記錄
+    st.rerun()
 
 # --- 頁尾 ---
 st.write("---")
