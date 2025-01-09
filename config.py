@@ -22,8 +22,8 @@ ROLE_SPECIFIC_PATHS = {
     "FK teacher": [
         os.path.join(BASE_DIR, "data", "聖經"),
         os.path.join(BASE_DIR, "data", "裝備課程", "雲端神學院"),
-        os.path.join(BASE_DIR, "data", "裝備課程", "DNA"),
-        os.path.join(BASE_DIR, "data", "裝備課程", "DNA", "DNA講義"),
+        os.path.join(BASE_DIR, "data", "裝備課程", "DNA", "AI大意"),
+        os.path.join(BASE_DIR, "data", "裝備課程", "DNA", "AI重點整理"),
     ],
     "FK Prophet": [
         os.path.join(BASE_DIR, "data/FK計畫與轉型/家教會/家教會簡介.docx"),
