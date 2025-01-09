@@ -6,6 +6,7 @@ BASE_DIR = os.path.dirname(__file__)
 # 共同參考資料路徑
 COMMON_PATHS = [
     os.path.join(BASE_DIR, "data", "FK核心理念.docx"),  # 共用的基礎資料
+    os.path.join(BASE_DIR, "data", "knowledge_base.txt"), 
     os.path.join(BASE_DIR, "data", "FK歷史.docx"),  # 所有角色都需要的基礎
     os.path.join(BASE_DIR, "data", "FK簡介.docx"),  
     os.path.join(BASE_DIR, "data", "FK相關連結整理.xlsx"),  
