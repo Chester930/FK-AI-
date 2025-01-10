@@ -18,7 +18,8 @@ from linebot.v3.messaging import (
 )
 from linebot.v3.webhooks import (
     MessageEvent,
-    TextMessageContent
+    TextMessageContent,
+    GroupSource,  # 添加群組來源類型
 )
 from linebot.v3.exceptions import InvalidSignatureError
 from linebot.v3.messaging.models import (
@@ -37,6 +38,7 @@ from core.ai_engine import AIEngine
 from core.knowledge_base import KnowledgeBase
 from core.prompts import PromptManager
 from config import KNOWLEDGE_BASE_PATHS, LINE_CHANNEL_SECRET, LINE_CHANNEL_ACCESS_TOKEN
+from utils.scheduled_messages import MessageScheduler
 
 load_dotenv()  # 加載 .env 檔案中的環境變數
 
@@ -94,6 +96,9 @@ def create_role_selection_message():
         quick_reply=QuickReply(items=quick_reply_items)
     )
 
+# 在 app 初始化後添加
+message_scheduler = MessageScheduler()
+
 @app.route("/callback", methods=['POST'])
 def callback():
     signature = request.headers['X-Line-Signature']
@@ -118,12 +123,75 @@ def handle_message(event):
         logger.info("Not a text message")
         return
         
-    user_id = event.source.user_id
     text = event.message.text.strip()
-    logger.info(f"Processing message: {text} from user: {user_id}")
+    
+    # 檢查消息來源（個人或群組）
+    if isinstance(event.source, GroupSource):
+        group_id = event.source.group_id
+        # 同時支持中英文驚嘆號
+        if not (text.startswith('!') or text.startswith('！')):
+            logger.info(f"Group message without prefix: {text}")
+            return
+        # 移除前綴（支持中英文驚嘆號）
+        text = text[1:].strip() if text.startswith('!') else text[1:].strip()
+        logger.info(f"Processing group message: {text}")
+        
+        # 群組消息處理
+        try:
+            prompt = f"請針對以下問題提供簡潔的回答：{text}"
+            response = ai_engine.generate_response(prompt)
+            
+            if not response:
+                response = "抱歉，我現在無法回答。請稍後再試。"
+            
+            # 添加更多日誌來追蹤回應過程
+            logger.info(f"Sending response to group {group_id}: {response[:100]}...")
+            
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[TextMessage(text=response)]
+                )
+            )
+            logger.info("Group response sent successfully")
+            return
+        except Exception as e:
+            logger.error(f"Error processing group message: {str(e)}", exc_info=True)
+            # 嘗試發送錯誤消息
+            try:
+                line_bot_api.reply_message(
+                    ReplyMessageRequest(
+                        reply_token=event.reply_token,
+                        messages=[TextMessage(text="抱歉，處理訊息時發生錯誤，請稍後再試。")]
+                    )
+                )
+            except Exception as reply_error:
+                logger.error(f"Error sending error message: {str(reply_error)}", exc_info=True)
+            return
+    else:
+        user_id = event.source.user_id
+        
+    logger.info(f"Processing message: {text}")
     
     try:
-        # 如果使用者尚未選擇角色或輸入 "切換身分"
+        # 群組消息處理
+        if isinstance(event.source, GroupSource):
+            prompt = f"請針對以下問題提供簡潔的回答：{text}"
+            response = ai_engine.generate_response(prompt)
+            
+            if not response:
+                response = "抱歉，我現在無法回答。請稍後再試。"
+                
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[TextMessage(text=response)]
+                )
+            )
+            logger.info("Group response sent successfully")
+            return
+            
+        # 個人對話處理（原有的邏輯）
         if user_id not in user_states or text.lower() == "切換身分":
             user_states[user_id] = {"role": None}
             line_bot_api.reply_message(
@@ -192,6 +260,40 @@ def handle_message(event):
             )
         except Exception as reply_error:
             logger.error(f"Error sending error message: {reply_error}", exc_info=True)
+
+    if isinstance(event.source, GroupSource):
+        group_id = event.source.group_id
+        if text.startswith('!schedule') or text.startswith('！schedule'):
+            # 處理排程命令
+            try:
+                # 示例: !schedule 9:00 每日問候
+                parts = text.split(' ', 2)
+                if len(parts) != 3:
+                    raise ValueError("格式錯誤")
+                
+                time_str = parts[1]  # 9:00
+                message = parts[2]   # 每日問候
+                
+                hour, minute = map(int, time_str.split(':'))
+                schedule = {'hour': hour, 'minute': minute}
+                
+                job_id = message_scheduler.add_custom_schedule(
+                    group_id=group_id,
+                    schedule=schedule,
+                    message=message
+                )
+                
+                response = f"已設定排程訊息！\n時間: {time_str}\n訊息: {message}\n排程ID: {job_id}"
+            except Exception as e:
+                response = "設定排程失敗！請使用正確格式：!schedule HH:MM 訊息內容"
+            
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[TextMessage(text=response)]
+                )
+            )
+            return
 
 if __name__ == "__main__":
     try:
