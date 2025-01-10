@@ -62,3 +62,10 @@ LINE_CHANNEL_ACCESS_TOKEN = os.environ.get('LINE_CHANNEL_ACCESS_TOKEN')
 # 確保在找不到環境變數時給出警告
 if not LINE_CHANNEL_SECRET or not LINE_CHANNEL_ACCESS_TOKEN:
     print("警告: 未設置 LINE Bot 相關的環境變數")
+
+# File handling settings
+FILE_SETTINGS = {
+    'max_file_size': 10 * 1024 * 1024,  # 10MB
+    'allowed_extensions': ['txt', 'xlsx', 'docx', 'jpg', 'jpeg', 'png', 'pdf', 'm4a', 'mp3', 'wav'],
+    'temp_folder': 'temp'
+}
