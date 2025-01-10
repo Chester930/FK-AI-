@@ -128,6 +128,18 @@ def handle_message(event):
     # 檢查消息來源（個人或群組）
     if isinstance(event.source, GroupSource):
         group_id = event.source.group_id
+        logger.info(f"收到來自群組的消息，群組 ID: {group_id}")
+        
+        # 當收到 "!groupid" 指令時，回傳群組 ID
+        if event.message.text.strip() in ['!groupid', '！groupid']:
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[TextMessage(text=f"群組 ID: {group_id}")]
+                )
+            )
+            return
+        
         # 同時支持中英文驚嘆號
         if not (text.startswith('!') or text.startswith('！')):
             logger.info(f"Group message without prefix: {text}")
@@ -264,28 +276,35 @@ def handle_message(event):
     if isinstance(event.source, GroupSource):
         group_id = event.source.group_id
         if text.startswith('!schedule') or text.startswith('！schedule'):
-            # 處理排程命令
             try:
-                # 示例: !schedule 9:00 每日問候
+                # 格式: !schedule 20240110-12:00 測試消息
                 parts = text.split(' ', 2)
-                if len(parts) != 3:
+                if len(parts) < 3:
                     raise ValueError("格式錯誤")
                 
-                time_str = parts[1]  # 9:00
-                message = parts[2]   # 每日問候
+                command = parts[0].lstrip('!！')  # 移除前綴
+                datetime_str = parts[1]
+                message = parts[2]
                 
-                hour, minute = map(int, time_str.split(':'))
-                schedule = {'hour': hour, 'minute': minute}
-                
-                job_id = message_scheduler.add_custom_schedule(
+                result = message_scheduler.schedule_message(
                     group_id=group_id,
-                    schedule=schedule,
+                    datetime_str=datetime_str,
                     message=message
                 )
                 
-                response = f"已設定排程訊息！\n時間: {time_str}\n訊息: {message}\n排程ID: {job_id}"
+                response = (
+                    f"✅ 已設定排程！\n"
+                    f"📅 預定時間：{result['scheduled_time']}\n"
+                    f"💬 訊息內容：{message}\n"
+                    f"🔑 排程ID：{result['job_id']}"
+                )
             except Exception as e:
-                response = "設定排程失敗！請使用正確格式：!schedule HH:MM 訊息內容"
+                logger.error(f"Scheduling error: {str(e)}", exc_info=True)
+                response = (
+                    "❌ 設定排程失敗！\n"
+                    "請使用正確格式：!schedule YYYYMMDD-HH:MM 訊息內容\n"
+                    "例如：!schedule 20240110-12:00 下午開會提醒"
+                )
             
             line_bot_api.reply_message(
                 ReplyMessageRequest(
