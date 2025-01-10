@@ -83,6 +83,7 @@ class MessageScheduler:
         self.scheduler = BackgroundScheduler(timezone=tw_timezone)
         self.scheduler.start()
         self._setup_notifications()
+        self._send_startup_test()  # 添加啟動測試
     
     def _setup_notifications(self):
         """設置所有預定的通知"""
@@ -256,3 +257,56 @@ class MessageScheduler:
     def shutdown(self):
         """關閉排程器"""
         self.scheduler.shutdown() 
+
+    def _send_startup_test(self):
+        """發送啟動測試通知"""
+        try:
+            test_groups = [
+                'C6ab768f2ac52e2e4fe4919191d8509b3',  # Fight.K 測試群組
+                # 可以添加更多測試群組
+            ]
+            
+            startup_time = datetime.now(tw_timezone).strftime('%Y-%m-%d %H:%M:%S')
+            
+            # 生成排程列表
+            daily_schedules = "\n".join([
+                f"  ⏰ {config['schedule']['hour']}:{config['schedule']['minute']} - {config['message'][:30]}..."
+                for config in NOTIFICATION_CONFIGS['daily_notifications']
+            ])
+            
+            weekly_schedules = "\n".join([
+                f"  📅 每週{config['schedule']['day_of_week']} {config['schedule']['hour']}:{config['schedule']['minute']} - {config['message'][:30]}..."
+                for config in NOTIFICATION_CONFIGS['weekly_notifications']
+            ])
+            
+            specific_schedules = "\n".join([
+                f"  📌 {config['schedule']['date']} {config['schedule']['hour']}:{config['schedule']['minute']} - {config['message'][:30]}..."
+                for config in NOTIFICATION_CONFIGS['specific_date_notifications']
+            ])
+            
+            test_message = (
+                f"🤖 Fight.K AI 助手啟動測試\n"
+                f"⏰ 啟動時間：{startup_time}\n"
+                f"\n📋 排程通知列表：\n"
+                f"\n🔄 每日通知：\n{daily_schedules}\n"
+                f"\n📅 每週通知：\n{weekly_schedules}\n"
+                f"\n📌 特定日期通知：\n{specific_schedules}\n"
+                f"\n💡 排程系統正常運作中"
+            )
+            
+            # 轉換星期顯示為中文
+            test_message = (test_message
+                .replace('mon', '一')
+                .replace('tue', '二')
+                .replace('wed', '三')
+                .replace('thu', '四')
+                .replace('fri', '五')
+                .replace('sat', '六')
+                .replace('sun', '日'))
+            
+            for group_id in test_groups:
+                self.send_message(group_id, test_message)
+                logger.info(f"Sent startup test message to group {group_id}")
+                
+        except Exception as e:
+            logger.error(f"Error sending startup test: {str(e)}", exc_info=True) 

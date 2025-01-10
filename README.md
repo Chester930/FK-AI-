@@ -7,7 +7,12 @@
 啟動 streamlit: python run.py --mode streamlit
 
 
-Line bot 群組 ID: C1e53fadf3989586cd315c01925b77fb7
+Line bot 群組 ID: 
+
+我的測試群組:
+C6ab768f2ac52e2e4fe4919191d8509b3
+AI 新時代戰隊 :
+C1e53fadf3989586cd315c01925b77fb7
 
 Line bot 操作說明
 
