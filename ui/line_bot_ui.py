@@ -52,7 +52,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from core.ai_engine import AIEngine
 from core.knowledge_base import KnowledgeBase
 from core.prompts import PromptManager
-from config import KNOWLEDGE_BASE_PATHS, LINE_CHANNEL_SECRET, LINE_CHANNEL_ACCESS_TOKEN, FILE_SETTINGS
+from config import KNOWLEDGE_BASE_PATHS, LINE_CHANNEL_SECRET, LINE_CHANNEL_ACCESS_TOKEN, FILE_SETTINGS, ADMIN_GROUP_ID, ADMIN_COMMANDS
 from utils.scheduled_messages import MessageScheduler
 from utils.chat_history import ChatHistory
 
@@ -327,38 +327,151 @@ def handle_group_message(event, group_id: str, text: str):
         )
 
 # 修改主要的 handle_message 函數
-@handler.add(MessageEvent)
+@handler.add(MessageEvent, message=TextMessageContent)
 def handle_message(event):
-    """處理所有接收到的消息"""
-    logger.info(f"Received message event: {event}")
-    
-    # 檢查是否為文字消息
-    if not isinstance(event.message, TextMessageContent):
-        logger.info("Not a text message")
-        return
-        
-    text = event.message.text.strip()
-    
     try:
-        # 區分群組和個人消息
+        message_text = event.message.text
+        
+        # 檢查是否來自管理員群組
+        is_admin = (
+            isinstance(event.source, GroupSource) and 
+            event.source.group_id == ADMIN_GROUP_ID
+        )
+        
+        # 管理員群組的訊息處理
+        if is_admin:
+            # 如果是指令，則執行指令
+            if message_text.startswith(('!', '！')):
+                handle_admin_command(event)
+            return
+        
+        # 判斷是個人對話還是群組對話
         if isinstance(event.source, GroupSource):
             group_id = event.source.group_id
-            handle_group_message(event, group_id, text)
+            handle_group_message(event, group_id, message_text)
         else:
             user_id = event.source.user_id
-            handle_personal_message(event, user_id, text)
+            handle_personal_message(event, user_id, message_text)
             
     except Exception as e:
-        logger.error(f"Error in handle_message: {e}", exc_info=True)
+        logger.error(f"處理訊息時發生錯誤: {str(e)}", exc_info=True)
         try:
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
-                    messages=[TextMessage(text="系統發生錯誤，請稍後再試")]
+                    messages=[TextMessage(text="抱歉，處理訊息時發生錯誤。")]
                 )
             )
         except Exception as reply_error:
-            logger.error(f"Error sending error message: {reply_error}", exc_info=True)
+            logger.error(f"發送錯誤訊息失敗: {str(reply_error)}")
+
+def handle_admin_command(event):
+    """處理管理員指令"""
+    try:
+        command = event.message.text.split()
+        cmd = command[0].lower()
+
+        # 初始化 message_scheduler（如果需要）
+        message_scheduler = MessageScheduler()
+
+        # 指令處理邏輯
+        if cmd == '!help':
+            help_text = (
+                "管理員指令列表：\n"
+                "!schedule [時間] [群組] [訊息] - 設定新的排程通知\n"
+                "!schedules - 查看所有排程\n"
+                "!remove_schedule [排程ID] - 刪除指定排程\n"
+                "!groups - 查看所有群組\n\n"
+                "群組別名：\n"
+                "admin - 管理員群組\n"
+                "test - 測試群組\n"
+                "ai - AI 新時代戰隊\n\n"
+                "時間格式說明：\n"
+                "YYYYMMDD-HH:MM - 完整日期，如 20240101-09:30\n"
+                "YYYYMM-HH:MM - 指定年月，如 202401-09:30\n"
+                "YYYY-HH:MM - 指定年，如 2024-09:30\n"
+                "-HH:MM - 今天，如 -09:30\n"
+                "1-HH:MM - 明天，如 1-09:30\n"
+                "2-HH:MM - 後天，如 2-09:30\n\n"
+                "範例：\n"
+                "!schedule -09:30 ai 早安！\n"
+                "!schedule 1-09:30 ai 明天早安！\n"
+                "!remove_schedule s1234"
+            )
+            response = help_text
+            
+        elif cmd == '!schedule':
+            if len(command) >= 4:
+                datetime_str = command[1]
+                group_alias = command[2]
+                message = ' '.join(command[3:])
+                
+                # 轉換群組別名為實際 ID
+                group_id = message_scheduler.notification_manager.get_group_id(group_alias)
+                
+                result = message_scheduler.schedule_message(
+                    group_id=group_id,
+                    datetime_str=datetime_str,
+                    message=message
+                )
+                
+                response = "排程設定成功！" if result else "排程設定失敗"
+            else:
+                response = "格式錯誤！正確格式：!schedule YYYYMMDD-HH:MM group_alias message"
+                
+        elif cmd == '!schedules':
+            schedules = message_scheduler.list_schedules()
+            if schedules:
+                formatted_schedules = []
+                for s in schedules:
+                    group_alias = message_scheduler.notification_manager.get_group_alias(s['group_id'])
+                    schedule_id = message_scheduler.notification_manager.format_schedule_id(s['id'])
+                    formatted_schedules.append(
+                        f"ID: {schedule_id}\n"
+                        f"群組: {group_alias}\n"
+                        f"時間: {s['scheduled_time']}\n"
+                        f"訊息: {s['message']}"
+                    )
+                response = "目前的排程：\n\n" + "\n\n".join(formatted_schedules)
+            else:
+                response = "目前沒有排程"
+                
+        elif cmd == '!remove_schedule':
+            if len(command) == 2:
+                schedule_id = command[1]
+                if message_scheduler.remove_schedule(schedule_id):
+                    response = f"已刪除排程 {schedule_id}"
+                else:
+                    response = "刪除失敗，找不到指定的排程"
+            else:
+                response = "格式錯誤！正確格式：!remove_schedule schedule_id"
+                
+        elif cmd == '!groups':
+            groups = message_scheduler.notification_manager.get_formatted_groups()
+            response = "群組列表：\n" + "\n".join(
+                f"{g['alias']} - {g['name']} ({g['id']})"
+                for g in groups
+            )
+            
+        else:
+            response = "未知的指令。輸入 !help 查看可用指令。"
+
+        # 統一的回覆處理
+        line_bot_api.reply_message(
+            ReplyMessageRequest(
+                reply_token=event.reply_token,
+                messages=[TextMessage(text=response)]
+            )
+        )
+            
+    except Exception as e:
+        logger.error(f"處理管理員指令時發生錯誤: {str(e)}", exc_info=True)
+        line_bot_api.reply_message(
+            ReplyMessageRequest(
+                reply_token=event.reply_token,
+                messages=[TextMessage(text="執行指令時發生錯誤")]
+            )
+        )
 
 @app.route("/callback", methods=['POST'])
 def callback():

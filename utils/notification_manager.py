@@ -23,6 +23,7 @@ class NotificationManager:
         self.groups = self.load_groups()
         self.schedules = self.load_schedules()
         self.notifications = self.load_notifications()
+        self.group_aliases = self._load_group_aliases()
 
     def load_groups(self):
         """載入群組資料"""
@@ -31,8 +32,9 @@ class NotificationManager:
                 with open(self.groups_file, 'r', encoding='utf-8') as f:
                     return json.load(f)
             return {
-                "C6ab768f2ac52e2e4fe4919191d8509b3": "Fight.K 測試群組",
-                "C1e53fadf3989586cd315c01925b77fb7": "AI 新時代戰隊"
+                "C6ab768f2ac52e2e4fe4919191d8509b3": "我的測試群組",
+                "C1e53fadf3989586cd315c01925b77fb7": "AI 新時代戰隊",
+                "Ca38140041deeb2d703b16cb45b8f3bf1": "Fight.K AI助理管理員"
             }
         except Exception as e:
             logger.error(f"載入群組資料時發生錯誤: {e}")
@@ -146,4 +148,62 @@ class NotificationManager:
                 'message': schedule.get('message')
             }
             for schedule in self.schedules
+        ]
+
+    def _load_group_aliases(self):
+        """載入群組別名對應"""
+        try:
+            if os.path.exists(os.path.join(self.data_dir, "group_aliases.json")):
+                with open(os.path.join(self.data_dir, "group_aliases.json"), 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            # 預設的群組別名
+            aliases = {
+                "admin": "Ca38140041deeb2d703b16cb45b8f3bf1",  # 管理員群組
+                "test": "C6ab768f2ac52e2e4fe4919191d8509b3",   # 測試群組
+                "ai": "C1e53fadf3989586cd315c01925b77fb7"      # AI 新時代戰隊
+            }
+            self._save_group_aliases(aliases)
+            return aliases
+        except Exception as e:
+            logger.error(f"載入群組別名時發生錯誤: {e}")
+            return {}
+
+    def _save_group_aliases(self, aliases):
+        """儲存群組別名對應"""
+        try:
+            with open(os.path.join(self.data_dir, "group_aliases.json"), 'w', encoding='utf-8') as f:
+                json.dump(aliases, f, ensure_ascii=False, indent=2)
+        except Exception as e:
+            logger.error(f"儲存群組別名時發生錯誤: {e}")
+
+    def get_group_id(self, alias):
+        """根據別名獲取群組 ID"""
+        return self.group_aliases.get(alias) or alias
+
+    def get_group_alias(self, group_id):
+        """根據群組 ID 獲取別名"""
+        for alias, gid in self.group_aliases.items():
+            if gid == group_id:
+                return alias
+        return group_id
+
+    def format_schedule_id(self, job_id):
+        """將完整的排程 ID 轉換為簡短格式"""
+        # 例如：將 "message_job_C1e53fadf3989586cd315c01925b77fb7_1234567890" 
+        # 轉換為 "s1234"
+        try:
+            timestamp = job_id.split('_')[-1]
+            return f"s{timestamp[-4:]}"
+        except:
+            return job_id
+
+    def get_formatted_groups(self):
+        """獲取格式化的群組列表"""
+        return [
+            {
+                'alias': self.get_group_alias(group_id),
+                'id': group_id,
+                'name': name
+            }
+            for group_id, name in self.groups.items()
         ] 

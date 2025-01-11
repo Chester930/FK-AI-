@@ -155,42 +155,98 @@ class MessageScheduler:
     def schedule_message(self, group_id: str, datetime_str: str, message: str, file_path: str = None):
         """
         設定在指定時間發送消息
-        :param group_id: LINE群組ID
-        :param datetime_str: 日期時間字符串，格式：YYYYMMDD-HH:MM
-        :param message: 要發送的消息
-        :param file_path: 可選的文件路徑
         """
         try:
-            # 解析日期時間字符串
-            dt = datetime.strptime(datetime_str, '%Y%m%d-%H:%M')
-            # 設定為台灣時區
-            dt = tw_timezone.localize(dt)
+            now = datetime.now(tw_timezone)
             
-            job_id = f"message_job_{group_id}_{datetime.now().timestamp()}"
-            
-            # 添加任務
-            self.scheduler.add_job(
-                func=self.send_message,
-                trigger=DateTrigger(run_date=dt, timezone=tw_timezone),
-                args=[group_id, message, file_path],
-                id=job_id,
-                name=f"Send message to {group_id} at {datetime_str}"
-            )
-            
-            logger.info(f"Scheduled message for {datetime_str}")
-            return {
-                'job_id': job_id,
-                'scheduled_time': dt.strftime('%Y-%m-%d %H:%M'),
-                'message': message,
-                'file_path': file_path
-            }
-            
+            # 解析時間格式
+            if '-' in datetime_str:
+                parts = datetime_str.split('-')
+                
+                # 處理日期部分
+                date_part = parts[0]
+                time_part = parts[1]
+                
+                # 解析時間部分 HH:MM
+                try:
+                    hour, minute = map(int, time_part.split(':'))
+                except ValueError:
+                    raise ValueError("時間格式錯誤，請使用 HH:MM 格式")
+                
+                # 根據日期部分長度處理不同情況
+                if len(date_part) == 8:  # YYYYMMDD
+                    year = int(date_part[:4])
+                    month = int(date_part[4:6])
+                    day = int(date_part[6:8])
+                    dt = datetime(year, month, day, hour, minute)
+                elif len(date_part) == 6:  # YYYYMM
+                    year = int(date_part[:4])
+                    month = int(date_part[4:6])
+                    dt = datetime(year, month, now.day, hour, minute)
+                elif len(date_part) == 4:  # YYYY
+                    year = int(date_part)
+                    dt = datetime(year, now.month, now.day, hour, minute)
+                elif len(date_part) == 1:  # N (N天後)
+                    days_ahead = int(date_part)
+                    if days_ahead < 1:
+                        raise ValueError("天數必須大於 0")
+                    dt = (now + timedelta(days=days_ahead)).replace(hour=hour, minute=minute, second=0, microsecond=0)
+                    # 已經是 aware datetime，不需要再次設定時區
+                    return self._schedule_job(dt, group_id, message, file_path)
+                elif len(date_part) == 0:  # 今天
+                    dt = now.replace(hour=hour, minute=minute, second=0, microsecond=0)
+                    # 已經是 aware datetime，不需要再次設定時區
+                    if dt <= now:
+                        dt = dt + timedelta(days=1)
+                    return self._schedule_job(dt, group_id, message, file_path)
+                else:
+                    raise ValueError("日期格式錯誤")
+                
+                # 對於年月日的情況，需要設定時區
+                dt = tw_timezone.localize(dt.replace(second=0, microsecond=0))
+                
+                # 檢查是否過期
+                if dt <= now:
+                    raise ValueError("無法設定過去的時間")
+                
+                return self._schedule_job(dt, group_id, message, file_path)
+                
+            else:
+                raise ValueError("時間格式錯誤，請使用正確的格式，例如：\n"
+                               "20240101-09:30 (指定年月日)\n"
+                               "202401-09:30 (指定年月)\n"
+                               "2024-09:30 (指定年)\n"
+                               "-09:30 (今天)\n"
+                               "1-09:30 (明天)\n"
+                               "2-09:30 (後天)")
+                
         except ValueError as e:
             logger.error(f"Invalid datetime format: {str(e)}")
-            raise ValueError("日期時間格式錯誤，請使用 YYYYMMDD-HH:MM 格式")
+            raise ValueError(str(e))
         except Exception as e:
             logger.error(f"Error scheduling message: {str(e)}")
             raise
+
+    def _schedule_job(self, dt, group_id, message, file_path=None):
+        """內部方法：建立排程任務"""
+        job_id = f"message_job_{group_id}_{int(datetime.now().timestamp())}"
+        
+        # 添加任務
+        self.scheduler.add_job(
+            func=self.send_message,
+            trigger=DateTrigger(run_date=dt, timezone=tw_timezone),
+            args=[group_id, message, file_path],
+            id=job_id,
+            name=f"Send message to {group_id} at {dt.strftime('%Y-%m-%d %H:%M')}"
+        )
+        
+        logger.info(f"Scheduled message for {dt.strftime('%Y-%m-%d %H:%M')}")
+        return {
+            'job_id': job_id,
+            'scheduled_time': dt.strftime('%Y-%m-%d %H:%M'),
+            'message': message,
+            'file_path': file_path
+        }
 
     def list_schedules(self):
         """列出所有排程"""
@@ -214,7 +270,7 @@ class MessageScheduler:
         """發送啟動測試通知"""
         try:
             test_groups = [
-                'C6ab768f2ac52e2e4fe4919191d8509b3',  # Fight.K 測試群組
+                'Ca38140041deeb2d703b16cb45b8f3bf1',  # Fight.K AI助理管理員
                 # 可以添加更多測試群組
             ]
             

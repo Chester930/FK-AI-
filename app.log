@@ -2696,3 +2696,589 @@ AttributeError: 'MessagingApi' object has no attribute 'get_message_content'
 
 ...
 2025-01-11 10:38:27,579 - INFO - Sent startup test message to group C6ab768f2ac52e2e4fe4919191d8509b3
+2025-01-11 10:52:02,909 - WARNING - 
+            未找到 ffmpeg，語音功能可能無法正常工作。
+            請安裝 ffmpeg:
+            - Windows: https://ffmpeg.org/download.html
+            - Linux: sudo apt-get install ffmpeg
+            - Mac: brew install ffmpeg
+            
+2025-01-11 10:52:02,948 - INFO - Starting LINE Bot service...
+2025-01-11 10:52:09,862 - ERROR - Could not get ngrok URL
+2025-01-11 10:52:09,862 - ERROR - Error starting LINE Bot: Failed to get ngrok URL
+2025-01-11 10:53:06,504 - WARNING - 
+            未找到 ffmpeg，語音功能可能無法正常工作。
+            請安裝 ffmpeg:
+            - Windows: https://ffmpeg.org/download.html
+            - Linux: sudo apt-get install ffmpeg
+            - Mac: brew install ffmpeg
+            
+2025-01-11 10:53:06,562 - INFO - Starting LINE Bot service...
+2025-01-11 10:53:11,677 - INFO - Ngrok URL: https://7b55-61-61-4-25.ngrok-free.app
+2025-01-11 10:53:11,677 - INFO - LINE Bot Webhook URL: https://7b55-61-61-4-25.ngrok-free.app/callback
+2025-01-11 10:53:34,763 - INFO - Scheduler started
+2025-01-11 10:53:34,798 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:53:34,798 - INFO - Added weekly notification: 123...
+2025-01-11 10:53:35,042 - INFO - Successfully sent message to group C6ab768f2ac52e2e4fe4919191d8509b3: [2025-01-11 10:53:34]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 10:53:34
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 10:53:35,047 - INFO - Sent startup test message to group C6ab768f2ac52e2e4fe4919191d8509b3
+2025-01-11 10:53:35,050 - INFO - Chat history loaded successfully
+2025-01-11 10:53:35,054 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-01-11 10:53:35,055 - INFO - Added job "save_chat_history" to job store "default"
+2025-01-11 10:53:35,056 - INFO - Scheduler started
+2025-01-11 10:53:35,057 - INFO - LINE Bot service started on port 5000
+2025-01-11 10:53:35,076 - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2025-01-11 10:54:39,414 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543133469698687422","quoteToken":"YYtV3kaWJv-K_LXT1X-egkX60EJrbvTcDxEbmcbFEHGudAeK4K7f0B90SQs4Sk-OJ1pPSAMRWMeI9r8eH4l-lUCsoB2w55rIJcn1UInANou0tg74n2hMtFZt0ZAh92sDhRMBbFMEJy0D_8NheXmI7A","text":"！groupid"},"webhookEventId":"01JH9MHYZZMKQ6PYKMABDV8Y32","deliveryContext":{"isRedelivery":false},"timestamp":1736564079387,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"462cecf355e34ebdbdb47af97ccb2172","mode":"active"}]}
+2025-01-11 10:54:39,418 - INFO - Received message event: type='message' source=GroupSource(type='group', group_id='Ca38140041deeb2d703b16cb45b8f3bf1', user_id='U449870fffc8fd9e18b66fe46941fc84d') timestamp=1736564079387 mode=<EventMode.ACTIVE: 'active'> webhook_event_id='01JH9MHYZZMKQ6PYKMABDV8Y32' delivery_context=DeliveryContext(is_redelivery=False) reply_token='462cecf355e34ebdbdb47af97ccb2172' message=TextMessageContent(type='text', id='543133469698687422', text='！groupid', emojis=None, mention=None, quote_token='YYtV3kaWJv-K_LXT1X-egkX60EJrbvTcDxEbmcbFEHGudAeK4K7f0B90SQs4Sk-OJ1pPSAMRWMeI9r8eH4l-lUCsoB2w55rIJcn1UInANou0tg74n2hMtFZt0ZAh92sDhRMBbFMEJy0D_8NheXmI7A', quoted_message_id=None)
+2025-01-11 10:54:39,595 - INFO - Message handled successfully
+2025-01-11 10:54:39,596 - INFO - 127.0.0.1 - - [11/Jan/2025 10:54:39] "POST /callback HTTP/1.1" 200 -
+2025-01-11 11:01:31,602 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543134160702406929","quoteToken":"K8bZedWHY_K2-b3TsWwNih2wJCm1IRCP4j264GVRW7CIiQcLRReu2ODdGq1ucwm-98wx2PDLWmU9ZTHnIs0fap9h3tmke8vAJ277lBp2RRES1QHYM78CGLczDs_wnNg6GAxlrak_HyKVVxt6-YBIfg","text":"！help"},"webhookEventId":"01JH9MYHB99MJJ36WQXD126V7V","deliveryContext":{"isRedelivery":false},"timestamp":1736564491155,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"826c1031cc1440bca85c2b8367f8721c","mode":"active"}]}
+2025-01-11 11:01:31,655 - INFO - Received message event: type='message' source=GroupSource(type='group', group_id='Ca38140041deeb2d703b16cb45b8f3bf1', user_id='U449870fffc8fd9e18b66fe46941fc84d') timestamp=1736564491155 mode=<EventMode.ACTIVE: 'active'> webhook_event_id='01JH9MYHB99MJJ36WQXD126V7V' delivery_context=DeliveryContext(is_redelivery=False) reply_token='826c1031cc1440bca85c2b8367f8721c' message=TextMessageContent(type='text', id='543134160702406929', text='！help', emojis=None, mention=None, quote_token='K8bZedWHY_K2-b3TsWwNih2wJCm1IRCP4j264GVRW7CIiQcLRReu2ODdGq1ucwm-98wx2PDLWmU9ZTHnIs0fap9h3tmke8vAJ277lBp2RRES1QHYM78CGLczDs_wnNg6GAxlrak_HyKVVxt6-YBIfg', quoted_message_id=None)
+2025-01-11 11:01:31,970 - INFO - Message handled successfully
+2025-01-11 11:01:31,973 - INFO - 127.0.0.1 - - [11/Jan/2025 11:01:31] "POST /callback HTTP/1.1" 200 -
+2025-01-11 11:04:01,769 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543134413165428904","quoteToken":"eUZCDhGZKDoIrs7VfgFr-hrdl18F44J2pCKrckLuL9D6Cr_PINYNZc0u7HGiPTACNVFRX1vKKeHfKK8LnXDeImQm-eQGg4ie3gJ3JrsVHhGcSnlhl9peILo8T4CTtx4XppQtjXkCIvrCM3DP1EgtLw","text":"!help"},"webhookEventId":"01JH9N343Q50MRKEKWV4BARACF","deliveryContext":{"isRedelivery":false},"timestamp":1736564641700,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"8ce1790bc214430b90b5ea4fc5db8e35","mode":"active"}]}
+2025-01-11 11:04:01,778 - INFO - Received message event: type='message' source=GroupSource(type='group', group_id='Ca38140041deeb2d703b16cb45b8f3bf1', user_id='U449870fffc8fd9e18b66fe46941fc84d') timestamp=1736564641700 mode=<EventMode.ACTIVE: 'active'> webhook_event_id='01JH9N343Q50MRKEKWV4BARACF' delivery_context=DeliveryContext(is_redelivery=False) reply_token='8ce1790bc214430b90b5ea4fc5db8e35' message=TextMessageContent(type='text', id='543134413165428904', text='!help', emojis=None, mention=None, quote_token='eUZCDhGZKDoIrs7VfgFr-hrdl18F44J2pCKrckLuL9D6Cr_PINYNZc0u7HGiPTACNVFRX1vKKeHfKK8LnXDeImQm-eQGg4ie3gJ3JrsVHhGcSnlhl9peILo8T4CTtx4XppQtjXkCIvrCM3DP1EgtLw', quoted_message_id=None)
+2025-01-11 11:04:01,898 - INFO - Message handled successfully
+2025-01-11 11:04:01,899 - INFO - 127.0.0.1 - - [11/Jan/2025 11:04:01] "POST /callback HTTP/1.1" 200 -
+2025-01-11 11:09:11,286 - WARNING - 
+            未找到 ffmpeg，語音功能可能無法正常工作。
+            請安裝 ffmpeg:
+            - Windows: https://ffmpeg.org/download.html
+            - Linux: sudo apt-get install ffmpeg
+            - Mac: brew install ffmpeg
+            
+2025-01-11 11:09:11,340 - INFO - Starting LINE Bot service...
+2025-01-11 11:09:16,458 - INFO - Ngrok URL: https://fa27-61-61-4-25.ngrok-free.app
+2025-01-11 11:09:16,458 - INFO - LINE Bot Webhook URL: https://fa27-61-61-4-25.ngrok-free.app/callback
+2025-01-11 11:09:32,415 - INFO - Scheduler started
+2025-01-11 11:09:32,433 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 11:09:32,433 - INFO - Added weekly notification: 123...
+2025-01-11 11:09:32,739 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 11:09:32]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 11:09:32
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 11:09:32,742 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 11:09:32,743 - INFO - Chat history loaded successfully
+2025-01-11 11:09:32,746 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-01-11 11:09:32,746 - INFO - Added job "save_chat_history" to job store "default"
+2025-01-11 11:09:32,747 - INFO - Scheduler started
+2025-01-11 11:09:32,748 - INFO - LINE Bot service started on port 5000
+2025-01-11 11:09:32,766 - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2025-01-11 11:10:58,315 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543135111651524728","quoteToken":"26RQkwV5qbMenVtP9vEpOE0WkJvvrnyFvJ6N3QeSkCc-f1JQ5D7tnubK7i8JMwg8q_ljfLpN--3nemVouPsmosOee5OZc3N8TiykRpRbb_ICiNUmEYaF4lVgVju1JyRU1z24BTygEdcE98O8YA0WQg","text":"!help"},"webhookEventId":"01JH9NFTWFT1XPP0TE6RMKKKT8","deliveryContext":{"isRedelivery":false},"timestamp":1736565058152,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"e4790b30f7e74261a6e341e3f1295c30","mode":"active"}]}
+2025-01-11 11:10:58,323 - INFO - Scheduler started
+2025-01-11 11:10:58,324 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 11:10:58,325 - INFO - Added weekly notification: 123...
+2025-01-11 11:10:58,520 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 11:10:58]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 11:10:58
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 11:10:58,523 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 11:10:58,704 - INFO - Message handled successfully
+2025-01-11 11:10:58,705 - INFO - 127.0.0.1 - - [11/Jan/2025 11:10:58] "POST /callback HTTP/1.1" 200 -
+2025-01-11 11:11:20,081 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543135148796019066","quoteToken":"SJpYc_C_xhsh9iMR28AZ4r2cNPM-3ypKb9VCEZ1BR4Osph0ROh8M9im3sVQiTanju5LexMvC4uoWYx5k8r5xRL2fvOnhwZEbL3smA95gly8A8nJXbpOq93_3rS9YAp6KMpRkcQkhVnFACKneqlqdsw","text":"!schedule"},"webhookEventId":"01JH9NGG4ZK3K6A209JK696W2A","deliveryContext":{"isRedelivery":false},"timestamp":1736565080173,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"606d9eb6e92241ebb753a8205196198d","mode":"active"}]}
+2025-01-11 11:11:20,088 - INFO - Scheduler started
+2025-01-11 11:11:20,090 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 11:11:20,091 - INFO - Added weekly notification: 123...
+2025-01-11 11:11:20,294 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 11:11:20]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 11:11:20
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 11:11:20,297 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 11:11:20,426 - INFO - Message handled successfully
+2025-01-11 11:11:20,427 - INFO - 127.0.0.1 - - [11/Jan/2025 11:11:20] "POST /callback HTTP/1.1" 200 -
+2025-01-11 11:11:50,935 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543135199798755596","quoteToken":"IBlmZnCWCsTLagpQDoqgbPOuEux46GIrM72-P4oh6aK4e5g1VI-ibnh9cNEqXcHp5bMPNFtSsa5AshFimgdJci4fJ-wbuyaJUYsiiSy03tS2DsrXva1yzcZIH8xYv-Gjh7VtBJMEqoO8JHoFQXYQAQ","text":"!group"},"webhookEventId":"01JH9NHE90METNCA89FXN3K255","deliveryContext":{"isRedelivery":false},"timestamp":1736565110688,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"36592ba28b864c5cb619a797ceff1173","mode":"active"}]}
+2025-01-11 11:11:50,940 - INFO - Scheduler started
+2025-01-11 11:11:50,942 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 11:11:50,942 - INFO - Added weekly notification: 123...
+2025-01-11 11:11:51,132 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 11:11:50]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 11:11:50
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 11:11:51,135 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 11:11:51,264 - INFO - Message handled successfully
+2025-01-11 11:11:51,265 - INFO - 127.0.0.1 - - [11/Jan/2025 11:11:51] "POST /callback HTTP/1.1" 200 -
+2025-01-11 11:12:03,882 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543135221441888550","quoteToken":"nlrSVxiWfCA248H-Ef80t5aQ6HLOYZjSZZncr29b9gEk8z_Zh37QYfqRYASJK8NeVHM4HC8Ebma-g_bWgnax1fPZeo3wFZtCmwJFAGULIsvJfv7Qkn4EAWNr0JQ79uoN8WS1gglkfK6bZLCUVyaNdA","text":"!groups"},"webhookEventId":"01JH9NHTW9PWWQKDSBPB3WH6DS","deliveryContext":{"isRedelivery":false},"timestamp":1736565123591,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"74db77907e754c28a9a46286fe58d6bd","mode":"active"}]}
+2025-01-11 11:12:03,889 - INFO - Scheduler started
+2025-01-11 11:12:03,891 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 11:12:03,892 - INFO - Added weekly notification: 123...
+2025-01-11 11:12:04,071 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 11:12:03]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 11:12:03
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 11:12:04,074 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 11:12:04,074 - ERROR - 處理管理員指令時發生錯誤: name 'notification_manager' is not defined
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 436, in handle_admin_command
+    groups = notification_manager.groups
+NameError: name 'notification_manager' is not defined
+2025-01-11 11:12:04,206 - INFO - Message handled successfully
+2025-01-11 11:12:04,207 - INFO - 127.0.0.1 - - [11/Jan/2025 11:12:04] "POST /callback HTTP/1.1" 200 -
+2025-01-11 11:12:17,879 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543135245299089863","quoteToken":"F_lzdHeziWwRUZ6o-qYpP7dGSMO3qvTzrpG28OT1NZzRP0FzTBpZ6epmct_4Yr6rXvgtQ43Fg8M-lynxSfTE4DwDXglZQHFbp2hKmXJpsgrWtlzzq80K_pBGyEVN1PswPJoWVkLHNuy_8vZ4rctE6A","text":"!groups"},"webhookEventId":"01JH9NJ8JZ3N9H1B45F5X4NFVS","deliveryContext":{"isRedelivery":false},"timestamp":1736565137722,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"6cbf3990492b44a48a77cb5d2ec8cc9a","mode":"active"}]}
+2025-01-11 11:12:17,884 - INFO - Scheduler started
+2025-01-11 11:12:17,886 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 11:12:17,886 - INFO - Added weekly notification: 123...
+2025-01-11 11:12:18,087 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 11:12:17]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 11:12:17
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 11:12:18,091 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 11:12:18,092 - ERROR - 處理管理員指令時發生錯誤: name 'notification_manager' is not defined
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 436, in handle_admin_command
+    groups = notification_manager.groups
+NameError: name 'notification_manager' is not defined
+2025-01-11 11:12:18,208 - INFO - Message handled successfully
+2025-01-11 11:12:18,209 - INFO - 127.0.0.1 - - [11/Jan/2025 11:12:18] "POST /callback HTTP/1.1" 200 -
+2025-01-11 11:12:48,525 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543135297123910274","quoteToken":"rzK5Y5dsnAsP2U7tZcuuFuaaELc1UXmGnQPmEWexekK7KXxhKC4DieJe5TCLkM8m14Vg4YryTrND588nVa_FV0uaWcwHPvkwo4Fxm7jQFw9BH-qAO1UB1mXZQAAZo6wY4LrW97_94V7HpVezTiyynA","text":"!remove group"},"webhookEventId":"01JH9NK6H2S7AWW501F769KNXC","deliveryContext":{"isRedelivery":false},"timestamp":1736565168525,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"ffd9167365fd4e03ba8de876b9c057b6","mode":"active"}]}
+2025-01-11 11:12:48,531 - INFO - Scheduler started
+2025-01-11 11:12:48,533 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 11:12:48,533 - INFO - Added weekly notification: 123...
+2025-01-11 11:12:48,740 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 11:12:48]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 11:12:48
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 11:12:48,744 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 11:12:48,857 - INFO - Message handled successfully
+2025-01-11 11:12:48,858 - INFO - 127.0.0.1 - - [11/Jan/2025 11:12:48] "POST /callback HTTP/1.1" 200 -
+2025-01-11 11:13:07,123 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543135327792660581","quoteToken":"WrccjNYrI2jUrlH6pWAz1AUi4wwo1qmRBAdlcD4k8YFyEi3BvRqtY8prqcLXbO9Z84ZP9AKC2SndCq2wBkfoFX74CVOUGv_v5jdnwPIdyo3_itM2FnZX856YRt7xWxqng0d6tUj_p4Ed4jSTbvk85w","text":"!help"},"webhookEventId":"01JH9NKRNK7AD9H31Y3BJH0M2W","deliveryContext":{"isRedelivery":false},"timestamp":1736565186863,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"0b96beb83bc5496e8daead3ab4d519cd","mode":"active"}]}
+2025-01-11 11:13:07,128 - INFO - Scheduler started
+2025-01-11 11:13:07,130 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 11:13:07,130 - INFO - Added weekly notification: 123...
+2025-01-11 11:13:07,337 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 11:13:07]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 11:13:07
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 11:13:07,348 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 11:13:07,545 - INFO - Message handled successfully
+2025-01-11 11:13:07,546 - INFO - 127.0.0.1 - - [11/Jan/2025 11:13:07] "POST /callback HTTP/1.1" 200 -
+2025-01-11 11:13:18,187 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543135346247598193","quoteToken":"072-T93JW0lYqZ2_cNXVwRYKsxI_sd8tDXCduWV5EXIVcfH_b1K51rVYezA418MwE1g6OqlSPVe1tHh7x5I5fNnJd8RxURsLGcxrSAk6SPSbB2BmPv-WH4CfEsCKZMmGo9Sq2Rl-y336pHGsTaYpaQ","text":"!groups"},"webhookEventId":"01JH9NM3EQAX2JAEGY8YYXTRY5","deliveryContext":{"isRedelivery":false},"timestamp":1736565197791,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"2226aa5f34334aa291f2e6cd83155d72","mode":"active"}]}
+2025-01-11 11:13:18,193 - INFO - Scheduler started
+2025-01-11 11:13:18,199 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 11:13:18,200 - INFO - Added weekly notification: 123...
+2025-01-11 11:13:18,402 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 11:13:18]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 11:13:18
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 11:13:18,414 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 11:13:18,416 - ERROR - 處理管理員指令時發生錯誤: name 'notification_manager' is not defined
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 436, in handle_admin_command
+    groups = notification_manager.groups
+NameError: name 'notification_manager' is not defined
+2025-01-11 11:13:18,548 - INFO - Message handled successfully
+2025-01-11 11:13:18,549 - INFO - 127.0.0.1 - - [11/Jan/2025 11:13:18] "POST /callback HTTP/1.1" 200 -
+2025-01-11 11:14:34,302 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543135474558960149","quoteToken":"gSr7U5RsKsWk8LWTs7X0H40yG_Fwz0t6VvBSrh2Idylz9hxzAGJUbgGJY_CBu0GjHQW3ey_WPTSxMFlm6SeCuzHStHGXB-WEi3Em-du8ltqTMDeb6B0VM21r1CiKV2tz4UmcWf1aevqigz2Q49oS8A","text":"!schedules"},"webhookEventId":"01JH9NPDSZZKS0A8QSPKMG5Q20","deliveryContext":{"isRedelivery":false},"timestamp":1736565274322,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"c3702eca924141f78c569c34cadb86bb","mode":"active"}]}
+2025-01-11 11:14:34,310 - INFO - Scheduler started
+2025-01-11 11:14:34,312 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 11:14:34,313 - INFO - Added weekly notification: 123...
+2025-01-11 11:14:34,530 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 11:14:34]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 11:14:34
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 11:14:34,533 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 11:14:34,672 - INFO - Message handled successfully
+2025-01-11 11:14:34,673 - INFO - 127.0.0.1 - - [11/Jan/2025 11:14:34] "POST /callback HTTP/1.1" 200 -
+2025-01-11 11:20:36,383 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543136081978851330","quoteToken":"2PCCvBD63ffWbJZNq-Jafi5LYsaPrDc4ONIuTyPAVJUsqkrnogTPBvnwswQynBSbB_-_VYH_xOsZVwIuHWaZ5orazco86ft_50fCk1TTtEmAWRvae5kbiCtajqZDuz2vW1fuTrTcX26i_XZ1K0wsaw","text":"!groups"},"webhookEventId":"01JH9P1F7VJ44QV09BAP01VHHV","deliveryContext":{"isRedelivery":false},"timestamp":1736565636334,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"c5d72588f70a4662b3579090819aa67e","mode":"active"}]}
+2025-01-11 11:20:36,487 - INFO - Scheduler started
+2025-01-11 11:20:36,499 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 11:20:36,501 - INFO - Added weekly notification: 123...
+2025-01-11 11:20:36,759 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 11:20:36]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 11:20:36
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 11:20:36,762 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 11:20:36,763 - ERROR - 處理管理員指令時發生錯誤: name 'notification_manager' is not defined
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 436, in handle_admin_command
+    formatted_schedules.append(
+NameError: name 'notification_manager' is not defined
+2025-01-11 11:20:36,872 - INFO - Message handled successfully
+2025-01-11 11:20:36,874 - INFO - 127.0.0.1 - - [11/Jan/2025 11:20:36] "POST /callback HTTP/1.1" 200 -
+2025-01-11 11:21:01,632 - WARNING - 
+            未找到 ffmpeg，語音功能可能無法正常工作。
+            請安裝 ffmpeg:
+            - Windows: https://ffmpeg.org/download.html
+            - Linux: sudo apt-get install ffmpeg
+            - Mac: brew install ffmpeg
+            
+2025-01-11 11:21:01,667 - INFO - Starting LINE Bot service...
+2025-01-11 11:21:06,829 - INFO - Ngrok URL: https://89d8-61-61-4-25.ngrok-free.app
+2025-01-11 11:21:06,830 - INFO - LINE Bot Webhook URL: https://89d8-61-61-4-25.ngrok-free.app/callback
+2025-01-11 11:21:23,010 - INFO - Scheduler started
+2025-01-11 11:21:23,032 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 11:21:23,048 - INFO - Added weekly notification: 123...
+2025-01-11 11:21:23,290 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 11:21:23]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 11:21:23
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 11:21:23,293 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 11:21:23,295 - INFO - Chat history loaded successfully
+2025-01-11 11:21:23,297 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-01-11 11:21:23,298 - INFO - Added job "save_chat_history" to job store "default"
+2025-01-11 11:21:23,299 - INFO - Scheduler started
+2025-01-11 11:21:23,300 - INFO - LINE Bot service started on port 5000
+2025-01-11 11:21:23,320 - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2025-01-11 11:21:58,868 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543136219602092755","quoteToken":"o-M2hNLZjEdTtjtQ_spaucjIrafEDJBdEfEnpC7LvxEl_MDkHj-7rAzauN6a8CtkOxtHj_HLJroSx44CRk8Adp3dOf-8K03jU8xuzuf5WwaPHiorIFSEE3JfwUmE_46ie7Xe-vZ6BIKo-EVAP6LEEg","text":"!help"},"webhookEventId":"01JH9P3ZXCG1BPJQJCMDX73CPN","deliveryContext":{"isRedelivery":false},"timestamp":1736565718467,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"583eaa4581b94a4aa9a13f95ef22fe8a","mode":"active"}]}
+2025-01-11 11:21:58,874 - INFO - Scheduler started
+2025-01-11 11:21:58,876 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 11:21:58,877 - INFO - Added weekly notification: 123...
+2025-01-11 11:21:59,076 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 11:21:58]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 11:21:58
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 11:21:59,083 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 11:21:59,267 - INFO - Message handled successfully
+2025-01-11 11:21:59,268 - INFO - 127.0.0.1 - - [11/Jan/2025 11:21:59] "POST /callback HTTP/1.1" 200 -
+2025-01-11 11:22:26,537 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543136266511450737","quoteToken":"Ip4TNp_loSI85OPonxi4W7NT-KS0c_vfYsJsY3uRSukCm6l1Chv3FYXfmNzC9kPfPrGAlKwTZV-JLuvvr8dpQtsuaZ5MOK5UQQ4qAIroaCCZyCw9vVx_rhCezy4kE8P5KdX9K2hsZw0Bu2UiLoDk5Q","text":"!groups"},"webhookEventId":"01JH9P4TXF4YBGW10HF7X6WACP","deliveryContext":{"isRedelivery":false},"timestamp":1736565746318,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"2a2d2c2d88584bee9c9932acd79079db","mode":"active"}]}
+2025-01-11 11:22:26,542 - INFO - Scheduler started
+2025-01-11 11:22:26,544 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 11:22:26,544 - INFO - Added weekly notification: 123...
+2025-01-11 11:22:26,859 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 11:22:26]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 11:22:26
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 11:22:26,866 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 11:22:26,989 - INFO - Message handled successfully
+2025-01-11 11:22:26,990 - INFO - 127.0.0.1 - - [11/Jan/2025 11:22:26] "POST /callback HTTP/1.1" 200 -
+2025-01-11 16:33:10,361 - INFO - Starting LINE Bot service...
+2025-01-11 16:33:16,650 - ERROR - Could not get ngrok URL
+2025-01-11 16:33:16,650 - ERROR - Error starting LINE Bot: Failed to get ngrok URL
+2025-01-11 16:33:35,836 - INFO - Starting LINE Bot service...
+2025-01-11 16:33:40,905 - INFO - Ngrok URL: https://df82-2404-0-881d-224c-5052-ecea-df57-4e31.ngrok-free.app
+2025-01-11 16:33:41,034 - INFO - LINE Bot Webhook URL: https://df82-2404-0-881d-224c-5052-ecea-df57-4e31.ngrok-free.app/callback
+2025-01-11 16:33:55,661 - INFO - Scheduler started
+2025-01-11 16:33:55,667 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 16:33:55,668 - INFO - Added weekly notification: 123...
+2025-01-11 16:33:56,047 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 16:33:55]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 16:33:55
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 16:33:56,051 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 16:33:56,054 - INFO - Chat history loaded successfully
+2025-01-11 16:33:56,059 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-01-11 16:33:56,060 - INFO - Added job "save_chat_history" to job store "default"
+2025-01-11 16:33:56,061 - INFO - Scheduler started
+2025-01-11 16:33:56,063 - INFO - LINE Bot service started on port 5000
+2025-01-11 16:33:56,083 - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2025-01-11 16:34:27,423 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543167675926053057","quoteToken":"egFStbl-OhuQI_X64zAMq7Zlwt466ZtNBh3XJ6nlqS_9GUREMxm3ftybKuIuw3imUs-36x_MRqXTH53EEO7iJX7QctK7NI5LYzcMrpFepgn1w6XkZUtFmgP4oDRLtkFvTWrrwxgAbpNGwOyLxaSmnA","text":"!help"},"webhookEventId":"01JHA805DZYQS1V6RD765398EF","deliveryContext":{"isRedelivery":false},"timestamp":1736584467782,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"6eff9f51eebd4c979b12646f8cc6d905","mode":"active"}]}
+2025-01-11 16:34:27,432 - INFO - Scheduler started
+2025-01-11 16:34:27,434 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 16:34:27,434 - INFO - Added weekly notification: 123...
+2025-01-11 16:34:27,790 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 16:34:27]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 16:34:27
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 16:34:27,794 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 16:34:28,065 - INFO - Message handled successfully
+2025-01-11 16:34:28,069 - INFO - 127.0.0.1 - - [11/Jan/2025 16:34:28] "POST /callback HTTP/1.1" 200 -
+2025-01-11 16:35:12,314 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543167751238189382","quoteToken":"WB26gIukfsPEcnB7ZHOdKOhjfMb6vhZz4R6w18rN1EoQSEB-nkYv_Q4N_e1j4wsbJHliymocQhEubEiIXTTlA86YqWjhFBOX5OUFUzJ8F5QmB8YmIe6oGB9xxXrCaIx2Q-qGsXpyBHU_OaYXwwKp6Q","text":"!schedule -16:36 ai test!"},"webhookEventId":"01JHA81HAADXXZF669BX7V9WQV","deliveryContext":{"isRedelivery":false},"timestamp":1736584512753,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"12d1b4d5368b45feb68f3e47dfc18a75","mode":"active"}]}
+2025-01-11 16:35:12,321 - INFO - Scheduler started
+2025-01-11 16:35:12,323 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 16:35:12,323 - INFO - Added weekly notification: 123...
+2025-01-11 16:35:12,620 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 16:35:12]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 16:35:12
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 16:35:12,628 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 16:35:12,631 - ERROR - Invalid datetime format: Not naive datetime (tzinfo is already set)
+2025-01-11 16:35:12,631 - ERROR - 處理管理員指令時發生錯誤: Not naive datetime (tzinfo is already set)
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\utils\scheduled_messages.py", line 205, in schedule_message
+    dt = tw_timezone.localize(dt)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pytz\tzinfo.py", line 321, in localize
+    raise ValueError('Not naive datetime (tzinfo is already set)')
+ValueError: Not naive datetime (tzinfo is already set)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 427, in handle_admin_command
+    result = message_scheduler.schedule_message(
+  File "E:\Python Project\FK_AI_Theology_Doctor\utils\scheduled_messages.py", line 245, in schedule_message
+    raise ValueError(str(e))
+ValueError: Not naive datetime (tzinfo is already set)
+2025-01-11 16:35:12,904 - INFO - Message handled successfully
+2025-01-11 16:35:12,906 - INFO - 127.0.0.1 - - [11/Jan/2025 16:35:12] "POST /callback HTTP/1.1" 200 -
+2025-01-11 16:37:01,933 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543167934881857875","quoteToken":"DFjLU8TL8Y3gnXfozf5luE6ABPO9vi26KlPXQ5Clk1lTVs9ZVoD4fpcUvpoF4fmGCphIwsOO4JEkNgy4zvSjpy3JO9QdEk0tyz8N-hpbDpWHzJIVs1gW70yPt0chEu4XSBHLHX9Rc6SGeKVpODG3RA","text":"!schedule -16:38 ai test!"},"webhookEventId":"01JHA84WB3H5M485C49SN52QSP","deliveryContext":{"isRedelivery":false},"timestamp":1736584622208,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"493f90b6798e4a96a5331387a671c1d5","mode":"active"}]}
+2025-01-11 16:37:01,941 - INFO - Scheduler started
+2025-01-11 16:37:01,943 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 16:37:01,944 - INFO - Added weekly notification: 123...
+2025-01-11 16:37:02,358 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 16:37:01]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 16:37:01
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 16:37:02,364 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 16:37:02,365 - ERROR - Invalid datetime format: Not naive datetime (tzinfo is already set)
+2025-01-11 16:37:02,366 - ERROR - 處理管理員指令時發生錯誤: Not naive datetime (tzinfo is already set)
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\utils\scheduled_messages.py", line 205, in schedule_message
+    dt = tw_timezone.localize(dt)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pytz\tzinfo.py", line 321, in localize
+    raise ValueError('Not naive datetime (tzinfo is already set)')
+ValueError: Not naive datetime (tzinfo is already set)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 427, in handle_admin_command
+    result = message_scheduler.schedule_message(
+  File "E:\Python Project\FK_AI_Theology_Doctor\utils\scheduled_messages.py", line 245, in schedule_message
+    raise ValueError(str(e))
+ValueError: Not naive datetime (tzinfo is already set)
+2025-01-11 16:37:02,537 - INFO - Message handled successfully
+2025-01-11 16:37:02,539 - INFO - 127.0.0.1 - - [11/Jan/2025 16:37:02] "POST /callback HTTP/1.1" 200 -
+2025-01-11 16:37:42,888 - INFO - Starting LINE Bot service...
+2025-01-11 16:37:48,006 - INFO - Ngrok URL: https://4d05-2404-0-881d-224c-5052-ecea-df57-4e31.ngrok-free.app
+2025-01-11 16:37:48,007 - INFO - LINE Bot Webhook URL: https://4d05-2404-0-881d-224c-5052-ecea-df57-4e31.ngrok-free.app/callback
+2025-01-11 16:37:59,040 - INFO - Scheduler started
+2025-01-11 16:37:59,074 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 16:37:59,075 - INFO - Added weekly notification: 123...
+2025-01-11 16:37:59,406 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 16:37:59]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 16:37:59
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 16:37:59,411 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 16:37:59,414 - INFO - Chat history loaded successfully
+2025-01-11 16:37:59,438 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-01-11 16:37:59,439 - INFO - Added job "save_chat_history" to job store "default"
+2025-01-11 16:37:59,440 - INFO - Scheduler started
+2025-01-11 16:37:59,443 - INFO - LINE Bot service started on port 5000
+2025-01-11 16:37:59,475 - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2025-01-11 16:38:15,294 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543168057322504278","quoteToken":"RSM8LPnl1ZYO_OAZWyRqsoCwRRK3E4qt4F2hbpePVOEDHZJOQBwePA51_oSrDMONDSVCpL_74EX3XXc7sT6G6IEQHpk_vPclFeET63TqXNkuVY88d-hH8uOCeyuwC5eaaiigJFYMMRlbg0gcaacvxQ","text":"！help"},"webhookEventId":"01JHA873ZZFFK4NRNJ1XTFMCS8","deliveryContext":{"isRedelivery":false},"timestamp":1736584695302,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"5d534799a42e4630a7ef08762e466baf","mode":"active"}]}
+2025-01-11 16:38:15,297 - INFO - Message handled successfully
+2025-01-11 16:38:15,298 - INFO - 127.0.0.1 - - [11/Jan/2025 16:38:15] "POST /callback HTTP/1.1" 200 -
+2025-01-11 16:38:42,116 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543168102821789784","quoteToken":"NX5r0t9QxNxmIXnaduZ4tle1Z9yuqQqrAKG5KUFMDkXcWS1TbkEcjG6k-yPNVwZkyqkLR_RBz4BEbANtLqVNwm2csMwNfiPNTYGZhnTgnlT8hlH-g9vvI82_q7SFtpLVl4HMN0lsDNHfUF1CGBX6IQ","text":"你好"},"webhookEventId":"01JHA87Y45WXDFGYZG641ZFF25","deliveryContext":{"isRedelivery":false},"timestamp":1736584722369,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"355c1e52a073496cbc6e671d9d5c4dc3","mode":"active"}]}
+2025-01-11 16:38:42,126 - INFO - Message handled successfully
+2025-01-11 16:38:42,130 - INFO - 127.0.0.1 - - [11/Jan/2025 16:38:42] "POST /callback HTTP/1.1" 200 -
+2025-01-11 16:39:28,454 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543168180785774963","quoteToken":"svrPBvDmJNvhXDiJ-i9kejwlwjklTcOPp_H4LokTNbBvo2l_d70Fzx_6WGtkvPD5VA-hSTe9M-UNUgg_-I0k0bC-jUJfHExS-DQy7WE6ShtLw_XLYYbBaW_MFGc2JP4JBwRF4gbjHQ7dQTSPYz9Q4g","text":"你好"},"webhookEventId":"01JHA89BFM05QSAC9P8E4BG54W","deliveryContext":{"isRedelivery":false},"timestamp":1736584768829,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"d8051f99ebf34af88210722621b1d315","mode":"active"}]}
+2025-01-11 16:39:28,459 - INFO - Message handled successfully
+2025-01-11 16:39:28,460 - INFO - 127.0.0.1 - - [11/Jan/2025 16:39:28] "POST /callback HTTP/1.1" 200 -
+2025-01-11 16:39:46,828 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543168211319783460","quoteToken":"Yzzl4yr59VvSYam4yd7-3QxGXZdLg7SboHWWlLHiqs4HQi3KUEKUKjD-ObIIpSggDJ4mB6GG5obLIE7QzT1kpfzJHuKdWLMnTi39gL_TUwMq30h-DQFtch0hrdJUn5aR5gDvOqRIR9sNcaTTZqVoew","text":"！help"},"webhookEventId":"01JHA89XB19R3XEHV4G7WH70QF","deliveryContext":{"isRedelivery":false},"timestamp":1736584786961,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"0a865f1d78b4431a9566483a4321acb6","mode":"active"}]}
+2025-01-11 16:39:46,831 - INFO - Message handled successfully
+2025-01-11 16:39:46,832 - INFO - 127.0.0.1 - - [11/Jan/2025 16:39:46] "POST /callback HTTP/1.1" 200 -
+2025-01-11 16:41:25,959 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543168377212895737","quoteToken":"smzYoT_eV8ombzSo6Erl2q9kPxaK-vUgsXP-GSLDPIFyzpgOa6OOAHmtp_CSlt9-1LxUlZIPMjx07T1HOkCq0i417hRj8qdCNEUc584JGBemoH1XfEeyES_9roUITdz3mFZwGryKSeX8eDz5CzTqkA","text":"!help"},"webhookEventId":"01JHA8CY6QWSZ4777X9T35EN17","deliveryContext":{"isRedelivery":false},"timestamp":1736584885983,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"ae2181abcf244b7ea3c27a47c4a66715","mode":"active"}]}
+2025-01-11 16:41:25,966 - INFO - Scheduler started
+2025-01-11 16:41:25,967 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 16:41:25,967 - INFO - Added weekly notification: 123...
+2025-01-11 16:41:26,269 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 16:41:25]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 16:41:25
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 16:41:26,273 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 16:41:26,567 - INFO - Message handled successfully
+2025-01-11 16:41:26,568 - INFO - 127.0.0.1 - - [11/Jan/2025 16:41:26] "POST /callback HTTP/1.1" 200 -
+2025-01-11 16:41:43,561 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543168407596958082","quoteToken":"4XEp5UDZIhasHQd-1DFGa8FSqMpFpSUzn4k0QD15X5CyKncDIs7QgrcuklqZtyY6E2Pqnh9swhEKq1TpFFHay_C8fr7YyDVWr2ZSvQ2DbyOdJlVLeB6MNbtIc3BwtXOgEL2txgvAKLfO49pQ4ZXH3w","text":"!schedule -16:42 ai test!"},"webhookEventId":"01JHA8DF9VKFTG2SCWVTH1SGFE","deliveryContext":{"isRedelivery":false},"timestamp":1736584903933,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"5838c25a65ac4840a6727ecda801abc2","mode":"active"}]}
+2025-01-11 16:41:43,568 - INFO - Scheduler started
+2025-01-11 16:41:43,569 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 16:41:43,570 - INFO - Added weekly notification: 123...
+2025-01-11 16:41:43,951 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 16:41:43]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 16:41:43
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 16:41:43,963 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 16:41:43,966 - INFO - Added job "Send message to C1e53fadf3989586cd315c01925b77fb7 at 2025-01-11 16:42" to job store "default"
+2025-01-11 16:41:43,969 - INFO - Scheduled message for 2025-01-11 16:42
+2025-01-11 16:41:44,117 - INFO - Message handled successfully
+2025-01-11 16:41:44,120 - INFO - 127.0.0.1 - - [11/Jan/2025 16:41:44] "POST /callback HTTP/1.1" 200 -
+2025-01-11 16:42:00,014 - INFO - Running job "Send message to C1e53fadf3989586cd315c01925b77fb7 at 2025-01-11 16:42 (trigger: date[2025-01-11 16:42:00 CST], next run at: 2025-01-11 16:42:00 CST)" (scheduled at 2025-01-11 16:42:00+08:00)
+2025-01-11 16:42:00,015 - INFO - Removed job message_job_C1e53fadf3989586cd315c01925b77fb7_1736584903
+2025-01-11 16:42:00,335 - INFO - Successfully sent message to group C1e53fadf3989586cd315c01925b77fb7: [2025-01-11 16:42:00]
+test!...
+2025-01-11 16:42:00,341 - INFO - Job "Send message to C1e53fadf3989586cd315c01925b77fb7 at 2025-01-11 16:42 (trigger: date[2025-01-11 16:42:00 CST], next run at: 2025-01-11 16:42:00 CST)" executed successfully
+2025-01-11 16:42:24,424 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543168475493826595","quoteToken":"EBrZCN2tsBCgpgxOxQVPAaKZPFvenVbvQ1kpIlymE9OBbTOw3AVnWtFt-PwC2AzLNRVtkP-rBD6R8dNySFMckrF0V4n7-6zt9MgWRTEoT44X3WTyOHf_vbjCWbm0u4kBrpcrLNAf_7g_DVWzaK7kxw","text":"!groups"},"webhookEventId":"01JHA8EQ58506WN7A9NPMB9Y3S","deliveryContext":{"isRedelivery":false},"timestamp":1736584944403,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"505ec23882ec4f38b0f6345eb8092404","mode":"active"}]}
+2025-01-11 16:42:24,431 - INFO - Scheduler started
+2025-01-11 16:42:24,434 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 16:42:24,435 - INFO - Added weekly notification: 123...
+2025-01-11 16:42:24,749 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 16:42:24]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 16:42:24
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 16:42:24,752 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 16:42:24,913 - INFO - Message handled successfully
+2025-01-11 16:42:24,916 - INFO - 127.0.0.1 - - [11/Jan/2025 16:42:24] "POST /callback HTTP/1.1" 200 -

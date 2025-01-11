@@ -69,3 +69,15 @@ FILE_SETTINGS = {
     'allowed_extensions': ['txt', 'xlsx', 'docx', 'jpg', 'jpeg', 'png', 'pdf', 'm4a', 'mp3', 'wav'],
     'temp_folder': 'temp'
 }
+
+# LINE Bot Admin Settings
+ADMIN_GROUP_ID = "Ca38140041deeb2d703b16cb45b8f3bf1"  # Fight.K AI助理管理員
+ADMIN_COMMANDS = {
+    "!schedule": "設定新的排程通知",
+    "!schedules": "查看所有排程",
+    "!remove_schedule": "刪除指定排程",
+    "!groups": "查看所有群組",
+    "!add_group": "新增群組",
+    "!remove_group": "移除群組",
+    "!help": "顯示管理員指令說明"
+}
