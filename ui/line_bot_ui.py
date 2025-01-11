@@ -144,7 +144,6 @@ def handle_personal_message(event, user_id: str, text: str):
         # 檢查是否要求切換身分
         if text.lower() in ["切換身分", "切換角色", "重新選擇"]:
             chat_history.set_state(user_id, {"role": None})
-            # 使用預定義的歡迎訊息和角色選擇
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
@@ -153,9 +152,11 @@ def handle_personal_message(event, user_id: str, text: str):
             )
             return
 
-        # 檢查是否是新用戶或沒有角色
+        # 檢查用戶狀態
         user_state = chat_history.get_state(user_id)
-        if not user_state or user_state.get("role") is None:
+        
+        # 如果是新用戶或沒有角色
+        if not user_state or 'role' not in user_state:
             chat_history.set_state(user_id, {"role": None})
             line_bot_api.reply_message(
                 ReplyMessageRequest(
@@ -165,43 +166,59 @@ def handle_personal_message(event, user_id: str, text: str):
             )
             return
 
-        # 處理角色選擇
-        if text in ROLE_OPTIONS:
-            selected_role = ROLE_OPTIONS[text]
-            chat_history.set_state(user_id, {"role": selected_role})
-            response = (
-                f"您已選擇 {ROLE_DESCRIPTIONS[text]}，請問有什麼我可以協助您的嗎？\n\n"
-                "💡 如果要更換諮詢對象，隨時可以輸入「切換身分」"
-            )
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=event.reply_token,
-                    messages=[TextMessage(text=response)]
+        # 如果用戶正在選擇角色
+        if user_state.get('role') is None:
+            if text in ROLE_OPTIONS:
+                selected_role = ROLE_OPTIONS[text]
+                chat_history.set_state(user_id, {"role": selected_role})
+                response = (
+                    f"您已選擇 {ROLE_DESCRIPTIONS[text]}，請問有什麼我可以協助您的嗎？\n\n"
+                    "💡 如果要更換諮詢對象，隨時可以輸入「切換身分」"
                 )
-            )
-            return
+                line_bot_api.reply_message(
+                    ReplyMessageRequest(
+                        reply_token=event.reply_token,
+                        messages=[TextMessage(text=response)]
+                    )
+                )
+                return
+            else:
+                # 如果輸入的不是有效的角色選項，重新顯示選擇訊息
+                line_bot_api.reply_message(
+                    ReplyMessageRequest(
+                        reply_token=event.reply_token,
+                        messages=[create_role_selection_message()]
+                    )
+                )
+                return
 
         # 處理一般對話
-        current_role = user_state.get("role")
-        if not current_role:
+        current_role = user_state.get('role')
+        
+        # 初始化 KnowledgeBase
+        knowledge_base = KnowledgeBase(KNOWLEDGE_BASE_PATHS[current_role])
+        
+        # 獲取相關知識
+        relevant_knowledge = knowledge_base.search(text)
+        
+        # 獲取提示詞
+        prompt = prompt_manager.get_prompt(current_role)
+        if not prompt:
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
-                    messages=[create_role_selection_message()]
+                    messages=[TextMessage(text="系統錯誤：找不到對應的提示詞")]
                 )
             )
             return
 
-        # 獲取對話歷史並生成回應
-        context = chat_history.format_context(user_id)
-        prompt = f"你現在是 {current_role} 的角色。\n\n{context}問題：{text}\n回答："
+        # 組合完整提示詞
+        full_prompt = f"{prompt}\n\n背景知識：\n{relevant_knowledge}\n\n問題：{text}\n回答："
         
-        response = ai_engine.generate_response(prompt)
+        # 生成回應
+        response = ai_engine.generate_response(full_prompt)
         
-        # 保存對話歷史
-        chat_history.add_message(user_id, "user", text)
-        chat_history.add_message(user_id, "assistant", response)
-        
+        # 發送回應
         line_bot_api.reply_message(
             ReplyMessageRequest(
                 reply_token=event.reply_token,
@@ -209,14 +226,21 @@ def handle_personal_message(event, user_id: str, text: str):
             )
         )
         
+        # 更新對話歷史
+        chat_history.add_message(user_id, "user", text)
+        chat_history.add_message(user_id, "assistant", response)
+        
     except Exception as e:
-        logger.error(f"Error in handle_personal_message: {e}", exc_info=True)
-        line_bot_api.reply_message(
-            ReplyMessageRequest(
-                reply_token=event.reply_token,
-                messages=[TextMessage(text="系統發生錯誤，請稍後再試")]
+        logger.error(f"處理個人訊息時發生錯誤: {str(e)}", exc_info=True)
+        try:
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[TextMessage(text="抱歉，處理訊息時發生錯誤。")]
+                )
             )
-        )
+        except Exception as reply_error:
+            logger.error(f"發送錯誤訊息失敗: {str(reply_error)}")
 
 def handle_group_message(event, group_id: str, text: str):
     """處理群組對話消息"""
@@ -369,23 +393,20 @@ def handle_admin_command(event):
     """處理管理員指令"""
     try:
         command = event.message.text.split()
-        cmd = command[0].lower()
-
-        # 初始化 message_scheduler（如果需要）
+        cmd = command[0].lower().replace('！', '!')  # 統一轉換為半形驚嘆號
+        
+        # 初始化 message_scheduler
         message_scheduler = MessageScheduler()
 
-        # 指令處理邏輯
         if cmd == '!help':
             help_text = (
                 "管理員指令列表：\n"
-                "!schedule [時間] [群組] [訊息] - 設定新的排程通知\n"
+                "!schedule [時間] [群組NID] [訊息] - 設定新的排程通知\n"
                 "!schedules - 查看所有排程\n"
                 "!remove_schedule [排程ID] - 刪除指定排程\n"
                 "!groups - 查看所有群組\n\n"
-                "群組別名：\n"
-                "admin - 管理員群組\n"
-                "test - 測試群組\n"
-                "ai - AI 新時代戰隊\n\n"
+                "群組指定方式：\n"
+                "- 使用群組NID數字 (例如：1、2、3)\n\n"
                 "時間格式說明：\n"
                 "YYYYMMDD-HH:MM - 完整日期，如 20240101-09:30\n"
                 "YYYYMM-HH:MM - 指定年月，如 202401-09:30\n"
@@ -394,20 +415,31 @@ def handle_admin_command(event):
                 "1-HH:MM - 明天，如 1-09:30\n"
                 "2-HH:MM - 後天，如 2-09:30\n\n"
                 "範例：\n"
-                "!schedule -09:30 ai 早安！\n"
-                "!schedule 1-09:30 ai 明天早安！\n"
+                "!schedule -09:30 1 早安！\n"
+                "!schedule 1-09:30 2 明天早安！\n"
                 "!remove_schedule s1234"
             )
             response = help_text
             
+        elif cmd == '!groups':
+            groups = message_scheduler.notification_manager.get_formatted_groups()
+            response = "群組列表：\n" + "\n".join(
+                f"群組 {g['nid']}: {g['name']}"
+                for g in groups
+            )
+            
         elif cmd == '!schedule':
             if len(command) >= 4:
                 datetime_str = command[1]
-                group_alias = command[2]
+                group_nid = command[2]
                 message = ' '.join(command[3:])
                 
-                # 轉換群組別名為實際 ID
-                group_id = message_scheduler.notification_manager.get_group_id(group_alias)
+                # 通過 NID 獲取群組 ID
+                group_id = message_scheduler.notification_manager.get_group_id_by_nid(group_nid)
+                
+                if not group_id:
+                    response = f"找不到群組 {group_nid}，請使用 !groups 查看可用的群組編號"
+                    raise ValueError(response)
                 
                 result = message_scheduler.schedule_message(
                     group_id=group_id,
@@ -417,18 +449,18 @@ def handle_admin_command(event):
                 
                 response = "排程設定成功！" if result else "排程設定失敗"
             else:
-                response = "格式錯誤！正確格式：!schedule YYYYMMDD-HH:MM group_alias message"
-                
+                response = "格式錯誤！正確格式：!schedule YYYYMMDD-HH:MM [群組NID] message"
+        
         elif cmd == '!schedules':
             schedules = message_scheduler.list_schedules()
             if schedules:
                 formatted_schedules = []
                 for s in schedules:
-                    group_alias = message_scheduler.notification_manager.get_group_alias(s['group_id'])
+                    nid = message_scheduler.notification_manager.get_nid_by_group_id(s['group_id'])
                     schedule_id = message_scheduler.notification_manager.format_schedule_id(s['id'])
                     formatted_schedules.append(
                         f"ID: {schedule_id}\n"
-                        f"群組: {group_alias}\n"
+                        f"群組: {nid}\n"
                         f"時間: {s['scheduled_time']}\n"
                         f"訊息: {s['message']}"
                     )
@@ -446,13 +478,6 @@ def handle_admin_command(event):
             else:
                 response = "格式錯誤！正確格式：!remove_schedule schedule_id"
                 
-        elif cmd == '!groups':
-            groups = message_scheduler.notification_manager.get_formatted_groups()
-            response = "群組列表：\n" + "\n".join(
-                f"{g['alias']} - {g['name']} ({g['id']})"
-                for g in groups
-            )
-            
         else:
             response = "未知的指令。輸入 !help 查看可用指令。"
 
@@ -469,7 +494,7 @@ def handle_admin_command(event):
         line_bot_api.reply_message(
             ReplyMessageRequest(
                 reply_token=event.reply_token,
-                messages=[TextMessage(text="執行指令時發生錯誤")]
+                messages=[TextMessage(text=f"執行指令時發生錯誤: {str(e)}")]
             )
         )
 

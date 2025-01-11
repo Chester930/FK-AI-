@@ -24,6 +24,7 @@ class NotificationManager:
         self.schedules = self.load_schedules()
         self.notifications = self.load_notifications()
         self.group_aliases = self._load_group_aliases()
+        self.group_nids = self._initialize_group_nids()
 
     def load_groups(self):
         """載入群組資料"""
@@ -197,10 +198,48 @@ class NotificationManager:
         except:
             return job_id
 
+    def _initialize_group_nids(self):
+        """初始化群組的自然數 ID"""
+        try:
+            if os.path.exists(os.path.join(self.data_dir, "group_nids.json")):
+                with open(os.path.join(self.data_dir, "group_nids.json"), 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            
+            # 為現有群組分配 NID
+            nids = {}
+            for i, group_id in enumerate(self.groups.keys(), start=1):
+                nids[str(i)] = group_id
+            
+            self._save_group_nids(nids)
+            return nids
+        except Exception as e:
+            logger.error(f"初始化群組 NID 時發生錯誤: {e}")
+            return {}
+
+    def _save_group_nids(self, nids):
+        """儲存群組 NID 對應"""
+        try:
+            with open(os.path.join(self.data_dir, "group_nids.json"), 'w', encoding='utf-8') as f:
+                json.dump(nids, f, ensure_ascii=False, indent=2)
+        except Exception as e:
+            logger.error(f"儲存群組 NID 時發生錯誤: {e}")
+
+    def get_group_id_by_nid(self, nid):
+        """根據 NID 獲取群組 ID"""
+        return self.group_nids.get(str(nid))
+
+    def get_nid_by_group_id(self, group_id):
+        """根據群組 ID 獲取 NID"""
+        for nid, gid in self.group_nids.items():
+            if gid == group_id:
+                return nid
+        return None
+
     def get_formatted_groups(self):
-        """獲取格式化的群組列表"""
+        """獲取格式化的群組列表，包含 NID"""
         return [
             {
+                'nid': self.get_nid_by_group_id(group_id),
                 'alias': self.get_group_alias(group_id),
                 'id': group_id,
                 'name': name

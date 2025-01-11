@@ -3282,3 +3282,113 @@ test!...
 2025-01-11 16:42:24,752 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
 2025-01-11 16:42:24,913 - INFO - Message handled successfully
 2025-01-11 16:42:24,916 - INFO - 127.0.0.1 - - [11/Jan/2025 16:42:24] "POST /callback HTTP/1.1" 200 -
+2025-01-11 16:49:49,171 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543169221124161922","quoteToken":"KT5l2ZQBg5Gwrl20OFy3jOBsAwDDIh_qrdV1UHE_Z29nBA1_7hU_oqTp1BC2FL0ruPOMJCTxDbRTUNM6iRKsyxv3KYZJBSOJzvW3Ye9mwylbkXnbEUO44H_H13ZP_XtAD7s1f2KQGYSmE6Lx4axedQ","text":"!scheduls"},"webhookEventId":"01JHA8W9CPQF4CCGD6GFV6TBQE","deliveryContext":{"isRedelivery":false},"timestamp":1736585388957,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"cda984eed5114822975239779bba9ef1","mode":"active"}]}
+2025-01-11 16:49:49,180 - INFO - Scheduler started
+2025-01-11 16:49:49,182 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 16:49:49,183 - INFO - Added weekly notification: 123...
+2025-01-11 16:49:49,526 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 16:49:49]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 16:49:49
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 16:49:49,537 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 16:49:49,693 - INFO - Message handled successfully
+2025-01-11 16:49:49,694 - INFO - 127.0.0.1 - - [11/Jan/2025 16:49:49] "POST /callback HTTP/1.1" 200 -
+2025-01-11 16:50:09,000 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543169254594970051","quoteToken":"14KUw2zN2k6cPJ0r1jM7H7ryqatoeVE2BZpD0Aq01nVV51IcwoE1M0eH2-B4hIVG8rKRoBx9IH3WHR_vIH9LEGbk22nYfAndoh5m4kItZE9FUQJA2lQUZpDmAh2R9nqP7reLImGnfBY9vJDZxKyJNg","text":"!help"},"webhookEventId":"01JHA8WWT2GQHFDRNSGQWBSM95","deliveryContext":{"isRedelivery":false},"timestamp":1736585408842,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"f4af1bf48f1a4406a93ea3fcb0af4193","mode":"active"}]}
+2025-01-11 16:50:09,006 - INFO - Scheduler started
+2025-01-11 16:50:09,008 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 16:50:09,009 - INFO - Added weekly notification: 123...
+2025-01-11 16:50:09,364 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 16:50:09]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 16:50:09
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 16:50:09,369 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 16:50:09,550 - INFO - Message handled successfully
+2025-01-11 16:50:09,551 - INFO - 127.0.0.1 - - [11/Jan/2025 16:50:09] "POST /callback HTTP/1.1" 200 -
+2025-01-11 16:55:04,089 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543169750076490097","quoteToken":"crtoTc7tb-3nVeKy1FNU7JTKIlB8dJeCzp3wiZFPRW9I5E7nxPXXUR7YqtEcIQDNE2caQSvCmhwvAjHvYg3VUyYUnGO0CumPSoqbEn4sxbQvVx-dWkfA_LH2AJ9arnJXzWqwtp-uZ1HbyXlOhKL1Ig","text":"!groups"},"webhookEventId":"01JHA95X4KK5D3BVBJEDE0TCDA","deliveryContext":{"isRedelivery":false},"timestamp":1736585704077,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"e017f23905fa41319954d6f9ec253d70","mode":"active"}]}
+2025-01-11 16:55:04,096 - INFO - Scheduler started
+2025-01-11 16:55:04,098 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 16:55:04,098 - INFO - Added weekly notification: 123...
+2025-01-11 16:55:04,456 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 16:55:04]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 16:55:04
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 16:55:04,459 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 16:55:04,632 - INFO - Message handled successfully
+2025-01-11 16:55:04,635 - INFO - 127.0.0.1 - - [11/Jan/2025 16:55:04] "POST /callback HTTP/1.1" 200 -
+2025-01-11 16:56:57,114 - INFO - Starting LINE Bot service...
+2025-01-11 16:57:02,461 - INFO - Ngrok URL: https://3f75-2404-0-881d-224c-5052-ecea-df57-4e31.ngrok-free.app
+2025-01-11 16:57:02,462 - INFO - LINE Bot Webhook URL: https://3f75-2404-0-881d-224c-5052-ecea-df57-4e31.ngrok-free.app/callback
+2025-01-11 16:57:25,403 - INFO - Scheduler started
+2025-01-11 16:57:25,430 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 16:57:25,431 - INFO - Added weekly notification: 123...
+2025-01-11 16:57:25,961 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-11 16:57:25]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 16:57:25
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 16:57:25,967 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-11 16:57:25,971 - INFO - Chat history loaded successfully
+2025-01-11 16:57:25,975 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-01-11 16:57:25,977 - INFO - Added job "save_chat_history" to job store "default"
+2025-01-11 16:57:25,978 - INFO - Scheduler started
+2025-01-11 16:57:25,979 - INFO - LINE Bot service started on port 5000
+2025-01-11 16:57:26,012 - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2025-01-11 16:57:43,777 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543170017622753507","quoteToken":"Pt2Zym2X3S5-qeMPvknCiosEgqxdyhBe0tv7SPTk6sSyHjie2zrYHac9KzAaKyFPhqfmA408FrB3yRdUIaTo_zAllalmYyXqPxnUsHxcBporJEUDj6IPgWZd9kyr252cf25UixCRj7mp_m2pjmeRRg","text":"你好"},"webhookEventId":"01JHA9ARZJDMEY6D30STJRJ8DD","deliveryContext":{"isRedelivery":false},"timestamp":1736585863732,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"895a6c594acc403b854631fa8ab39a56","mode":"active"}]}
+2025-01-11 16:57:44,139 - INFO - Message handled successfully
+2025-01-11 16:57:44,140 - INFO - 127.0.0.1 - - [11/Jan/2025 16:57:44] "POST /callback HTTP/1.1" 200 -
+2025-01-11 16:58:22,283 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543170082952708326","quoteToken":"T35XicoLdKAKRYstqQtVDq1l1Nqq5ZLBOJ_y1IHmsZK9sfEIVocxKzHwjsk0y36XldZ-xf0J7qcjkXNbAPxka_r5uSKkFmkxIrbfPr_y2y0C5Gq_G2dmrPiKE9Hx8HBRSc-sDfRXpG3nda3EQ5KNMA","text":"B"},"webhookEventId":"01JHA9BYNR8RTS7V1AGJCKYPV1","deliveryContext":{"isRedelivery":false},"timestamp":1736585902620,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"f4f336e89f4d45e2965ab390dfcf6e17","mode":"active"}]}
+2025-01-11 16:58:22,459 - INFO - Message handled successfully
+2025-01-11 16:58:22,461 - INFO - 127.0.0.1 - - [11/Jan/2025 16:58:22] "POST /callback HTTP/1.1" 200 -
+2025-01-11 16:58:26,050 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543170089177317586","quoteToken":"iPfKNwLl45PXJLHyrBQDGJ2on43ZWGuNnDlO1cpN_6ZMuhwsGpMd1vLukLNGYQLuaOWgS1bC1R2Dv_2Hjrf5OOLjUvkSJ7qcVNuz__bLPOEd1C6pbP0Gyb4SqByxBT2aILUkM7ghlWnMVeH6akI0Vw","text":"B"},"webhookEventId":"01JHA9C2CF5RCK9PTF9NHYTQND","deliveryContext":{"isRedelivery":false},"timestamp":1736585906207,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"9bc8016560fe4b799f11d54b0082cc76","mode":"active"}]}
+2025-01-11 16:58:26,213 - INFO - Message handled successfully
+2025-01-11 16:58:26,216 - INFO - 127.0.0.1 - - [11/Jan/2025 16:58:26] "POST /callback HTTP/1.1" 200 -
+2025-01-11 17:04:43,704 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543170722685256274","quoteToken":"HoIIU5LUTMMTrZY0l-1wYR_qsY3nE957I9qzh6nKoNziZ9ezBB5YKADOrTyIeLIOoR076qINaakGvw2WbbmSUwOOUQUJihpIJvkla7Jk1IrSnVTBHzS5DsxPn0v9TkHQz1OZ36ku6R8zSLGyhPinHA","text":"B"},"webhookEventId":"01JHA9QK5QZD9XG49TKCCAR5F5","deliveryContext":{"isRedelivery":false},"timestamp":1736586283832,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"fd8036d589bd49c1be80379dce393b88","mode":"active"}]}
+2025-01-11 17:04:43,910 - INFO - Message handled successfully
+2025-01-11 17:04:43,916 - INFO - 127.0.0.1 - - [11/Jan/2025 17:04:43] "POST /callback HTTP/1.1" 200 -
+2025-01-11 17:05:04,186 - INFO - Starting LINE Bot service...
+2025-01-11 17:05:09,784 - INFO - Ngrok URL: https://fda3-2404-0-881d-224c-5052-ecea-df57-4e31.ngrok-free.app
+2025-01-11 17:05:09,785 - INFO - LINE Bot Webhook URL: https://fda3-2404-0-881d-224c-5052-ecea-df57-4e31.ngrok-free.app/callback
+2025-01-11 17:05:09,802 - ERROR - Error starting LINE Bot: expected an indented block after 'if' statement on line 170 (line_bot_ui.py, line 171)
+2025-01-11 17:05:23,182 - INFO - Starting LINE Bot service...
+2025-01-11 17:05:28,286 - INFO - Ngrok URL: https://9d93-2404-0-881d-224c-5052-ecea-df57-4e31.ngrok-free.app
+2025-01-11 17:05:28,287 - INFO - LINE Bot Webhook URL: https://9d93-2404-0-881d-224c-5052-ecea-df57-4e31.ngrok-free.app/callback
+2025-01-11 17:05:28,293 - ERROR - Error starting LINE Bot: expected an indented block after 'if' statement on line 170 (line_bot_ui.py, line 171)
+2025-01-11 17:06:10,094 - INFO - Starting LINE Bot service...
+2025-01-11 17:06:15,180 - INFO - Ngrok URL: https://bb19-2404-0-881d-224c-5052-ecea-df57-4e31.ngrok-free.app
+2025-01-11 17:06:15,180 - INFO - LINE Bot Webhook URL: https://bb19-2404-0-881d-224c-5052-ecea-df57-4e31.ngrok-free.app/callback
+2025-01-11 17:06:15,188 - ERROR - Error starting LINE Bot: expected an indented block after 'if' statement on line 170 (line_bot_ui.py, line 171)
+2025-01-11 17:09:17,888 - INFO - Starting LINE Bot service...
+2025-01-11 17:09:22,992 - INFO - Ngrok URL: https://016c-2404-0-881d-224c-5052-ecea-df57-4e31.ngrok-free.app
+2025-01-11 17:09:22,993 - INFO - LINE Bot Webhook URL: https://016c-2404-0-881d-224c-5052-ecea-df57-4e31.ngrok-free.app/callback
+2025-01-11 17:09:23,004 - ERROR - Error starting LINE Bot: expected an indented block after 'try' statement on line 235 (line_bot_ui.py, line 236)
