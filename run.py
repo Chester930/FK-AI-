@@ -151,8 +151,8 @@ if __name__ == "__main__":
     ensure_directories()
     
     parser = argparse.ArgumentParser(description='Run Fight.K AI Assistant')
-    parser.add_argument('--mode', type=str, choices=['streamlit', 'line'], 
-                       required=True, help='Choose the UI mode: streamlit or line')
+    parser.add_argument('--mode', type=str, choices=['streamlit', 'line', 'admin'], 
+                       required=True, help='Choose the UI mode: streamlit, line, or admin')
     
     args = parser.parse_args()
     
@@ -161,6 +161,15 @@ if __name__ == "__main__":
             run_streamlit()
         elif args.mode == 'line':
             run_line_bot()
+        elif args.mode == 'admin':
+            try:
+                import streamlit.web.cli as stcli
+                sys.argv = ["streamlit", "run", "ui/admin_ui.py"]
+                logger.info("Starting admin interface...")
+                sys.exit(stcli.main())
+            except Exception as e:
+                logger.error(f"Error running admin interface: {e}")
+                sys.exit(1)
     except KeyboardInterrupt:
         logger.info("Application stopped by user")
     except Exception as e:

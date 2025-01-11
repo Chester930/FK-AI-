@@ -2354,3 +2354,345 @@ AttributeError: 'MessagingApi' object has no attribute 'get_message_content'
 2025-01-11 01:29:59,865 - INFO - 127.0.0.1 - - [11/Jan/2025 01:29:59] "POST /callback HTTP/1.1" 200 -
 2025-01-11 01:30:06,901 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543075911969538261","quoteToken":"_ASs8P1UjmG7dGtQgRnj1KKvf3Dp9lxvosW-2H8G8Qnt239lB2dFhhtnCC0dKgqImncAtP2at3j0Is6EYn5IEaMQ4PJH3xpXpVgYot3-fh8uxpB7fcUoDpBeImaDYvI77UITHHJ0vKfXbbA6eNCG5g","text":"切換身份"},"webhookEventId":"01JH8KV055GCQ0090Z5T73BXZ4","deliveryContext":{"isRedelivery":true},"timestamp":1736529772205,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"903cd9c5ff594030b3ce0148518cbd9a","mode":"active"}]}
 2025-01-11 01:30:06,904 - INFO - Received message event: type='message' source=UserSource(type='user', user_id='U449870fffc8fd9e18b66fe46941fc84d') timestamp=1736529772205 mode=<EventMode.ACTIVE: 'active'> webhook_event_id='01JH8KV055GCQ0090Z5T73BXZ4' delivery_context=DeliveryContext(is_redelivery=True) reply_token='903cd9c5ff594030b3ce0148518cbd9a' message=TextMessageContent(type='text', id='543075911969538261', text='切換身份', emojis=None, mention=None, quote_token='_ASs8P1UjmG7dGtQgRnj1KKvf3Dp9lxvosW-2H8G8Qnt239lB2dFhhtnCC0dKgqImncAtP2at3j0Is6EYn5IEaMQ4PJH3xpXpVgYot3-fh8uxpB7fcUoDpBeImaDYvI77UITHHJ0vKfXbbA6eNCG5g', quoted_message_id=None)
+2025-01-11 10:19:29,355 - WARNING - 
+            未找到 ffmpeg，語音功能可能無法正常工作。
+            請安裝 ffmpeg:
+            - Windows: https://ffmpeg.org/download.html
+            - Linux: sudo apt-get install ffmpeg
+            - Mac: brew install ffmpeg
+            
+2025-01-11 10:19:37,561 - INFO - Starting admin interface...
+2025-01-11 10:19:45,656 - INFO - Scheduler started
+2025-01-11 10:19:45,687 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:19:45,688 - INFO - Added daily notification: 早安！願神祝福大家今天有美好的一天！...
+2025-01-11 10:19:45,689 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:19:45,690 - INFO - Added daily notification: 晚安！願神保守大家有個好夢！...
+2025-01-11 10:19:45,691 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:19:45,691 - INFO - Added weekly notification: 本週讀經進度提醒：
+1. 創世記第一章
+2. 詩篇第一篇...
+2025-01-11 10:19:45,694 - ERROR - Error adding specific date notification: can't compare offset-naive and offset-aware datetimes
+2025-01-11 10:19:45,949 - INFO - Successfully sent message to group C6ab768f2ac52e2e4fe4919191d8509b3: [2025-01-11 10:19:45]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 10:19:45
+
+📋 排程通知列表：
+
+🔄 每日通知：
+  ⏰ 09:00 -...
+2025-01-11 10:19:45,953 - INFO - Sent startup test message to group C6ab768f2ac52e2e4fe4919191d8509b3
+2025-01-11 10:19:57,500 - INFO - Scheduler started
+2025-01-11 10:19:57,502 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:19:57,503 - INFO - Added daily notification: 早安！願神祝福大家今天有美好的一天！...
+2025-01-11 10:19:57,504 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:19:57,505 - INFO - Added daily notification: 晚安！願神保守大家有個好夢！...
+2025-01-11 10:19:57,506 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:19:57,507 - INFO - Added weekly notification: 本週讀經進度提醒：
+1. 創世記第一章
+2. 詩篇第一篇...
+2025-01-11 10:19:57,509 - ERROR - Error adding specific date notification: can't compare offset-naive and offset-aware datetimes
+2025-01-11 10:19:57,730 - INFO - Successfully sent message to group C6ab768f2ac52e2e4fe4919191d8509b3: [2025-01-11 10:19:57]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 10:19:57
+
+📋 排程通知列表：
+
+🔄 每日通知：
+  ⏰ 09:00 -...
+2025-01-11 10:19:57,736 - INFO - Sent startup test message to group C6ab768f2ac52e2e4fe4919191d8509b3
+2025-01-11 10:20:09,681 - INFO - Scheduler started
+2025-01-11 10:20:09,684 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:20:09,685 - INFO - Added daily notification: 早安！願神祝福大家今天有美好的一天！...
+2025-01-11 10:20:09,687 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:20:09,689 - INFO - Added daily notification: 晚安！願神保守大家有個好夢！...
+2025-01-11 10:20:09,691 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:20:09,692 - INFO - Added weekly notification: 本週讀經進度提醒：
+1. 創世記第一章
+2. 詩篇第一篇...
+2025-01-11 10:20:09,695 - ERROR - Error adding specific date notification: can't compare offset-naive and offset-aware datetimes
+2025-01-11 10:20:09,954 - INFO - Successfully sent message to group C6ab768f2ac52e2e4fe4919191d8509b3: [2025-01-11 10:20:09]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 10:20:09
+
+📋 排程通知列表：
+
+🔄 每日通知：
+  ⏰ 09:00 -...
+2025-01-11 10:20:09,960 - INFO - Sent startup test message to group C6ab768f2ac52e2e4fe4919191d8509b3
+2025-01-11 10:21:24,730 - INFO - Scheduler started
+2025-01-11 10:21:24,761 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:21:24,766 - INFO - Added daily notification: 早安！願神祝福大家今天有美好的一天！...
+2025-01-11 10:21:24,769 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:21:24,770 - INFO - Added daily notification: 晚安！願神保守大家有個好夢！...
+2025-01-11 10:21:24,772 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:21:24,773 - INFO - Added weekly notification: 本週讀經進度提醒：
+1. 創世記第一章
+2. 詩篇第一篇...
+2025-01-11 10:21:24,774 - ERROR - Error adding specific date notification: can't compare offset-naive and offset-aware datetimes
+2025-01-11 10:21:24,994 - INFO - Successfully sent message to group C6ab768f2ac52e2e4fe4919191d8509b3: [2025-01-11 10:21:24]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 10:21:24
+
+📋 排程通知列表：
+
+🔄 每日通知：
+  ⏰ 09:00 -...
+2025-01-11 10:21:24,998 - INFO - Sent startup test message to group C6ab768f2ac52e2e4fe4919191d8509b3
+2025-01-11 10:21:31,710 - INFO - Scheduler started
+2025-01-11 10:21:31,712 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:21:31,713 - INFO - Added daily notification: 早安！願神祝福大家今天有美好的一天！...
+2025-01-11 10:21:31,714 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:21:31,715 - INFO - Added daily notification: 晚安！願神保守大家有個好夢！...
+2025-01-11 10:21:31,717 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:21:31,718 - INFO - Added weekly notification: 本週讀經進度提醒：
+1. 創世記第一章
+2. 詩篇第一篇...
+2025-01-11 10:21:31,719 - ERROR - Error adding specific date notification: can't compare offset-naive and offset-aware datetimes
+2025-01-11 10:21:31,933 - INFO - Successfully sent message to group C6ab768f2ac52e2e4fe4919191d8509b3: [2025-01-11 10:21:31]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 10:21:31
+
+📋 排程通知列表：
+
+🔄 每日通知：
+  ⏰ 09:00 -...
+2025-01-11 10:21:31,938 - INFO - Sent startup test message to group C6ab768f2ac52e2e4fe4919191d8509b3
+2025-01-11 10:21:58,786 - INFO - Scheduler started
+2025-01-11 10:21:58,788 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:21:58,788 - INFO - Added daily notification: 早安！願神祝福大家今天有美好的一天！...
+2025-01-11 10:21:58,789 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:21:58,790 - INFO - Added daily notification: 晚安！願神保守大家有個好夢！...
+2025-01-11 10:21:58,792 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:21:58,792 - INFO - Added weekly notification: 本週讀經進度提醒：
+1. 創世記第一章
+2. 詩篇第一篇...
+2025-01-11 10:21:58,794 - ERROR - Error adding specific date notification: can't compare offset-naive and offset-aware datetimes
+2025-01-11 10:21:59,002 - INFO - Successfully sent message to group C6ab768f2ac52e2e4fe4919191d8509b3: [2025-01-11 10:21:58]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 10:21:58
+
+📋 排程通知列表：
+
+🔄 每日通知：
+  ⏰ 09:00 -...
+2025-01-11 10:21:59,013 - INFO - Sent startup test message to group C6ab768f2ac52e2e4fe4919191d8509b3
+2025-01-11 10:32:29,153 - WARNING - 
+            未找到 ffmpeg，語音功能可能無法正常工作。
+            請安裝 ffmpeg:
+            - Windows: https://ffmpeg.org/download.html
+            - Linux: sudo apt-get install ffmpeg
+            - Mac: brew install ffmpeg
+            
+2025-01-11 10:32:36,873 - INFO - Starting admin interface...
+2025-01-11 10:33:37,449 - WARNING - 
+            未找到 ffmpeg，語音功能可能無法正常工作。
+            請安裝 ffmpeg:
+            - Windows: https://ffmpeg.org/download.html
+            - Linux: sudo apt-get install ffmpeg
+            - Mac: brew install ffmpeg
+            
+2025-01-11 10:33:43,554 - INFO - Starting admin interface...
+2025-01-11 10:33:49,619 - INFO - Scheduler started
+2025-01-11 10:33:49,622 - INFO - Scheduler started
+2025-01-11 10:33:49,627 - INFO - Scheduler started
+2025-01-11 10:33:49,654 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:33:49,655 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:33:49,656 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:33:49,656 - INFO - Added weekly notification: 123...
+2025-01-11 10:33:49,657 - INFO - Added weekly notification: 123...
+2025-01-11 10:33:49,658 - INFO - Added weekly notification: 123...
+2025-01-11 10:33:50,032 - INFO - Successfully sent message to group C6ab768f2ac52e2e4fe4919191d8509b3: [2025-01-11 10:33:49]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 10:33:49
+
+📋 排程通知列表：
+
+🔄 每日通知：
+  ⏰ 09:00 -...
+2025-01-11 10:33:50,034 - INFO - Successfully sent message to group C6ab768f2ac52e2e4fe4919191d8509b3: [2025-01-11 10:33:49]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 10:33:49
+
+📋 排程通知列表：
+
+🔄 每日通知：
+  ⏰ 09:00 -...
+2025-01-11 10:33:50,038 - INFO - Sent startup test message to group C6ab768f2ac52e2e4fe4919191d8509b3
+2025-01-11 10:33:50,040 - INFO - Sent startup test message to group C6ab768f2ac52e2e4fe4919191d8509b3
+2025-01-11 10:33:50,072 - INFO - Successfully sent message to group C6ab768f2ac52e2e4fe4919191d8509b3: [2025-01-11 10:33:49]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 10:33:49
+
+📋 排程通知列表：
+
+🔄 每日通知：
+  ⏰ 09:00 -...
+2025-01-11 10:33:50,226 - INFO - Sent startup test message to group C6ab768f2ac52e2e4fe4919191d8509b3
+2025-01-11 10:34:30,312 - INFO - Scheduler started
+2025-01-11 10:34:30,314 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:34:30,315 - INFO - Added weekly notification: 123...
+2025-01-11 10:34:30,525 - INFO - Successfully sent message to group C6ab768f2ac52e2e4fe4919191d8509b3: [2025-01-11 10:34:30]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 10:34:30
+
+📋 排程通知列表：
+
+🔄 每日通知：
+  ⏰ 09:00 -...
+2025-01-11 10:34:30,530 - INFO - Sent startup test message to group C6ab768f2ac52e2e4fe4919191d8509b3
+2025-01-11 10:34:32,497 - INFO - Scheduler started
+2025-01-11 10:34:32,499 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:34:32,500 - INFO - Added weekly notification: 123...
+2025-01-11 10:34:32,754 - INFO - Successfully sent message to group C6ab768f2ac52e2e4fe4919191d8509b3: [2025-01-11 10:34:32]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 10:34:32
+
+📋 排程通知列表：
+
+🔄 每日通知：
+  ⏰ 09:00 -...
+2025-01-11 10:34:32,757 - INFO - Sent startup test message to group C6ab768f2ac52e2e4fe4919191d8509b3
+2025-01-11 10:34:34,807 - INFO - Scheduler started
+2025-01-11 10:34:34,810 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:34:34,811 - INFO - Added weekly notification: 123...
+2025-01-11 10:34:35,014 - INFO - Successfully sent message to group C6ab768f2ac52e2e4fe4919191d8509b3: [2025-01-11 10:34:34]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 10:34:34
+
+📋 排程通知列表：
+
+🔄 每日通知：
+  ⏰ 09:00 -...
+2025-01-11 10:34:35,017 - INFO - Sent startup test message to group C6ab768f2ac52e2e4fe4919191d8509b3
+2025-01-11 10:34:46,310 - INFO - Scheduler started
+2025-01-11 10:34:46,312 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:34:46,313 - INFO - Added weekly notification: 123...
+2025-01-11 10:34:46,539 - INFO - Successfully sent message to group C6ab768f2ac52e2e4fe4919191d8509b3: [2025-01-11 10:34:46]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 10:34:46
+
+📋 排程通知列表：
+
+🔄 每日通知：
+  ⏰ 09:00 -...
+2025-01-11 10:34:46,542 - INFO - Sent startup test message to group C6ab768f2ac52e2e4fe4919191d8509b3
+2025-01-11 10:34:46,657 - INFO - Scheduler started
+2025-01-11 10:34:46,659 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:34:46,660 - INFO - Added weekly notification: 123...
+2025-01-11 10:34:46,859 - INFO - Successfully sent message to group C6ab768f2ac52e2e4fe4919191d8509b3: [2025-01-11 10:34:46]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 10:34:46
+
+📋 排程通知列表：
+
+🔄 每日通知：
+  ⏰ 09:00 -...
+2025-01-11 10:34:46,871 - INFO - Sent startup test message to group C6ab768f2ac52e2e4fe4919191d8509b3
+2025-01-11 10:34:49,587 - INFO - Scheduler started
+2025-01-11 10:34:49,598 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:34:49,599 - INFO - Added weekly notification: 123...
+2025-01-11 10:34:49,820 - INFO - Successfully sent message to group C6ab768f2ac52e2e4fe4919191d8509b3: [2025-01-11 10:34:49]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 10:34:49
+
+📋 排程通知列表：
+
+🔄 每日通知：
+  ⏰ 09:00 -...
+2025-01-11 10:34:49,829 - INFO - Sent startup test message to group C6ab768f2ac52e2e4fe4919191d8509b3
+2025-01-11 10:34:51,037 - INFO - Scheduler started
+2025-01-11 10:34:51,038 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:34:51,039 - INFO - Added weekly notification: 123...
+2025-01-11 10:34:51,279 - INFO - Successfully sent message to group C6ab768f2ac52e2e4fe4919191d8509b3: [2025-01-11 10:34:51]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 10:34:51
+
+📋 排程通知列表：
+
+🔄 每日通知：
+  ⏰ 09:00 -...
+2025-01-11 10:34:51,283 - INFO - Sent startup test message to group C6ab768f2ac52e2e4fe4919191d8509b3
+2025-01-11 10:35:14,437 - INFO - Scheduler started
+2025-01-11 10:35:14,439 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:35:14,440 - INFO - Added weekly notification: 123...
+2025-01-11 10:35:14,663 - INFO - Successfully sent message to group C6ab768f2ac52e2e4fe4919191d8509b3: [2025-01-11 10:35:14]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 10:35:14
+
+📋 排程通知列表：
+
+🔄 每日通知：
+  ⏰ 09:00 -...
+2025-01-11 10:35:14,667 - INFO - Sent startup test message to group C6ab768f2ac52e2e4fe4919191d8509b3
+2025-01-11 10:37:57,186 - WARNING - 
+            未找到 ffmpeg，語音功能可能無法正常工作。
+            請安裝 ffmpeg:
+            - Windows: https://ffmpeg.org/download.html
+            - Linux: sudo apt-get install ffmpeg
+            - Mac: brew install ffmpeg
+            
+2025-01-11 10:38:03,666 - INFO - Starting admin interface...
+2025-01-11 10:38:10,873 - INFO - Scheduler started
+2025-01-11 10:38:10,874 - INFO - Scheduler started
+2025-01-11 10:38:10,886 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:38:10,887 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:38:10,887 - INFO - Added weekly notification: 123...
+2025-01-11 10:38:10,888 - INFO - Added weekly notification: 123...
+2025-01-11 10:38:11,123 - INFO - Successfully sent message to group C6ab768f2ac52e2e4fe4919191d8509b3: [2025-01-11 10:38:10]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 10:38:10
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 10:38:11,127 - INFO - Sent startup test message to group C6ab768f2ac52e2e4fe4919191d8509b3
+2025-01-11 10:38:11,223 - INFO - Successfully sent message to group C6ab768f2ac52e2e4fe4919191d8509b3: [2025-01-11 10:38:10]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 10:38:10
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 10:38:11,227 - INFO - Sent startup test message to group C6ab768f2ac52e2e4fe4919191d8509b3
+2025-01-11 10:38:25,004 - INFO - Scheduler started
+2025-01-11 10:38:25,015 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:38:25,016 - INFO - Added weekly notification: 123...
+2025-01-11 10:38:25,228 - INFO - Successfully sent message to group C6ab768f2ac52e2e4fe4919191d8509b3: [2025-01-11 10:38:25]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 10:38:25
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 10:38:25,231 - INFO - Sent startup test message to group C6ab768f2ac52e2e4fe4919191d8509b3
+2025-01-11 10:38:27,371 - INFO - Scheduler started
+2025-01-11 10:38:27,373 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-11 10:38:27,374 - INFO - Added weekly notification: 123...
+2025-01-11 10:38:27,577 - INFO - Successfully sent message to group C6ab768f2ac52e2e4fe4919191d8509b3: [2025-01-11 10:38:27]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-11 10:38:27
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-11 10:38:27,579 - INFO - Sent startup test message to group C6ab768f2ac52e2e4fe4919191d8509b3

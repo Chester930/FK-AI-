@@ -12,6 +12,7 @@ from linebot.v3.messaging import (
 )
 import logging
 from dotenv import load_dotenv
+from utils.notification_manager import NotificationManager
 
 # 設置日誌
 logging.basicConfig(level=logging.INFO)
@@ -27,77 +28,35 @@ tw_timezone = pytz.timezone('Asia/Taipei')
 
 # 定義通知配置
 NOTIFICATION_CONFIGS = {
-    # 每日通知
-    'daily_notifications': [
-        {
-            'group_id': 'C1e53fadf3989586cd315c01925b77fb7',  # Fight.K 測試群組
-            'schedule': {
-                'hour': '09',
-                'minute': '00',
-                'timezone': 'Asia/Taipei'
-            },
-            'message': '早安！願神祝福大家今天有美好的一天！'
-        },
-        {
-            'group_id': 'C1e53fadf3989586cd315c01925b77fb7',
-            'schedule': {
-                'hour': '17',
-                'minute': '12',
-                'timezone': 'Asia/Taipei'
-            },
-            'message': '晚安！願神保守大家有個好夢！'
-        }
-    ],
-    
-    # 每週通知
-    'weekly_notifications': [
-        {
-            'group_id': 'C1e53fadf3989586cd315c01925b77fb7',
-            'schedule': {
-                'day_of_week': 'mon',  # mon, tue, wed, thu, fri, sat, sun
-                'hour': '10',
-                'minute': '00',
-                'timezone': 'Asia/Taipei'
-            },
-            'message': '本週讀經進度提醒：\n1. 創世記第一章\n2. 詩篇第一篇'
-        }
-    ],
-    
-    # 特定日期通知
-    'specific_date_notifications': [
-        {
-            'group_id': 'C1e53fadf3989586cd315c01925b77fb7',
-            'schedule': {
-                'date': '2025-12-25',  # 改為未來日期
-                'hour': '10',
-                'minute': '00',
-                'timezone': 'Asia/Taipei'
-            },
-            'message': '聖誕節快樂！願神祝福大家！'
-        }
-    ]
+    'daily_notifications': [],
+    'weekly_notifications': [],
+    'specific_date_notifications': []
 }
 
 class MessageScheduler:
     def __init__(self):
         self.scheduler = BackgroundScheduler(timezone=tw_timezone)
+        self.notification_manager = NotificationManager()
         self.scheduler.start()
         self._setup_notifications()
-        self._send_startup_test()  # 添加啟動測試
+        self._send_startup_test()
     
     def _setup_notifications(self):
         """設置所有預定的通知"""
         try:
+            # 獲取所有活動中的通知
+            notifications = self.notification_manager.get_all_active_notifications()
+            
             # 設置每日通知
-            for config in NOTIFICATION_CONFIGS['daily_notifications']:
+            for config in notifications['daily']:
                 self._add_daily_notification(config)
 
             # 設置每週通知
-            for config in NOTIFICATION_CONFIGS['weekly_notifications']:
+            for config in notifications['weekly']:
                 self._add_weekly_notification(config)
 
             # 設置特定日期通知
-            for config in NOTIFICATION_CONFIGS['specific_date_notifications']:
+            for config in notifications['specific']:
                 self._add_specific_date_notification(config)
 
         except Exception as e:
@@ -235,14 +194,7 @@ class MessageScheduler:
 
     def list_schedules(self):
         """列出所有排程"""
-        return [
-            {
-                'id': job.id,
-                'name': job.name,
-                'scheduled_time': job.next_run_time.strftime('%Y-%m-%d %H:%M') if job.next_run_time else 'N/A'
-            }
-            for job in self.scheduler.get_jobs()
-        ]
+        return self.notification_manager.get_formatted_schedules()
 
     def remove_schedule(self, job_id: str):
         """移除特定排程"""

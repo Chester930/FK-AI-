@@ -1,0 +1,10 @@
+daily_notifications: []
+specific_date_notifications: []
+weekly_notifications:
+- group_id: C6ab768f2ac52e2e4fe4919191d8509b3
+  message: '123'
+  schedule:
+    day_of_week: mon
+    hour: '10'
+    minute: '21'
+    timezone: Asia/Taipei
