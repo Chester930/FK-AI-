@@ -7435,3 +7435,21 @@ HTTP response body: {"message":"Invalid reply token"}
 2025-01-11 19:39:24,047 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543186291992035508","quoteToken":"vxu5Xj4OpgNbXwa5ydGHLtS7bysm3iR-pyq0DjJqMACsvcnsGSGE3F0vtmlANRaKS1dkdgnEfjBRyfmLxN8HT-zMeQphYv1nh5YVQgK4nwohHZJCFt4JSR6f071bdw1RDOLjYUFCxM0nkWrS3Ybupw","text":"!groups"},"webhookEventId":"01JHAJJSPS97WCEP4E9TEST772","deliveryContext":{"isRedelivery":false},"timestamp":1736595563967,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"9501449adf414e379e4a9da79a864d0b","mode":"active"}]}
 2025-01-11 19:39:24,182 - INFO - Message handled successfully
 2025-01-11 19:39:24,183 - INFO - 127.0.0.1 - - [11/Jan/2025 19:39:24] "POST /callback HTTP/1.1" 200 -
+2025-01-11 19:53:59,688 - INFO - Starting LINE Bot service...
+2025-01-11 19:54:04,870 - INFO - Ngrok URL: https://03f7-2404-0-881d-224c-6015-c04b-2bd7-42af.ngrok-free.app
+2025-01-11 19:54:04,870 - INFO - LINE Bot Webhook URL: https://03f7-2404-0-881d-224c-6015-c04b-2bd7-42af.ngrok-free.app/callback
+2025-01-11 19:54:09,050 - ERROR - Error starting LINE Bot: cannot import name 'MemberLeaveEvent' from 'linebot.v3.webhooks' (E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\webhooks\__init__.py)
+2025-01-11 19:54:27,073 - INFO - Starting LINE Bot service...
+2025-01-11 19:54:32,153 - ERROR - Could not get ngrok URL
+2025-01-11 19:54:32,153 - ERROR - Error starting LINE Bot: Failed to get ngrok URL
+2025-01-11 19:56:53,597 - INFO - Starting LINE Bot service...
+2025-01-11 19:56:58,958 - ERROR - Could not get ngrok URL
+2025-01-11 19:56:58,959 - ERROR - Error starting LINE Bot: Failed to get ngrok URL
+2025-01-11 19:57:48,958 - INFO - Starting LINE Bot service...
+2025-01-11 19:57:54,101 - INFO - Ngrok URL: https://36d5-2404-0-881d-224c-6015-c04b-2bd7-42af.ngrok-free.app
+2025-01-11 19:57:54,102 - INFO - LINE Bot Webhook URL: https://36d5-2404-0-881d-224c-6015-c04b-2bd7-42af.ngrok-free.app/callback
+2025-01-11 19:57:57,865 - ERROR - Error starting LINE Bot: cannot import name 'MemberLeaveEvent' from 'linebot.v3.webhooks' (E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\webhooks\__init__.py)
+2025-01-11 20:00:00,236 - INFO - Starting LINE Bot service...
+2025-01-11 20:00:05,517 - INFO - Ngrok URL: https://02b5-222-250-254-49.ngrok-free.app
+2025-01-11 20:00:05,517 - INFO - LINE Bot Webhook URL: https://02b5-222-250-254-49.ngrok-free.app/callback
+2025-01-11 20:00:09,270 - ERROR - Error starting LINE Bot: cannot import name 'MemberLeaveEvent' from 'linebot.v3.webhooks' (E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\webhooks\__init__.py)

@@ -52,6 +52,7 @@ import speech_recognition as sr
 from pydub import AudioSegment
 import tempfile
 from apscheduler.schedulers.background import BackgroundScheduler
+import requests
 
 from core.ai_engine import AIEngine
 from core.knowledge_base import KnowledgeBase
@@ -895,8 +896,32 @@ def handle_group_name_change(event):
     except Exception as e:
         logger.error(f"處理群組改名事件時發生錯誤: {str(e)}", exc_info=True)
 
+def get_ngrok_url():
+    """獲取 ngrok 的公開 URL"""
+    max_retries = 5
+    retry_delay = 2  # 秒
+    
+    for attempt in range(max_retries):
+        try:
+            response = requests.get('http://localhost:4040/api/tunnels')
+            if response.status_code == 200:
+                tunnels = response.json()['tunnels']
+                for tunnel in tunnels:
+                    if tunnel['proto'] == 'https':
+                        return tunnel['public_url']
+            logger.warning(f"重試獲取 ngrok URL (嘗試 {attempt + 1}/{max_retries})")
+            time.sleep(retry_delay)
+        except Exception as e:
+            logger.warning(f"獲取 ngrok URL 失敗 (嘗試 {attempt + 1}/{max_retries}): {str(e)}")
+            time.sleep(retry_delay)
+    
+    raise Exception("無法獲取 ngrok URL")
+
 if __name__ == "__main__":
     try:
+        logger.info("Starting LINE Bot service...")
+        print("--------------------------------------------------")
+        
         # 建立 ngrok 設定檔
         ngrok_config = {
             "version": "2",
@@ -914,20 +939,51 @@ if __name__ == "__main__":
             yaml.dump(ngrok_config, f)
         
         # 啟動 ngrok
-        ngrok_process = subprocess.Popen(["ngrok", "start", "line-bot", "--config", config_path])
+        ngrok_process = subprocess.Popen(
+            ["ngrok", "start", "line-bot", "--config", config_path],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE
+        )
         
         # 等待 ngrok 啟動
-        time.sleep(3)
+        time.sleep(5)  # 增加等待時間
         
         try:
-            print('LINE Bot 已啟動於 port 5000')
+            # 獲取 ngrok URL
+            ngrok_url = get_ngrok_url()
+            if not ngrok_url:
+                raise Exception("無法獲取 ngrok URL")
+            
+            webhook_url = f"{ngrok_url}/callback"
+            
+            logger.info(f"Ngrok URL: {ngrok_url}")
+            logger.info(f"LINE Bot Webhook URL: {webhook_url}")
+            
+            print(f"\n✅ Ngrok 轉發網址: {ngrok_url} ")
+            print(f"✅ LINE Bot Webhook URL: {webhook_url}\n")
+            print("請將上述 Webhook URL 設定到 LINE Developers Console")
+            print("網址: https://developers.line.biz/console/\n")
+            print("📝 Ngrok 狀態面板: http://localhost:4040  ")
+            print("--------------------------------------------------")
+            
             app.run(port=5000)
+            
+        except Exception as e:
+            logger.error(f"Error starting LINE Bot: {str(e)}")
+            raise
+            
         finally:
             # 確保程序結束時關閉 ngrok
             ngrok_process.terminate()
+            try:
+                ngrok_process.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                ngrok_process.kill()
             
     except Exception as e:
-        print(f"啟動時發生錯誤: {str(e)}")
+        logger.error(f"啟動時發生錯誤: {str(e)}")
+        sys.exit(1)
+        
     finally:
         if os.path.exists(config_path):
             os.remove(config_path)
