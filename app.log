@@ -7453,3 +7453,15 @@ HTTP response body: {"message":"Invalid reply token"}
 2025-01-11 20:00:05,517 - INFO - Ngrok URL: https://02b5-222-250-254-49.ngrok-free.app
 2025-01-11 20:00:05,517 - INFO - LINE Bot Webhook URL: https://02b5-222-250-254-49.ngrok-free.app/callback
 2025-01-11 20:00:09,270 - ERROR - Error starting LINE Bot: cannot import name 'MemberLeaveEvent' from 'linebot.v3.webhooks' (E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\webhooks\__init__.py)
+2025-01-11 20:02:33,009 - INFO - Starting LINE Bot service...
+2025-01-11 20:02:38,112 - INFO - Ngrok URL: https://33e9-222-250-254-49.ngrok-free.app
+2025-01-11 20:02:38,113 - INFO - LINE Bot Webhook URL: https://33e9-222-250-254-49.ngrok-free.app/callback
+2025-01-11 20:02:41,476 - ERROR - Error starting LINE Bot: cannot import name 'GroupNameChangeEvent' from 'linebot.v3.webhooks' (E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\webhooks\__init__.py)
+2025-01-11 20:05:07,114 - INFO - Starting LINE Bot service...
+2025-01-11 20:05:12,281 - INFO - Ngrok URL: https://f245-222-250-254-49.ngrok-free.app
+2025-01-11 20:05:12,282 - INFO - LINE Bot Webhook URL: https://f245-222-250-254-49.ngrok-free.app/callback
+2025-01-11 20:05:15,728 - ERROR - Error starting LINE Bot: cannot import name 'GroupEvent' from 'linebot.v3.webhooks' (E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\webhooks\__init__.py)
+2025-01-11 20:06:20,914 - INFO - Starting LINE Bot service...
+2025-01-11 20:06:26,137 - INFO - Ngrok URL: https://eac6-222-250-254-49.ngrok-free.app
+2025-01-11 20:06:26,137 - INFO - LINE Bot Webhook URL: https://eac6-222-250-254-49.ngrok-free.app/callback
+2025-01-11 20:06:28,677 - ERROR - Error starting LINE Bot: cannot import name 'GroupEvent' from 'linebot.v3.webhooks' (E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\webhooks\__init__.py)

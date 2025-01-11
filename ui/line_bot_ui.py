@@ -24,9 +24,7 @@ from linebot.v3.webhooks import (
     AudioMessageContent,  # 添加音訊訊息類型
     GroupSource,  # 添加群組來源類型
     JoinEvent,
-    LeaveEvent,
-    MemberLeaveEvent,
-    GroupNameChangeEvent
+    LeaveEvent
 )
 from linebot.v3.exceptions import InvalidSignatureError
 from linebot.v3.messaging.models import (
@@ -879,22 +877,27 @@ def handle_leave(event):
     except Exception as e:
         logger.error(f"處理離開群組事件時發生錯誤: {str(e)}", exc_info=True)
 
-@handler.add(GroupNameChangeEvent)
+@handler.add(MessageEvent)
 def handle_group_name_change(event):
     """處理群組名稱變更事件"""
     try:
         if isinstance(event.source, GroupSource):
             group_id = event.source.group_id
-            new_name = event.group_name
             
-            # 更新群組名稱
-            if message_scheduler.notification_manager.update_group_name(group_id, new_name):
-                logger.info(f"已更新群組名稱：{new_name} (ID: {group_id})")
-            else:
-                logger.warning(f"更新群組名稱失敗：{new_name} (ID: {group_id})")
+            # 獲取最新的群組資訊
+            with ApiClient(configuration) as api_client:
+                line_bot_api = MessagingApi(api_client)
+                group_summary = line_bot_api.get_group_summary(group_id)
+                current_name = group_summary.group_name
                 
+                # 更新群組名稱
+                if message_scheduler.notification_manager.update_group_name(group_id, current_name):
+                    logger.info(f"已更新群組名稱：{current_name} (ID: {group_id})")
+                else:
+                    logger.warning(f"更新群組名稱失敗：{current_name} (ID: {group_id})")
+                    
     except Exception as e:
-        logger.error(f"處理群組改名事件時發生錯誤: {str(e)}", exc_info=True)
+        logger.error(f"處理群組名稱變更事件時發生錯誤: {str(e)}", exc_info=True)
 
 def get_ngrok_url():
     """獲取 ngrok 的公開 URL"""
