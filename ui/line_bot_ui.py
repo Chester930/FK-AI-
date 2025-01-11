@@ -141,6 +141,9 @@ FILE_SETTINGS = {
 def handle_personal_message(event, user_id: str, text: str):
     """處理個人對話消息"""
     try:
+        # 檢查用戶狀態
+        user_state = chat_history.get_state(user_id)
+        
         # 檢查是否要求切換身分
         if text.lower() in ["切換身分", "切換角色", "重新選擇"]:
             chat_history.set_state(user_id, {"role": None})
@@ -151,9 +154,24 @@ def handle_personal_message(event, user_id: str, text: str):
                 )
             )
             return
-
-        # 檢查用戶狀態
-        user_state = chat_history.get_state(user_id)
+        
+        # 檢查是否直接選擇角色（新增這部分）
+        if text in ROLE_OPTIONS:
+            selected_role = ROLE_OPTIONS[text]
+            chat_history.set_state(user_id, {"role": selected_role})
+            response = (
+                f"您已選擇 {ROLE_DESCRIPTIONS[text]}，請問有什麼我可以協助您的嗎？\n\n"
+                "💡 您可以：\n"
+                "1. 直接輸入 A、B、C、D 切換角色\n"
+                "2. 輸入「切換身分」重新選擇"
+            )
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[TextMessage(text=response)]
+                )
+            )
+            return
         
         # 如果是新用戶或沒有角色
         if not user_state or 'role' not in user_state:
@@ -168,29 +186,14 @@ def handle_personal_message(event, user_id: str, text: str):
 
         # 如果用戶正在選擇角色
         if user_state.get('role') is None:
-            if text in ROLE_OPTIONS:
-                selected_role = ROLE_OPTIONS[text]
-                chat_history.set_state(user_id, {"role": selected_role})
-                response = (
-                    f"您已選擇 {ROLE_DESCRIPTIONS[text]}，請問有什麼我可以協助您的嗎？\n\n"
-                    "💡 如果要更換諮詢對象，隨時可以輸入「切換身分」"
+            # 如果輸入的不是有效的角色選項，重新顯示選擇訊息
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[create_role_selection_message()]
                 )
-                line_bot_api.reply_message(
-                    ReplyMessageRequest(
-                        reply_token=event.reply_token,
-                        messages=[TextMessage(text=response)]
-                    )
-                )
-                return
-            else:
-                # 如果輸入的不是有效的角色選項，重新顯示選擇訊息
-                line_bot_api.reply_message(
-                    ReplyMessageRequest(
-                        reply_token=event.reply_token,
-                        messages=[create_role_selection_message()]
-                    )
-                )
-                return
+            )
+            return
 
         # 處理一般對話
         current_role = user_state.get('role')
@@ -268,9 +271,9 @@ def handle_group_message(event, group_id: str, text: str):
         if text.lower() in ["切換身分", "切換角色", "重新選擇"]:
             chat_history.set_state(group_id, {"role": None}, is_group=True)
             welcome_message = TextMessage(
-                text="歡迎使用 Fight.K AI 助手！\n請使用 !A、!B、!C 或 !D 選擇諮詢對象：\n" + \
+                text="歡迎使用 Fight.K AI 助手！\n請選擇諮詢對象：\n" + \
                      "\n".join([f"🔹 !{key}: {ROLE_DESCRIPTIONS[key]}" for key in ROLE_OPTIONS.keys()]) + \
-                     "\n\n💡 提示：您可以隨時輸入「!切換身分」來重新選擇諮詢對象"
+                     "\n\n💡 提示：\n1. 直接輸入 !A、!B、!C、!D 切換角色\n2. 輸入「!切換身分」重新選擇"
             )
             line_bot_api.reply_message(
                 ReplyMessageRequest(
@@ -280,35 +283,53 @@ def handle_group_message(event, group_id: str, text: str):
             )
             return
 
-        # 檢查是否是新群組
-        group_state = chat_history.get_state(group_id, is_group=True)
-        if not group_state:
-            chat_history.set_state(group_id, {"role": None}, is_group=True)
-            welcome_message = TextMessage(
-                text="歡迎使用 Fight.K AI 助手！\n請使用 !A、!B、!C 或 !D 選擇諮詢對象：\n" + \
-                     "\n".join([f"🔹 !{key}: {ROLE_DESCRIPTIONS[key]}" for key in ROLE_OPTIONS.keys()]) + \
-                     "\n\n💡 提示：您可以隨時輸入「!切換身分」來重新選擇諮詢對象"
-            )
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=event.reply_token,
-                    messages=[welcome_message]
-                )
-            )
-            return
-
-        # 處理角色選擇 (移除前綴後的文字應該匹配 ROLE_OPTIONS 的鍵)
+        # 檢查是否直接選擇角色
         if text in ROLE_OPTIONS:
             selected_role = ROLE_OPTIONS[text]
             chat_history.set_state(group_id, {"role": selected_role}, is_group=True)
             response = (
-                f"已為此群組選擇 {ROLE_DESCRIPTIONS[text]}，請問有什麼我可以協助的嗎？\n\n"
-                "💡 如果要更換諮詢對象，請輸入「!切換身分」"
+                f"已切換到 {ROLE_DESCRIPTIONS[text]}，請問有什麼我可以協助您的嗎？\n\n"
+                "💡 您可以：\n"
+                "1. 直接輸入 !A、!B、!C、!D 切換角色\n"
+                "2. 輸入「!切換身分」重新選擇\n"
+                "3. 在訊息前加上 ! 來詢問問題"
             )
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
                     messages=[TextMessage(text=response)]
+                )
+            )
+            return
+
+        # 檢查是否是新群組或沒有角色
+        group_state = chat_history.get_state(group_id, is_group=True)
+        if not group_state or 'role' not in group_state:
+            chat_history.set_state(group_id, {"role": None}, is_group=True)
+            welcome_message = TextMessage(
+                text="歡迎使用 Fight.K AI 助手！\n請選擇諮詢對象：\n" + \
+                     "\n".join([f"🔹 !{key}: {ROLE_DESCRIPTIONS[key]}" for key in ROLE_OPTIONS.keys()]) + \
+                     "\n\n💡 提示：\n1. 直接輸入 !A、!B、!C、!D 切換角色\n2. 輸入「!切換身分」重新選擇"
+            )
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[welcome_message]
+                )
+            )
+            return
+
+        # 如果沒有選擇角色，提示選擇
+        if group_state.get('role') is None:
+            welcome_message = TextMessage(
+                text="請先選擇諮詢對象：\n" + \
+                     "\n".join([f"🔹 !{key}: {ROLE_DESCRIPTIONS[key]}" for key in ROLE_OPTIONS.keys()]) + \
+                     "\n\n💡 提示：\n1. 直接輸入 !A、!B、!C、!D 切換角色\n2. 輸入「!切換身分」重新選擇"
+            )
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[welcome_message]
                 )
             )
             return
