@@ -51,6 +51,9 @@ python run.py --mode admin
 
 ## Line bot 群組 ID
 
+查看群組:
+python tools/list_groups.py
+
 管理員群組: Ca38140041deeb2d703b16cb45b8f3bf1
 測試群組: C6ab768f2ac52e2e4fe4919191d8509b3
 AI 新時代戰隊: C1e53fadf3989586cd315c01925b77fb7

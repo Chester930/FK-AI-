@@ -23,6 +23,7 @@ from linebot.v3.webhooks import (
     ImageMessageContent,  # 添加圖片訊息類型
     AudioMessageContent,  # 添加音訊訊息類型
     GroupSource,  # 添加群組來源類型
+    JoinEvent
 )
 from linebot.v3.exceptions import InvalidSignatureError
 from linebot.v3.messaging.models import (
@@ -414,10 +415,7 @@ def handle_admin_command(event):
     """處理管理員指令"""
     try:
         command = event.message.text.split()
-        cmd = command[0].lower().replace('！', '!')  # 統一轉換為半形驚嘆號
-        
-        # 初始化 message_scheduler
-        message_scheduler = MessageScheduler()
+        cmd = command[0].lower().replace('！', '!')
 
         if cmd == '!help':
             help_text = (
@@ -426,19 +424,17 @@ def handle_admin_command(event):
                 "!schedules - 查看所有排程\n"
                 "!remove_schedule [排程ID] - 刪除指定排程\n"
                 "!groups - 查看所有群組\n\n"
-                "群組指定方式：\n"
-                "- 使用群組NID數字 (例如：1、2、3)\n\n"
-                "時間格式說明：\n"
-                "YYYYMMDD-HH:MM - 完整日期，如 20240101-09:30\n"
-                "YYYYMM-HH:MM - 指定年月，如 202401-09:30\n"
-                "YYYY-HH:MM - 指定年，如 2024-09:30\n"
-                "-HH:MM - 今天，如 -09:30\n"
-                "1-HH:MM - 明天，如 1-09:30\n"
-                "2-HH:MM - 後天，如 2-09:30\n\n"
+                "時間格式：\n"
+                "- YYYYMMDD-HH:MM (例：20240101-09:30)\n"
+                "- MMDD-HH:MM (例：0101-09:30，今年)\n"
+                "- DD-HH:MM (例：01-09:30，本月)\n"
+                "- HH:MM (例：09:30，今天)\n"
+                "- 1-HH:MM (例：1-09:30，隔天)\n"
+                "- 2-HH:MM (例：2-09:30，後天)\n\n"
                 "範例：\n"
-                "!schedule -09:30 1 早安！\n"
-                "!schedule 1-09:30 2 明天早安！\n"
-                "!remove_schedule s1234"
+                "!schedule 09:30 1 早安！ (今天)\n"
+                "!schedule 1-09:30 2 早安！ (隔天)\n"
+                "!schedule 0101-09:30 3 新年快樂！ (明年1月1日)"
             )
             response = help_text
             
@@ -822,6 +818,47 @@ except Exception as e:
 scheduler = BackgroundScheduler()
 scheduler.add_job(save_chat_history, 'interval', minutes=30)
 scheduler.start()
+
+@handler.add(JoinEvent)
+def handle_join(event):
+    """處理 LINE Bot 被邀請加入群組的事件"""
+    try:
+        if isinstance(event.source, GroupSource):
+            group_id = event.source.group_id
+            
+            # 獲取群組資訊
+            with ApiClient(configuration) as api_client:
+                line_bot_api = MessagingApi(api_client)
+                group_summary = line_bot_api.get_group_summary(group_id)
+                group_name = group_summary.group_name
+            
+            # 將群組資訊添加到 notification_manager
+            message_scheduler.notification_manager.add_group(group_id, group_name)
+            
+            # 發送歡迎訊息
+            welcome_message = (
+                f"謝謝邀請我加入「{group_name}」！\n\n"
+                "我是 Fight.K AI 助手，請使用以下指令與我對話：\n"
+                "1. 輸入「!切換身分」選擇對話對象\n"
+                "2. 或直接輸入 !A、!B、!C、!D 選擇以下角色：\n\n"
+                + "\n".join([f"🔹 {key}: {ROLE_DESCRIPTIONS[key]}" for key in ROLE_OPTIONS.keys()]) + "\n\n"
+                "💡 使用說明：\n"
+                "- 所有對話都需要加上 ! 符號\n"
+                "- 例如：!你好、!請問...\n"
+                "- 可隨時使用 !切換身分 重新選擇對話對象"
+            )
+            
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[TextMessage(text=welcome_message)]
+                )
+            )
+            
+            logger.info(f"已加入群組：{group_name} (ID: {group_id})")
+            
+    except Exception as e:
+        logger.error(f"處理加入群組事件時發生錯誤: {str(e)}", exc_info=True)
 
 if __name__ == "__main__":
     try:

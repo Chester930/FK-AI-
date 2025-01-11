@@ -155,98 +155,93 @@ class MessageScheduler:
     def schedule_message(self, group_id: str, datetime_str: str, message: str, file_path: str = None):
         """
         設定在指定時間發送消息
+        :param group_id: LINE群組ID
+        :param datetime_str: 日期時間字符串，支援多種格式：
+            - YYYYMMDD-HH:MM: 完整日期時間
+            - MMDD-HH:MM: 今年的指定日期
+            - DD-HH:MM: 本月的指定日期
+            - HH:MM: 今天的指定時間
+            - 1-HH:MM: 隔天的指定時間
+            - 2-HH:MM: 後天的指定時間
+        :param message: 要發送的消息
+        :param file_path: 可選的文件路徑
         """
         try:
             now = datetime.now(tw_timezone)
             
-            # 解析時間格式
+            # 解析時間字符串
             if '-' in datetime_str:
-                parts = datetime_str.split('-')
-                
-                # 處理日期部分
-                date_part = parts[0]
-                time_part = parts[1]
-                
-                # 解析時間部分 HH:MM
-                try:
-                    hour, minute = map(int, time_part.split(':'))
-                except ValueError:
-                    raise ValueError("時間格式錯誤，請使用 HH:MM 格式")
-                
-                # 根據日期部分長度處理不同情況
+                date_part, time_part = datetime_str.split('-')
+            else:
+                date_part = ''
+                time_part = datetime_str
+            
+            # 解析時間部分
+            try:
+                hour, minute = map(int, time_part.split(':'))
+            except ValueError:
+                raise ValueError("時間格式錯誤，請使用 HH:MM 格式")
+            
+            # 根據不同的日期格式處理
+            if date_part:
                 if len(date_part) == 8:  # YYYYMMDD
-                    year = int(date_part[:4])
-                    month = int(date_part[4:6])
-                    day = int(date_part[6:8])
-                    dt = datetime(year, month, day, hour, minute)
-                elif len(date_part) == 6:  # YYYYMM
-                    year = int(date_part[:4])
-                    month = int(date_part[4:6])
-                    dt = datetime(year, month, now.day, hour, minute)
-                elif len(date_part) == 4:  # YYYY
-                    year = int(date_part)
-                    dt = datetime(year, now.month, now.day, hour, minute)
-                elif len(date_part) == 1:  # N (N天後)
-                    days_ahead = int(date_part)
-                    if days_ahead < 1:
-                        raise ValueError("天數必須大於 0")
-                    dt = (now + timedelta(days=days_ahead)).replace(hour=hour, minute=minute, second=0, microsecond=0)
-                    # 已經是 aware datetime，不需要再次設定時區
-                    return self._schedule_job(dt, group_id, message, file_path)
-                elif len(date_part) == 0:  # 今天
-                    dt = now.replace(hour=hour, minute=minute, second=0, microsecond=0)
-                    # 已經是 aware datetime，不需要再次設定時區
-                    if dt <= now:
-                        dt = dt + timedelta(days=1)
-                    return self._schedule_job(dt, group_id, message, file_path)
+                    dt = datetime.strptime(f"{date_part}{time_part}", '%Y%m%d%H:%M')
+                elif len(date_part) == 4:  # MMDD
+                    dt = datetime.strptime(f"{now.year}{date_part}{time_part}", '%Y%m%d%H:%M')
+                elif len(date_part) == 2:  # DD
+                    dt = datetime.strptime(f"{now.year}{now.month:02d}{date_part}{time_part}", '%Y%m%d%H:%M')
+                elif date_part == '1':  # 隔天
+                    dt = (now + timedelta(days=1)).replace(hour=hour, minute=minute)
+                elif date_part == '2':  # 後天
+                    dt = (now + timedelta(days=2)).replace(hour=hour, minute=minute)
                 else:
                     raise ValueError("日期格式錯誤")
-                
-                # 對於年月日的情況，需要設定時區
-                dt = tw_timezone.localize(dt.replace(second=0, microsecond=0))
-                
-                # 檢查是否過期
-                if dt <= now:
+            else:  # 只有時間，代表今天
+                dt = now.replace(hour=hour, minute=minute)
+            
+            # 設定為台灣時區
+            dt = tw_timezone.localize(dt)
+            
+            # 如果設定的時間已經過去，根據情況調整
+            if dt <= now:
+                if not date_part or len(date_part) <= 2:  # 如果是相對日期或今天，則順延到明天
+                    dt = dt + timedelta(days=1)
+                else:
                     raise ValueError("無法設定過去的時間")
-                
-                return self._schedule_job(dt, group_id, message, file_path)
-                
-            else:
-                raise ValueError("時間格式錯誤，請使用正確的格式，例如：\n"
-                               "20240101-09:30 (指定年月日)\n"
-                               "202401-09:30 (指定年月)\n"
-                               "2024-09:30 (指定年)\n"
-                               "-09:30 (今天)\n"
-                               "1-09:30 (明天)\n"
-                               "2-09:30 (後天)")
-                
+            
+            job_id = f"message_job_{group_id}_{datetime.now().timestamp()}"
+            
+            # 添加任務
+            self.scheduler.add_job(
+                func=self.send_message,
+                trigger=DateTrigger(run_date=dt, timezone=tw_timezone),
+                args=[group_id, message, file_path],
+                id=job_id,
+                name=f"Send message to {group_id} at {dt.strftime('%Y-%m-%d %H:%M')}"
+            )
+            
+            logger.info(f"Scheduled message for {dt.strftime('%Y-%m-%d %H:%M')}")
+            return {
+                'job_id': job_id,
+                'scheduled_time': dt.strftime('%Y-%m-%d %H:%M'),
+                'message': message,
+                'file_path': file_path
+            }
+            
         except ValueError as e:
             logger.error(f"Invalid datetime format: {str(e)}")
-            raise ValueError(str(e))
+            raise ValueError(
+                "時間格式錯誤。支援的格式：\n"
+                "- YYYYMMDD-HH:MM (例：20240101-09:30)\n"
+                "- MMDD-HH:MM (例：0101-09:30)\n"
+                "- DD-HH:MM (例：01-09:30)\n"
+                "- HH:MM (例：09:30，今天)\n"
+                "- 1-HH:MM (例：1-09:30，隔天)\n"
+                "- 2-HH:MM (例：2-09:30，後天)"
+            )
         except Exception as e:
             logger.error(f"Error scheduling message: {str(e)}")
             raise
-
-    def _schedule_job(self, dt, group_id, message, file_path=None):
-        """內部方法：建立排程任務"""
-        job_id = f"message_job_{group_id}_{int(datetime.now().timestamp())}"
-        
-        # 添加任務
-        self.scheduler.add_job(
-            func=self.send_message,
-            trigger=DateTrigger(run_date=dt, timezone=tw_timezone),
-            args=[group_id, message, file_path],
-            id=job_id,
-            name=f"Send message to {group_id} at {dt.strftime('%Y-%m-%d %H:%M')}"
-        )
-        
-        logger.info(f"Scheduled message for {dt.strftime('%Y-%m-%d %H:%M')}")
-        return {
-            'job_id': job_id,
-            'scheduled_time': dt.strftime('%Y-%m-%d %H:%M'),
-            'message': message,
-            'file_path': file_path
-        }
 
     def list_schedules(self):
         """列出所有排程"""
