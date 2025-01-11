@@ -134,10 +134,47 @@ class NotificationManager:
 
     def remove_group(self, group_id: str):
         """移除群組"""
-        if group_id in self.groups:
-            del self.groups[group_id]
-            return self.save_groups()
-        return False
+        try:
+            if group_id in self.groups:
+                # 移除群組基本資訊
+                group_name = self.groups[group_id]
+                del self.groups[group_id]
+                
+                # 移除群組 NID
+                nid_to_remove = None
+                for nid, gid in self.group_nids.items():
+                    if gid == group_id:
+                        nid_to_remove = nid
+                        break
+                if nid_to_remove:
+                    del self.group_nids[nid_to_remove]
+                
+                # 儲存更新後的資料
+                self._save_groups()
+                self._save_group_nids(self.group_nids)
+                
+                logger.info(f"已移除群組：{group_name} (ID: {group_id}, NID: {nid_to_remove})")
+                return True
+            return False
+        except Exception as e:
+            logger.error(f"移除群組時發生錯誤: {str(e)}")
+            return False
+
+    def update_group_name(self, group_id: str, new_name: str):
+        """更新群組名稱"""
+        try:
+            if group_id in self.groups:
+                old_name = self.groups[group_id]
+                self.groups[group_id] = new_name
+                self._save_groups()
+                
+                nid = self.get_nid_by_group_id(group_id)
+                logger.info(f"已更新群組名稱 (NID: {nid}): {old_name} -> {new_name}")
+                return True
+            return False
+        except Exception as e:
+            logger.error(f"更新群組名稱時發生錯誤: {str(e)}")
+            return False
 
     def add_schedule(self, schedule_data: dict):
         """新增排程"""

@@ -23,7 +23,10 @@ from linebot.v3.webhooks import (
     ImageMessageContent,  # 添加圖片訊息類型
     AudioMessageContent,  # 添加音訊訊息類型
     GroupSource,  # 添加群組來源類型
-    JoinEvent
+    JoinEvent,
+    LeaveEvent,
+    MemberLeaveEvent,
+    GroupNameChangeEvent
 )
 from linebot.v3.exceptions import InvalidSignatureError
 from linebot.v3.messaging.models import (
@@ -833,7 +836,8 @@ def handle_join(event):
                 group_name = group_summary.group_name
             
             # 將群組資訊添加到 notification_manager
-            message_scheduler.notification_manager.add_group(group_id, group_name)
+            if message_scheduler.notification_manager.add_group(group_id, group_name):
+                logger.info(f"已加入並記錄群組：{group_name} (ID: {group_id})")
             
             # 發送歡迎訊息
             welcome_message = (
@@ -855,10 +859,41 @@ def handle_join(event):
                 )
             )
             
-            logger.info(f"已加入群組：{group_name} (ID: {group_id})")
-            
     except Exception as e:
         logger.error(f"處理加入群組事件時發生錯誤: {str(e)}", exc_info=True)
+
+@handler.add(LeaveEvent)
+def handle_leave(event):
+    """處理 LINE Bot 離開群組的事件"""
+    try:
+        if isinstance(event.source, GroupSource):
+            group_id = event.source.group_id
+            
+            # 從記錄中移除群組
+            if message_scheduler.notification_manager.remove_group(group_id):
+                logger.info(f"已離開並清除群組記錄 (ID: {group_id})")
+            else:
+                logger.warning(f"清除群組記錄失敗 (ID: {group_id})")
+                
+    except Exception as e:
+        logger.error(f"處理離開群組事件時發生錯誤: {str(e)}", exc_info=True)
+
+@handler.add(GroupNameChangeEvent)
+def handle_group_name_change(event):
+    """處理群組名稱變更事件"""
+    try:
+        if isinstance(event.source, GroupSource):
+            group_id = event.source.group_id
+            new_name = event.group_name
+            
+            # 更新群組名稱
+            if message_scheduler.notification_manager.update_group_name(group_id, new_name):
+                logger.info(f"已更新群組名稱：{new_name} (ID: {group_id})")
+            else:
+                logger.warning(f"更新群組名稱失敗：{new_name} (ID: {group_id})")
+                
+    except Exception as e:
+        logger.error(f"處理群組改名事件時發生錯誤: {str(e)}", exc_info=True)
 
 if __name__ == "__main__":
     try:
