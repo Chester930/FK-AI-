@@ -57,6 +57,7 @@ from core.prompts import PromptManager
 from config import KNOWLEDGE_BASE_PATHS, LINE_CHANNEL_SECRET, LINE_CHANNEL_ACCESS_TOKEN, FILE_SETTINGS, ADMIN_GROUP_ID, ADMIN_COMMANDS
 from utils.scheduled_messages import MessageScheduler
 from utils.chat_history import ChatHistory
+from utils.web_search import WebSearcher
 
 load_dotenv()  # 加載 .env 檔案中的環境變數
 
@@ -85,6 +86,9 @@ user_states = {}
 
 # 初始化 ChatHistory
 chat_history = ChatHistory(max_history=10)
+
+# 初始化 WebSearcher
+web_searcher = WebSearcher()
 
 # 自我介紹訊息
 INTRODUCTION_MESSAGE = """
@@ -182,12 +186,25 @@ def handle_personal_message(event, user_id: str, text: str):
         if text in ROLE_OPTIONS:
             selected_role = ROLE_OPTIONS[text]
             chat_history.set_state(user_id, {"role": selected_role})
-            response = (
-                f"您已選擇 {ROLE_DESCRIPTIONS[text]}，請問有什麼我可以協助您的嗎？\n\n"
-                "💡 您可以：\n"
-                "1. 直接輸入 A、B、C、D 切換角色\n"
-                "2. 輸入「切換身分」重新選擇"
-            )
+            
+            # 根據不同角色給出不同的回應
+            if selected_role == 'FK helper':
+                response = (
+                    f"您已選擇 {ROLE_DESCRIPTIONS[text]}，我可以：\n"
+                    "1. 回答一般問題\n"
+                    "2. 使用網路搜尋最新資訊\n"
+                    "3. 協助解答各種疑問\n\n"
+                    "💡 提示：\n"
+                    "- 直接輸入 A、B、C、D 切換角色\n"
+                    "- 輸入「切換身分」重新選擇"
+                )
+            else:
+                response = (
+                    f"您已選擇 {ROLE_DESCRIPTIONS[text]}，請問有什麼我可以協助您的嗎？\n\n"
+                    "💡 您可以：\n"
+                    "1. 直接輸入 A、B、C、D 切換角色\n"
+                    "2. 輸入「切換身分」重新選擇"
+                )
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
@@ -209,6 +226,21 @@ def handle_personal_message(event, user_id: str, text: str):
         # 處理一般對話
         current_role = user_state.get('role')
         
+        # 只有 FK helper 可以使用網路搜尋
+        if current_role == 'FK helper':
+            logger.info(f"FK helper 開始網路搜尋: {text}")
+            # 進行網路搜尋
+            temp_file = web_searcher.search_and_save(text)
+            if temp_file:
+                logger.info(f"搜尋結果已保存到: {temp_file}")
+                web_content = web_searcher.read_search_results(temp_file)
+                logger.info(f"網路搜尋結果長度: {len(web_content)}")
+            else:
+                logger.warning("網路搜尋未返回結果")
+                web_content = ""
+        else:
+            web_content = ""
+        
         # 初始化 KnowledgeBase
         knowledge_base = KnowledgeBase(KNOWLEDGE_BASE_PATHS[current_role])
         
@@ -226,8 +258,23 @@ def handle_personal_message(event, user_id: str, text: str):
             )
             return
 
-        # 組合完整提示詞
-        full_prompt = f"{prompt}\n\n背景知識：\n{relevant_knowledge}\n\n問題：{text}\n回答："
+        # 組合完整提示詞，加入網路搜尋結果
+        full_prompt = (
+            f"{prompt}\n\n"
+            f"系統資訊：\n"
+            f"1. 你是 {current_role}\n"
+        )
+
+        if current_role == 'FK helper':
+            full_prompt += "2. 你有上網搜尋的能力，可以查詢最新資訊\n"
+        
+        full_prompt += f"\n背景知識：\n{relevant_knowledge}\n\n"
+
+        # 如果有網路搜尋結果，加入提示詞
+        if web_content:
+            full_prompt += f"網路搜尋結果：\n{web_content}\n\n"
+            
+        full_prompt += f"問題：{text}\n回答："
         
         # 生成回應
         response = ai_engine.generate_response(full_prompt)
