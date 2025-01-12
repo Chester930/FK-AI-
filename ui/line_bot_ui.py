@@ -121,10 +121,20 @@ def create_role_selection_message():
         ) for key in ROLE_OPTIONS.keys()
     ]
     
-    role_options_text = "\n".join([f"🔹 {key}: {ROLE_DESCRIPTIONS[key]}" for key in ROLE_OPTIONS.keys()])
+    # 修改歡迎訊息格式
+    welcome_message = (
+        "請先選擇諮詢對象：\n"
+        f"🔹 A: {ROLE_DESCRIPTIONS['A']}\n"
+        f"🔹 B: {ROLE_DESCRIPTIONS['B']}\n"
+        f"🔹 C: {ROLE_DESCRIPTIONS['C']}\n"
+        f"🔹 D: {ROLE_DESCRIPTIONS['D']}\n\n"
+        "💡 提示：\n"
+        "1. 直接輸入 A、B、C、D 切換角色\n"
+        "2. 輸入「切換身分」重新選擇"
+    )
     
     return TextMessage(
-        text=INTRODUCTION_MESSAGE.format(role_options=role_options_text),
+        text=welcome_message,
         quick_reply=QuickReply(items=quick_reply_items)
     )
 
@@ -144,6 +154,17 @@ def handle_personal_message(event, user_id: str, text: str):
         # 檢查用戶狀態
         user_state = chat_history.get_state(user_id)
         
+        # 確保新用戶或重啟後的用戶都會看到歡迎訊息
+        if not user_state or 'role' not in user_state:
+            chat_history.set_state(user_id, {"role": None})
+            line_bot_api.reply_message(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[create_role_selection_message()]
+                )
+            )
+            return
+            
         # 檢查是否要求切換身分
         if text.lower() in ["切換身分", "切換角色", "重新選擇"]:
             chat_history.set_state(user_id, {"role": None})
@@ -154,8 +175,8 @@ def handle_personal_message(event, user_id: str, text: str):
                 )
             )
             return
-        
-        # 檢查是否直接選擇角色（新增這部分）
+
+        # 檢查是否直接選擇角色
         if text in ROLE_OPTIONS:
             selected_role = ROLE_OPTIONS[text]
             chat_history.set_state(user_id, {"role": selected_role})
@@ -172,21 +193,9 @@ def handle_personal_message(event, user_id: str, text: str):
                 )
             )
             return
-        
-        # 如果是新用戶或沒有角色
-        if not user_state or 'role' not in user_state:
-            chat_history.set_state(user_id, {"role": None})
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=event.reply_token,
-                    messages=[create_role_selection_message()]
-                )
-            )
-            return
 
-        # 如果用戶正在選擇角色
+        # 如果用戶沒有選擇角色，顯示選擇訊息
         if user_state.get('role') is None:
-            # 如果輸入的不是有效的角色選項，重新顯示選擇訊息
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
@@ -229,9 +238,14 @@ def handle_personal_message(event, user_id: str, text: str):
             )
         )
         
-        # 更新對話歷史
-        chat_history.add_message(user_id, "user", text)
-        chat_history.add_message(user_id, "assistant", response)
+        # 處理一般對話時才保存對話歷史
+        if user_state.get('role') is not None:
+            # 更新對話歷史（僅保存最近的對話）
+            chat_history.add_message(user_id, "user", text)
+            chat_history.add_message(user_id, "assistant", response)
+            
+            # 保存到文件
+            chat_history.save_to_file('data/chat_history.json')
         
     except Exception as e:
         logger.error(f"處理個人訊息時發生錯誤: {str(e)}", exc_info=True)
@@ -802,29 +816,21 @@ def handle_audio(event):
         except Exception as reply_error:
             logger.error(f"發送錯誤訊息失敗: {str(reply_error)}")
 
-# 添加定期保存對話歷史的功能
-def save_chat_history():
-    """定期保存對話歷史"""
-    try:
-        chat_history.save_to_file('data/chat_history.json')
-        logger.info("Chat history saved successfully")
-    except Exception as e:
-        logger.error(f"Error saving chat history: {e}", exc_info=True)
-
-# 在應用啟動時載入歷史記錄
-try:
-    chat_history.load_from_file('data/chat_history.json')
-    logger.info("Chat history loaded successfully")
-except Exception as e:
-    logger.error(f"Error loading chat history: {e}", exc_info=True)
-
-# 設置定期保存
-scheduler = BackgroundScheduler()
-scheduler.add_job(save_chat_history, 'interval', minutes=30)
-scheduler.start()
-
 if __name__ == "__main__":
     try:
+        # 清除對話歷史
+        chat_history_file = 'data/chat_history.json'
+        with open(chat_history_file, 'w', encoding='utf-8') as f:
+            json.dump({
+                "personal_history": {},
+                "group_history": {},
+                "personal_states": {},
+                "group_states": {}
+            }, f, ensure_ascii=False, indent=4)
+        
+        # 初始化一個全新的 chat_history 物件
+        chat_history = ChatHistory(max_history=10)
+        
         # 建立 ngrok 設定檔
         ngrok_config = {
             "version": "2",
