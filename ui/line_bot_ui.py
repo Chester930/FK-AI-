@@ -154,6 +154,16 @@ FILE_SETTINGS = {
     'temp_folder': 'temp'
 }
 
+def is_fightk_related(text: str) -> bool:
+    """檢查文字是否與 Fight.K 相關"""
+    keywords = [
+        'fight.k', 'fk', '張蒙恩', '蒙恩哥', 
+        'fight k', 'fightk', '張使徒', 
+        '國際心教育', '心教育'
+    ]
+    text_lower = text.lower()
+    return any(keyword in text_lower for keyword in keywords)
+
 def handle_personal_message(event, user_id: str, text: str):
     """處理個人對話消息"""
     try:
@@ -226,10 +236,24 @@ def handle_personal_message(event, user_id: str, text: str):
         # 處理一般對話
         current_role = user_state.get('role')
         
-        # 只有 FK helper 可以使用網路搜尋
-        if current_role == 'FK helper':
+        # 初始化 KnowledgeBase
+        knowledge_base = KnowledgeBase(KNOWLEDGE_BASE_PATHS[current_role])
+        
+        # 獲取相關知識
+        relevant_knowledge = knowledge_base.search(text)
+        
+        # 檢查是否需要網路搜尋
+        need_web_search = True
+        if is_fightk_related(text):
+            # 如果問題與 Fight.K 相關且知識庫有內容，就不需要網路搜尋
+            if relevant_knowledge.strip():
+                need_web_search = False
+                logger.info("使用知識庫回答 Fight.K 相關問題")
+        
+        # 進行網路搜尋（如果需要）
+        web_content = ""
+        if current_role == 'FK helper' and need_web_search:
             logger.info(f"FK helper 開始網路搜尋: {text}")
-            # 進行網路搜尋
             temp_file = web_searcher.search_and_save(text)
             if temp_file:
                 logger.info(f"搜尋結果已保存到: {temp_file}")
@@ -237,15 +261,6 @@ def handle_personal_message(event, user_id: str, text: str):
                 logger.info(f"網路搜尋結果長度: {len(web_content)}")
             else:
                 logger.warning("網路搜尋未返回結果")
-                web_content = ""
-        else:
-            web_content = ""
-        
-        # 初始化 KnowledgeBase
-        knowledge_base = KnowledgeBase(KNOWLEDGE_BASE_PATHS[current_role])
-        
-        # 獲取相關知識
-        relevant_knowledge = knowledge_base.search(text)
         
         # 獲取提示詞
         prompt = prompt_manager.get_prompt(current_role)
@@ -258,7 +273,7 @@ def handle_personal_message(event, user_id: str, text: str):
             )
             return
 
-        # 組合完整提示詞，加入網路搜尋結果
+        # 組合完整提示詞
         full_prompt = (
             f"{prompt}\n\n"
             f"系統資訊：\n"
@@ -267,6 +282,8 @@ def handle_personal_message(event, user_id: str, text: str):
 
         if current_role == 'FK helper':
             full_prompt += "2. 你有上網搜尋的能力，可以查詢最新資訊\n"
+            if is_fightk_related(text):
+                full_prompt += "3. 這是一個與 Fight.K 相關的問題，優先使用知識庫的內容回答\n"
         
         full_prompt += f"\n背景知識：\n{relevant_knowledge}\n\n"
 
@@ -441,38 +458,40 @@ def handle_message(event):
         # 檢查是否來自群組
         if isinstance(event.source, GroupSource):
             group_id = event.source.group_id
-            
-            # 檢查群組名稱變更
-            try:
-                with ApiClient(configuration) as api_client:
-                    line_bot_api = MessagingApi(api_client)
-                    group_summary = line_bot_api.get_group_summary(group_id)
-                    current_name = group_summary.group_name
-                    
-                    # 從資料庫獲取舊的群組名稱
-                    old_name = message_scheduler.notification_manager.groups.get(group_id, {}).get('name', '')
-                    
-                    # 如果名稱有變更，才更新
-                    if old_name and old_name != current_name:
-                        if message_scheduler.notification_manager.update_group_name(group_id, current_name):
-                            logger.info(f"群組名稱已更新：{old_name} -> {current_name} (ID: {group_id})")
-                        else:
-                            logger.warning(f"群組名稱更新失敗：{old_name} -> {current_name} (ID: {group_id})")
-            except Exception as e:
-                logger.error(f"檢查群組名稱時發生錯誤: {str(e)}")
-            
-            # 處理群組訊息
             message_text = event.message.text
-            # 檢查是否有前綴（支持中英文驚嘆號）
-            is_command = message_text.startswith(('!', '！'))
             
-            # 檢查是否來自管理員群組
-            is_admin = group_id == ADMIN_GROUP_ID
-            
-            if is_admin and is_command:
-                handle_admin_command(event)
-            elif is_command:
-                handle_group_message(event, group_id, message_text)
+            # 只有在收到文字訊息時才檢查群組名稱
+            if isinstance(event.message, TextMessageContent):
+                # 檢查是否有前綴（支持中英文驚嘆號）
+                is_command = message_text.startswith(('!', '！'))
+                
+                # 只在收到指令時才檢查群組名稱
+                if is_command:
+                    try:
+                        with ApiClient(configuration) as api_client:
+                            line_bot_api = MessagingApi(api_client)
+                            group_summary = line_bot_api.get_group_summary(group_id)
+                            current_name = group_summary.group_name
+                            
+                            # 從資料庫獲取舊的群組名稱
+                            old_name = message_scheduler.notification_manager.groups.get(group_id, {}).get('name', '')
+                            
+                            # 如果名稱有變更，才更新
+                            if old_name and old_name != current_name:
+                                if message_scheduler.notification_manager.update_group_name(group_id, current_name):
+                                    logger.info(f"群組名稱已更新：{old_name} -> {current_name} (ID: {group_id})")
+                                else:
+                                    logger.warning(f"群組名稱更新失敗：{old_name} -> {current_name} (ID: {group_id})")
+                    except Exception as e:
+                        logger.error(f"檢查群組名稱時發生錯誤: {str(e)}")
+                
+                # 檢查是否來自管理員群組
+                is_admin = group_id == ADMIN_GROUP_ID
+                
+                if is_admin and is_command:
+                    handle_admin_command(event)
+                elif is_command:
+                    handle_group_message(event, group_id, message_text)
         else:
             # 處理個人訊息
             user_id = event.source.user_id
