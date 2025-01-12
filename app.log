@@ -7703,3 +7703,82 @@ HTTP response body: {"message":"Invalid reply token"}
 2025-01-12 14:05:53,260 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543297673831907398","quoteToken":"7L0RB8XxOskXa76q4NPRQky6juIOFIH2DyrlV9tNJ6t4SMUrFtvuf_iyPMuMfyj5sRF6E4UR4-09CT4CMPpswU4GYUX05Xg7WnGVMSxZqX7h5_bvjYn4xFbCZUn3L8-EJ3GOqgxVeXu6eIq-2953vA","text":"你好"},"webhookEventId":"01JHCHWTM2XX07B9PM3534EPTN","deliveryContext":{"isRedelivery":false},"timestamp":1736661952647,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"6d98abc3e25647e7b6330be017d6c7ee","mode":"active"}]}
 2025-01-12 14:05:53,507 - INFO - Message handled successfully
 2025-01-12 14:05:53,508 - INFO - 127.0.0.1 - - [12/Jan/2025 14:05:53] "POST /callback HTTP/1.1" 200 -
+2025-01-12 14:21:17,278 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543299224415240310","quoteToken":"ZqMbt9aUtVsdQX9Va-VnU5qkpdiVmREHYSwnE9WJSdQ7YtaIWp1JbDPlIlo3lvChFqBS6a7rVEXzod-IgbPp4eMdiIbJifNmmmFUcoOT1jB7lxlNUd1ESa7YY4BTx15pLksVmyiOWkJ6vGdrYE3kDw","text":"!help"},"webhookEventId":"01JHCJS0YYAM712RPRGNQ9R3P4","deliveryContext":{"isRedelivery":false},"timestamp":1736662876937,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"fa74eb9293924782bcfeaec3a3a3c4c4","mode":"active"}]}
+2025-01-12 14:21:17,289 - INFO - Scheduler started
+2025-01-12 14:21:17,293 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-12 14:21:17,294 - INFO - Added weekly notification: 123...
+2025-01-12 14:21:17,543 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-12 14:21:17]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-12 14:21:17
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-12 14:21:17,545 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-12 14:21:17,790 - INFO - Message handled successfully
+2025-01-12 14:21:17,792 - INFO - 127.0.0.1 - - [12/Jan/2025 14:21:17] "POST /callback HTTP/1.1" 200 -
+2025-01-12 14:21:27,684 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543299241444376758","quoteToken":"f90hIsIbMN-PvNh-ObQqq7FmcZYpCR9xHTp00Jqh5666KP3OnYKaNm05YvrO2eNLkAopZjxcdBxvC6c0212OdK7w4oUjVk0_-5IEwujWQCaR33AiYETsfRdZyVwvhVxKNdy1mu49gwbj3GEvlwB8ng","text":"!groups"},"webhookEventId":"01JHCJSB401NJ2MJET416DN47C","deliveryContext":{"isRedelivery":false},"timestamp":1736662887098,"source":{"type":"group","groupId":"Ca38140041deeb2d703b16cb45b8f3bf1","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"782c2ef4401e4c4eabdf5919c5f773f1","mode":"active"}]}
+2025-01-12 14:21:27,692 - INFO - Scheduler started
+2025-01-12 14:21:27,694 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-12 14:21:27,695 - INFO - Added weekly notification: 123...
+2025-01-12 14:21:27,906 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-12 14:21:27]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-12 14:21:27
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-12 14:21:27,913 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-12 14:21:28,053 - INFO - Message handled successfully
+2025-01-12 14:21:28,054 - INFO - 127.0.0.1 - - [12/Jan/2025 14:21:28] "POST /callback HTTP/1.1" 200 -
+2025-01-12 14:23:26,032 - INFO - Starting LINE Bot service...
+2025-01-12 14:23:33,884 - ERROR - Error getting ngrok URL: HTTPConnectionPool(host='localhost', port=4040): Max retries exceeded with url: /api/tunnels (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002B68381BCA0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))
+2025-01-12 14:23:33,885 - ERROR - Could not get ngrok URL
+2025-01-12 14:23:33,885 - ERROR - Error starting LINE Bot: Failed to get ngrok URL
+2025-01-12 14:24:02,276 - INFO - Starting LINE Bot service...
+2025-01-12 14:24:09,416 - ERROR - Error getting ngrok URL: HTTPConnectionPool(host='localhost', port=4040): Max retries exceeded with url: /api/tunnels (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000257F2E4BCA0>: Failed to establish a new connection: [WinError 10061] 無法連線，因為目標電腦拒絕連線。'))
+2025-01-12 14:24:09,429 - ERROR - Could not get ngrok URL
+2025-01-12 14:24:09,430 - ERROR - Error starting LINE Bot: Failed to get ngrok URL
+2025-01-12 14:24:21,322 - INFO - Starting LINE Bot service...
+2025-01-12 14:24:26,398 - INFO - Ngrok URL: https://8744-61-61-4-25.ngrok-free.app
+2025-01-12 14:24:26,398 - INFO - LINE Bot Webhook URL: https://8744-61-61-4-25.ngrok-free.app/callback
+2025-01-12 14:24:39,545 - INFO - Scheduler started
+2025-01-12 14:24:39,553 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-12 14:24:39,554 - INFO - Added weekly notification: 123...
+2025-01-12 14:24:39,866 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-12 14:24:39]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-12 14:24:39
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-12 14:24:39,868 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-12 14:24:39,870 - INFO - LINE Bot service started on port 5000
+2025-01-12 14:24:39,889 - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2025-01-12 14:25:20,674 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"join","webhookEventId":"01JHCK0EKTK5V1SRRVY5BS0GV0","deliveryContext":{"isRedelivery":false},"timestamp":1736663120144,"source":{"type":"group","groupId":"C69d881fae6f5d651d36d738eab6b637e"},"replyToken":"058c37585ab041fdaf5c8ecc55ef6bbf","mode":"active"}]}
+2025-01-12 14:25:20,890 - INFO - 已新增群組：筆記 (ID: C69d881fae6f5d651d36d738eab6b637e)
+2025-01-12 14:25:21,050 - INFO - Message handled successfully
+2025-01-12 14:25:21,051 - INFO - 127.0.0.1 - - [12/Jan/2025 14:25:21] "POST /callback HTTP/1.1" 200 -
+2025-01-12 14:25:54,747 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"leave","webhookEventId":"01JHCK1FXXP97WK2FJTCEBK7AP","deliveryContext":{"isRedelivery":false},"timestamp":1736663154106,"source":{"type":"group","groupId":"C69d881fae6f5d651d36d738eab6b637e"},"mode":"active"}]}
+2025-01-12 14:25:54,750 - INFO - 已移除群組記錄 (ID: C69d881fae6f5d651d36d738eab6b637e)
+2025-01-12 14:25:54,751 - INFO - Message handled successfully
+2025-01-12 14:25:54,751 - INFO - 127.0.0.1 - - [12/Jan/2025 14:25:54] "POST /callback HTTP/1.1" 200 -
+2025-01-12 14:26:24,200 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"join","webhookEventId":"01JHCK2CNCDTEQRW33KKV6JV1R","deliveryContext":{"isRedelivery":false},"timestamp":1736663183816,"source":{"type":"group","groupId":"C69d881fae6f5d651d36d738eab6b637e"},"replyToken":"d2ad404fad9343cb9c4fc1b131ce5a1e","mode":"active"}]}
+2025-01-12 14:26:24,520 - INFO - 已新增群組：筆記 (ID: C69d881fae6f5d651d36d738eab6b637e)
+2025-01-12 14:26:24,660 - INFO - Message handled successfully
+2025-01-12 14:26:24,661 - INFO - 127.0.0.1 - - [12/Jan/2025 14:26:24] "POST /callback HTTP/1.1" 200 -

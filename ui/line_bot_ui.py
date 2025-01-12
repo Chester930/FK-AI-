@@ -23,6 +23,8 @@ from linebot.v3.webhooks import (
     ImageMessageContent,  # 添加圖片訊息類型
     AudioMessageContent,  # 添加音訊訊息類型
     GroupSource,  # 添加群組來源類型
+    JoinEvent,
+    LeaveEvent
 )
 from linebot.v3.exceptions import InvalidSignatureError
 from linebot.v3.messaging.models import (
@@ -812,6 +814,79 @@ def handle_audio(event):
             )
         except Exception as reply_error:
             logger.error(f"發送錯誤訊息失敗: {str(reply_error)}")
+
+@handler.add(JoinEvent)
+def handle_join(event):
+    """處理機器人加入群組事件"""
+    try:
+        if isinstance(event.source, GroupSource):
+            group_id = event.source.group_id
+            
+            # 獲取群組資訊
+            with ApiClient(configuration) as api_client:
+                line_bot_api = MessagingApi(api_client)
+                group_summary = line_bot_api.get_group_summary(group_id)
+                group_name = group_summary.group_name
+                
+                # 新增群組記錄
+                if message_scheduler.notification_manager.add_group(group_id, group_name):
+                    logger.info(f"已新增群組：{group_name} (ID: {group_id})")
+                    
+                    # 發送歡迎訊息
+                    welcome_message = (
+                        f"謝謝您邀請我加入「{group_name}」！\n"
+                        "在群組中要呼叫我，請在訊息前加上 ! 符號\n"
+                        "例如：!你好"
+                    )
+                    line_bot_api.reply_message(
+                        ReplyMessageRequest(
+                            reply_token=event.reply_token,
+                            messages=[TextMessage(text=welcome_message)]
+                        )
+                    )
+                else:
+                    logger.error(f"新增群組失敗：{group_name} (ID: {group_id})")
+                    
+    except Exception as e:
+        logger.error(f"處理加入群組事件時發生錯誤: {str(e)}", exc_info=True)
+
+@handler.add(LeaveEvent)
+def handle_leave(event):
+    """處理機器人離開群組事件"""
+    try:
+        if isinstance(event.source, GroupSource):
+            group_id = event.source.group_id
+            
+            # 移除群組記錄
+            if message_scheduler.notification_manager.remove_group(group_id):
+                logger.info(f"已移除群組記錄 (ID: {group_id})")
+            else:
+                logger.error(f"移除群組記錄失敗 (ID: {group_id})")
+                
+    except Exception as e:
+        logger.error(f"處理離開群組事件時發生錯誤: {str(e)}", exc_info=True)
+
+@handler.add(MessageEvent)
+def handle_group_name_change(event):
+    """處理群組名稱變更事件"""
+    try:
+        if isinstance(event.source, GroupSource):
+            group_id = event.source.group_id
+            
+            # 獲取最新的群組資訊
+            with ApiClient(configuration) as api_client:
+                line_bot_api = MessagingApi(api_client)
+                group_summary = line_bot_api.get_group_summary(group_id)
+                current_name = group_summary.group_name
+                
+                # 更新群組名稱
+                if message_scheduler.notification_manager.update_group_name(group_id, current_name):
+                    logger.info(f"已更新群組名稱：{current_name} (ID: {group_id})")
+                else:
+                    logger.warning(f"更新群組名稱失敗：{current_name} (ID: {group_id})")
+                    
+    except Exception as e:
+        logger.error(f"處理群組名稱變更事件時發生錯誤: {str(e)}", exc_info=True)
 
 if __name__ == "__main__":
     try:

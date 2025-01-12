@@ -102,15 +102,62 @@ class NotificationManager:
 
     def add_group(self, group_id: str, group_name: str):
         """新增群組"""
-        self.groups[group_id] = group_name
-        return self.save_groups()
+        try:
+            # 更新群組資訊
+            self.groups[group_id] = {
+                'name': group_name,
+                'joined_at': datetime.now(pytz.UTC).isoformat()
+            }
+            
+            # 如果群組還沒有 NID，分配一個新的
+            if not self.get_nid_by_group_id(group_id):
+                new_nid = str(len(self.nids) + 1)
+                self.nids[new_nid] = group_id
+                self.save_nids()
+            
+            return self.save_groups()
+        except Exception as e:
+            logger.error(f"新增群組時發生錯誤: {e}")
+            return False
 
     def remove_group(self, group_id: str):
         """移除群組"""
-        if group_id in self.groups:
-            del self.groups[group_id]
+        try:
+            # 從群組列表中移除
+            if group_id in self.groups:
+                del self.groups[group_id]
+            
+            # 從 NID 對應中移除
+            nid = self.get_nid_by_group_id(group_id)
+            if nid and nid in self.nids:
+                del self.nids[nid]
+                self.save_nids()
+            
             return self.save_groups()
-        return False
+        except Exception as e:
+            logger.error(f"移除群組時發生錯誤: {e}")
+            return False
+
+    def update_group_name(self, group_id: str, new_name: str):
+        """更新群組名稱"""
+        try:
+            if group_id in self.groups:
+                self.groups[group_id]['name'] = new_name
+                return self.save_groups()
+            return False
+        except Exception as e:
+            logger.error(f"更新群組名稱時發生錯誤: {e}")
+            return False
+
+    def save_nids(self):
+        """儲存 NID 對應資料"""
+        try:
+            with open('data/group_nids.json', 'w', encoding='utf-8') as f:
+                json.dump(self.nids, f, ensure_ascii=False, indent=2)
+            return True
+        except Exception as e:
+            logger.error(f"儲存 NID 對應資料時發生錯誤: {e}")
+            return False
 
     def add_schedule(self, schedule_data: dict):
         """新增排程"""
