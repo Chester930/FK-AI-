@@ -388,30 +388,48 @@ def handle_group_message(event, group_id: str, text: str):
         )
 
 # 修改主要的 handle_message 函數
-@handler.add(MessageEvent, message=TextMessageContent)
+@handler.add(MessageEvent)
 def handle_message(event):
     try:
-        message_text = event.message.text
-        
-        # 檢查是否來自管理員群組
-        is_admin = (
-            isinstance(event.source, GroupSource) and 
-            event.source.group_id == ADMIN_GROUP_ID
-        )
-        
-        # 管理員群組的訊息處理
-        if is_admin:
-            # 如果是指令，則執行指令
-            if message_text.startswith(('!', '！')):
-                handle_admin_command(event)
-            return
-        
-        # 判斷是個人對話還是群組對話
+        # 檢查是否來自群組
         if isinstance(event.source, GroupSource):
             group_id = event.source.group_id
-            handle_group_message(event, group_id, message_text)
+            
+            # 檢查群組名稱變更
+            try:
+                with ApiClient(configuration) as api_client:
+                    line_bot_api = MessagingApi(api_client)
+                    group_summary = line_bot_api.get_group_summary(group_id)
+                    current_name = group_summary.group_name
+                    
+                    # 從資料庫獲取舊的群組名稱
+                    old_name = message_scheduler.notification_manager.groups.get(group_id, {}).get('name', '')
+                    
+                    # 如果名稱有變更，才更新
+                    if old_name and old_name != current_name:
+                        if message_scheduler.notification_manager.update_group_name(group_id, current_name):
+                            logger.info(f"群組名稱已更新：{old_name} -> {current_name} (ID: {group_id})")
+                        else:
+                            logger.warning(f"群組名稱更新失敗：{old_name} -> {current_name} (ID: {group_id})")
+            except Exception as e:
+                logger.error(f"檢查群組名稱時發生錯誤: {str(e)}")
+            
+            # 處理群組訊息
+            message_text = event.message.text
+            # 檢查是否有前綴（支持中英文驚嘆號）
+            is_command = message_text.startswith(('!', '！'))
+            
+            # 檢查是否來自管理員群組
+            is_admin = group_id == ADMIN_GROUP_ID
+            
+            if is_admin and is_command:
+                handle_admin_command(event)
+            elif is_command:
+                handle_group_message(event, group_id, message_text)
         else:
+            # 處理個人訊息
             user_id = event.source.user_id
+            message_text = event.message.text
             handle_personal_message(event, user_id, message_text)
             
     except Exception as e:
@@ -865,28 +883,6 @@ def handle_leave(event):
                 
     except Exception as e:
         logger.error(f"處理離開群組事件時發生錯誤: {str(e)}", exc_info=True)
-
-@handler.add(MessageEvent)
-def handle_group_name_change(event):
-    """處理群組名稱變更事件"""
-    try:
-        if isinstance(event.source, GroupSource):
-            group_id = event.source.group_id
-            
-            # 獲取最新的群組資訊
-            with ApiClient(configuration) as api_client:
-                line_bot_api = MessagingApi(api_client)
-                group_summary = line_bot_api.get_group_summary(group_id)
-                current_name = group_summary.group_name
-                
-                # 更新群組名稱
-                if message_scheduler.notification_manager.update_group_name(group_id, current_name):
-                    logger.info(f"已更新群組名稱：{current_name} (ID: {group_id})")
-                else:
-                    logger.warning(f"更新群組名稱失敗：{current_name} (ID: {group_id})")
-                    
-    except Exception as e:
-        logger.error(f"處理群組名稱變更事件時發生錯誤: {str(e)}", exc_info=True)
 
 if __name__ == "__main__":
     try:
