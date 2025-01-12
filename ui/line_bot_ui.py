@@ -430,9 +430,6 @@ def handle_admin_command(event):
         command = event.message.text.split()
         cmd = command[0].lower().replace('！', '!')  # 統一轉換為半形驚嘆號
         
-        # 初始化 message_scheduler
-        message_scheduler = MessageScheduler()
-
         if cmd == '!help':
             help_text = (
                 "管理員指令列表：\n"
@@ -441,7 +438,7 @@ def handle_admin_command(event):
                 "!remove_schedule [排程ID] - 刪除指定排程\n"
                 "!groups - 查看所有群組\n\n"
                 "群組指定方式：\n"
-                "- 使用群組NID數字 (例如：1、2、3)\n\n"
+                "- 使用群組NID (例如：1、2、3)\n\n"
                 "時間格式說明：\n"
                 "YYYYMMDD-HH:MM - 完整日期，如 20240101-09:30\n"
                 "YYYYMM-HH:MM - 指定年月，如 202401-09:30\n"
