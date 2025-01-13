@@ -82,3 +82,21 @@ class ChatHistory:
                 self.group_states = data.get('group_states', {})
         except FileNotFoundError:
             pass 
+
+    def get_recent_messages(self, user_id: str, limit: int = 5) -> list:
+        """獲取最近的對話記錄"""
+        history = self.personal_history.get(user_id, [])
+        return history[-limit:] if history else []
+
+    def get_conversation_context(self, user_id: str, limit: int = 5) -> str:
+        """獲取格式化的對話上下文"""
+        messages = self.get_recent_messages(user_id, limit)
+        if not messages:
+            return ""
+        
+        context = []
+        for msg in messages:
+            role = "用戶" if msg['role'] == 'user' else "助理"
+            context.append(f"{role}: {msg['message']}")
+        
+        return "\n".join(context) 

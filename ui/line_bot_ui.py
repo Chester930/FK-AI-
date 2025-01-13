@@ -281,6 +281,13 @@ def handle_personal_message(event, user_id: str, text: str):
             )
             return
 
+        # 獲取歷史對話
+        chat_context = chat_history.get_recent_messages(user_id, limit=5)  # 獲取最近5條對話
+        conversation_history = "\n".join([
+            f"用戶: {msg['message']}" if msg['role'] == 'user' else f"助理: {msg['message']}"
+            for msg in chat_context
+        ])
+        
         # 修改提示詞格式
         full_prompt = (
             f"{prompt}\n\n"
@@ -289,19 +296,21 @@ def handle_personal_message(event, user_id: str, text: str):
             "2. 使用繁體中文回答\n"
             "3. 保持簡潔明瞭\n"
             f"4. 你是 {current_role}\n"
+            "5. 根據對話歷史理解上下文\n\n"
+            f"對話歷史：\n{conversation_history}\n\n"
         )
 
         if current_role == 'FK helper':
-            full_prompt += "5. 你可以使用網路搜尋功能\n"
+            full_prompt += "6. 你可以使用網路搜尋功能\n"
             if is_fightk_related(text):
-                full_prompt += "6. 這是 Fight.K 相關問題，優先使用知識庫回答\n"
+                full_prompt += "7. 這是 Fight.K 相關問題，優先使用知識庫回答\n"
         
         full_prompt += f"\n背景知識：\n{relevant_knowledge}\n\n"
 
         if web_content:
             full_prompt += f"網路搜尋結果：\n{web_content}\n\n"
             
-        full_prompt += f"問題：{text}\n回答："
+        full_prompt += f"當前問題：{text}\n回答："
         
         # 生成回應
         response = ai_engine.generate_response(full_prompt)
