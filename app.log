@@ -13021,3 +13021,107 @@ HTTP response body: {"message":"Invalid reply token"}
 
 2025-01-13 11:44:17,391 - INFO - Message handled successfully
 2025-01-13 11:44:17,392 - INFO - 127.0.0.1 - - [13/Jan/2025 11:44:17] "POST /callback HTTP/1.1" 200 -
+2025-01-13 12:09:15,503 - INFO - Starting LINE Bot service...
+2025-01-13 12:09:21,537 - INFO - Ngrok URL: https://b5db-218-173-75-139.ngrok-free.app
+2025-01-13 12:09:21,538 - INFO - LINE Bot Webhook URL: https://b5db-218-173-75-139.ngrok-free.app/callback
+2025-01-13 12:09:40,140 - INFO - Scheduler started
+2025-01-13 12:09:40,147 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-13 12:09:40,147 - INFO - Added weekly notification: 123...
+2025-01-13 12:09:40,506 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-13 12:09:40]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-13 12:09:40
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-13 12:09:40,509 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-13 12:09:40,510 - INFO - LINE Bot service started on port 5000
+2025-01-13 12:09:40,529 - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2025-01-13 12:10:59,546 - INFO - 127.0.0.1 - - [13/Jan/2025 12:10:59] "[33mPOST / HTTP/1.1[0m" 404 -
+2025-01-13 12:11:24,825 - INFO - 127.0.0.1 - - [13/Jan/2025 12:11:24] "[33mPOST / HTTP/1.1[0m" 404 -
+2025-01-13 12:11:49,513 - INFO - 127.0.0.1 - - [13/Jan/2025 12:11:49] "[33mPOST / HTTP/1.1[0m" 404 -
+2025-01-13 12:11:59,631 - INFO - 127.0.0.1 - - [13/Jan/2025 12:11:59] "[33mPOST / HTTP/1.1[0m" 404 -
+2025-01-13 12:12:24,919 - INFO - 127.0.0.1 - - [13/Jan/2025 12:12:24] "[33mPOST / HTTP/1.1[0m" 404 -
+2025-01-13 12:12:49,595 - INFO - 127.0.0.1 - - [13/Jan/2025 12:12:49] "[33mPOST / HTTP/1.1[0m" 404 -
+2025-01-13 12:12:59,707 - INFO - 127.0.0.1 - - [13/Jan/2025 12:12:59] "[33mPOST / HTTP/1.1[0m" 404 -
+2025-01-13 12:13:42,240 - INFO - Starting LINE Bot service...
+2025-01-13 12:13:47,763 - INFO - Ngrok URL: https://f90b-218-173-75-139.ngrok-free.app
+2025-01-13 12:13:47,765 - INFO - LINE Bot Webhook URL: https://f90b-218-173-75-139.ngrok-free.app/callback
+2025-01-13 12:14:04,479 - INFO - Scheduler started
+2025-01-13 12:14:04,487 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-13 12:14:04,488 - INFO - Added weekly notification: 123...
+2025-01-13 12:14:04,808 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-13 12:14:04]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-13 12:14:04
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-13 12:14:04,811 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-13 12:14:04,812 - INFO - LINE Bot service started on port 5000
+2025-01-13 12:14:04,835 - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2025-01-13 12:14:23,336 - INFO - 127.0.0.1 - - [13/Jan/2025 12:14:23] "POST /callback HTTP/1.1" 200 -
+2025-01-13 12:14:28,191 - INFO - 127.0.0.1 - - [13/Jan/2025 12:14:28] "POST /callback HTTP/1.1" 200 -
+2025-01-13 12:14:40,909 - ERROR - 處理個人訊息時發生錯誤: string indices must be integers
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 243, in handle_personal_message
+    relevant_knowledge = knowledge_base.search(text)
+  File "E:\Python Project\FK_AI_Theology_Doctor\core\knowledge_base.py", line 23, in search
+    relevant_paths = self._select_relevant_paths(query)
+  File "E:\Python Project\FK_AI_Theology_Doctor\core\knowledge_base.py", line 39, in _select_relevant_paths
+    if any(keyword in query.lower() for keyword in info['keywords']):
+TypeError: string indices must be integers
+2025-01-13 12:14:41,063 - INFO - 127.0.0.1 - - [13/Jan/2025 12:14:41] "POST /callback HTTP/1.1" 200 -
+2025-01-13 12:14:55,771 - ERROR - 處理個人訊息時發生錯誤: string indices must be integers
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 243, in handle_personal_message
+    relevant_knowledge = knowledge_base.search(text)
+  File "E:\Python Project\FK_AI_Theology_Doctor\core\knowledge_base.py", line 23, in search
+    relevant_paths = self._select_relevant_paths(query)
+  File "E:\Python Project\FK_AI_Theology_Doctor\core\knowledge_base.py", line 39, in _select_relevant_paths
+    if any(keyword in query.lower() for keyword in info['keywords']):
+TypeError: string indices must be integers
+2025-01-13 12:14:55,911 - INFO - 127.0.0.1 - - [13/Jan/2025 12:14:55] "POST /callback HTTP/1.1" 200 -
+2025-01-13 12:16:01,211 - INFO - Starting LINE Bot service...
+2025-01-13 12:16:06,294 - INFO - Ngrok URL: https://5e27-218-173-75-139.ngrok-free.app
+2025-01-13 12:16:06,295 - INFO - LINE Bot Webhook URL: https://5e27-218-173-75-139.ngrok-free.app/callback
+2025-01-13 12:16:17,187 - INFO - Scheduler started
+2025-01-13 12:16:17,216 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-13 12:16:17,217 - INFO - Added weekly notification: 123...
+2025-01-13 12:16:17,499 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-13 12:16:17]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-13 12:16:17
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-13 12:16:17,502 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-13 12:16:17,504 - INFO - LINE Bot service started on port 5000
+2025-01-13 12:16:17,522 - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2025-01-13 12:16:41,975 - INFO - 127.0.0.1 - - [13/Jan/2025 12:16:41] "[33mPOST / HTTP/1.1[0m" 404 -
+2025-01-13 12:16:55,049 - INFO - 127.0.0.1 - - [13/Jan/2025 12:16:55] "POST /callback HTTP/1.1" 200 -
+2025-01-13 12:16:56,990 - INFO - 127.0.0.1 - - [13/Jan/2025 12:16:56] "POST /callback HTTP/1.1" 200 -
+2025-01-13 12:17:06,093 - ERROR - 處理個人訊息時發生錯誤: 'KnowledgeBase' object has no attribute '_format_results'
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 251, in handle_personal_message
+    relevant_knowledge = knowledge_base.search(text)
+  File "E:\Python Project\FK_AI_Theology_Doctor\core\knowledge_base.py", line 30, in search
+    return self._format_results(results)
+AttributeError: 'KnowledgeBase' object has no attribute '_format_results'
+2025-01-13 12:17:06,226 - INFO - 127.0.0.1 - - [13/Jan/2025 12:17:06] "POST /callback HTTP/1.1" 200 -
+2025-01-13 12:17:21,954 - INFO - 127.0.0.1 - - [13/Jan/2025 12:17:21] "POST /callback HTTP/1.1" 200 -

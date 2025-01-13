@@ -237,7 +237,15 @@ def handle_personal_message(event, user_id: str, text: str):
         current_role = user_state.get('role')
         
         # 初始化 KnowledgeBase
-        knowledge_base = KnowledgeBase(KNOWLEDGE_BASE_PATHS[current_role])
+        paths_config = {}
+        # 添加共同知識庫
+        if 'common' in KNOWLEDGE_BASE_PATHS:
+            paths_config['common'] = KNOWLEDGE_BASE_PATHS['common']
+        # 添加角色特定知識庫
+        if current_role in KNOWLEDGE_BASE_PATHS:
+            paths_config[current_role] = KNOWLEDGE_BASE_PATHS[current_role]
+            
+        knowledge_base = KnowledgeBase(paths_config)
         
         # 獲取相關知識
         relevant_knowledge = knowledge_base.search(text)
@@ -620,19 +628,15 @@ def handle_admin_command(event):
 
 @app.route("/callback", methods=['POST'])
 def callback():
+    # 處理 webhook
     signature = request.headers['X-Line-Signature']
     body = request.get_data(as_text=True)
-    logger.info("Request body: %s", body)
     
     try:
         handler.handle(body, signature)
-        logger.info("Message handled successfully")
     except InvalidSignatureError:
-        logger.error("Invalid signature")
         abort(400)
-    except Exception as e:
-        logger.error(f"Error handling message: {e}")
-        abort(500)
+    
     return 'OK'
 
 @handler.add(MessageEvent, message=FileMessageContent)
@@ -994,7 +998,9 @@ if __name__ == "__main__":
         
         try:
             print('LINE Bot 已啟動於 port 5000')
-            app.run(port=5000)
+            # 確保使用 /callback 路徑
+            app.run(host='0.0.0.0', port=5000)  # 添加 host 參數
+            
         finally:
             # 確保程序結束時關閉 ngrok
             ngrok_process.terminate()
