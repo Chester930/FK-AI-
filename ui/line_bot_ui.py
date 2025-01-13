@@ -58,6 +58,7 @@ from config import KNOWLEDGE_BASE_PATHS, LINE_CHANNEL_SECRET, LINE_CHANNEL_ACCES
 from utils.scheduled_messages import MessageScheduler
 from utils.chat_history import ChatHistory
 from utils.web_search import WebSearcher
+from utils.youtube_handler import YouTubeHandler
 
 load_dotenv()  # 加載 .env 檔案中的環境變數
 
@@ -89,6 +90,9 @@ chat_history = ChatHistory(max_history=10)
 
 # 初始化 WebSearcher
 web_searcher = WebSearcher()
+
+# 初始化 YouTube 處理器
+youtube_handler = YouTubeHandler()
 
 # 自我介紹訊息
 INTRODUCTION_MESSAGE = """
@@ -288,6 +292,22 @@ def handle_personal_message(event, user_id: str, text: str):
             for msg in chat_context
         ])
         
+        # 檢查是否包含 YouTube 連結
+        youtube_content = ""
+        if 'youtube.com' in text or 'youtu.be' in text:
+            logger.info("檢測到 YouTube 連結")
+            transcript = youtube_handler.get_transcript(text)
+            video_info = youtube_handler.get_video_info(text)
+            
+            if transcript and video_info:
+                youtube_content = (
+                    f"\nYouTube 影片資訊：\n"
+                    f"標題: {video_info['title']}\n"
+                    f"作者: {video_info['author']}\n"
+                    f"字幕內容：\n{transcript[:2000]}...\n\n"
+                )
+                logger.info("成功獲取 YouTube 影片資訊和字幕")
+        
         # 修改提示詞格式
         full_prompt = (
             f"{prompt}\n\n"
@@ -309,6 +329,9 @@ def handle_personal_message(event, user_id: str, text: str):
 
         if web_content:
             full_prompt += f"網路搜尋結果：\n{web_content}\n\n"
+            
+        if youtube_content:
+            full_prompt += youtube_content
             
         full_prompt += f"當前問題：{text}\n回答："
         

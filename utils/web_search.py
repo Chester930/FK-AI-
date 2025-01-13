@@ -13,10 +13,8 @@ class WebSearcher:
     def __init__(self):
         self.temp_dir = "temp/web_search"
         os.makedirs(self.temp_dir, exist_ok=True)
-        
-        # 修改限制
-        self.max_content_length = 500   # 每個網頁最大字數改為 500
-        self.max_total_length = 2500    # 總字數限制 (5個網頁合計)
+        self.max_content_length = 500   # 每個網頁最大字數
+        self.max_results_per_search = 3  # 每次搜尋的結果數
         
     def _clear_user_search_history(self, user_id: str):
         """清除特定用戶的搜尋紀錄"""
@@ -54,137 +52,114 @@ class WebSearcher:
         except Exception as e:
             logger.error(f"清除群組搜尋歷史時發生錯誤: {str(e)}")
     
-    def search_and_save(self, query: str, source_id: str, is_group: bool = False) -> str:
-        """
-        搜尋 Google 並保存結果到臨時文件
-        source_id: 用戶ID或群組ID
-        is_group: 是否為群組搜尋
-        """
+    def extract_keywords(self, query: str) -> list:
+        """從查詢中提取關鍵字"""
         try:
-            # 先清除該來源的歷史記錄
+            # 先用 AI 分析問題
+            prompt = (
+                "請從以下問題中提取3-5個最重要的關鍵字，以逗號分隔：\n"
+                f"問題：{query}\n"
+                "關鍵字："
+            )
+            keywords = ai_engine.generate_response(prompt).strip()
+            return [k.strip() for k in keywords.split(',')]
+        except Exception as e:
+            logger.error(f"提取關鍵字時發生錯誤: {str(e)}")
+            return [query]  # 如果失敗就返回原始查詢
+
+    def search_and_save(self, query: str, source_id: str, is_group: bool = False) -> str:
+        """執行兩次搜尋並保存結果"""
+        try:
+            # 清除歷史記錄
             if is_group:
                 self._clear_group_search_history(source_id)
             else:
                 self._clear_user_search_history(source_id)
             
-            logger.info(f"開始搜尋查詢: {query}")
+            # 提取關鍵字
+            keywords = self.extract_keywords(query)
+            logger.info(f"提取的關鍵字: {keywords}")
+            
             results = []
             total_length = 0
             
-            # 修改搜尋參數
-            search_params = {
-                'num': 5,              # 改為搜尋 5 個結果
-                'lang': 'zh-TW',
-                'stop': 5,             # 限制搜尋結果數量
-                'pause': 2.0,
-                'tld': 'com.tw',
-                'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-            }
-            
-            logger.info("開始 Google 搜尋...")
-            try:
-                # 直接使用必要的參數
-                search_results = list(search(
-                    query,
-                    num=search_params['num'],
-                    stop=search_params['stop'],
-                    pause=search_params['pause'],
-                    lang=search_params['lang'],
-                    tld=search_params['tld'],
-                    user_agent=search_params['user_agent']
-                ))
-                logger.info(f"找到 {len(search_results)} 個搜尋結果")
-            except Exception as search_error:
-                logger.error(f"Google 搜尋失敗: {str(search_error)}")
-                # 如果搜尋失敗，返回空結果
-                return None
-            
-            # 獲取搜尋結果
-            for url in search_results:
+            # 執行兩次搜尋
+            for search_round in range(2):
+                # 根據搜尋輪次調整關鍵字
+                if search_round == 0:
+                    search_query = ' '.join(keywords[:2])  # 使用前兩個關鍵字
+                else:
+                    search_query = ' '.join(keywords[2:])  # 使用剩餘關鍵字
+                
+                logger.info(f"第 {search_round + 1} 輪搜尋: {search_query}")
+                
+                # 搜尋參數
+                search_params = {
+                    'num': self.max_results_per_search,
+                    'lang': 'zh-TW',
+                    'stop': self.max_results_per_search,
+                    'pause': 2.0,
+                    'tld': 'com.tw'
+                }
+                
                 try:
-                    logger.info(f"正在處理 URL: {url}")
-                    headers = {
-                        'User-Agent': search_params['user_agent'],
-                        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-                        'Accept-Language': 'zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7',
-                    }
+                    search_results = list(search(
+                        search_query,
+                        **search_params
+                    ))
+                    logger.info(f"找到 {len(search_results)} 個搜尋結果")
                     
-                    # 使用 session 來處理請求
-                    with requests.Session() as session:
-                        session.headers.update(headers)
-                        response = session.get(url, timeout=10)
-                        response.raise_for_status()  # 檢查回應狀態
-                        response.encoding = 'utf-8'
-                    
-                    # 解析 HTML
-                    logger.info("正在解析網頁內容...")
-                    soup = BeautifulSoup(response.text, 'html.parser')
-                    
-                    # 移除腳本和樣式標籤
-                    for script in soup(["script", "style"]):
-                        script.decompose()
-                    
-                    # 獲取純文字內容
-                    text = soup.get_text()
-                    
-                    # 清理文字
-                    lines = (line.strip() for line in text.splitlines())
-                    chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
-                    text = ' '.join(chunk for chunk in chunks if chunk)
-                    
-                    # 限制每個網頁的文字長度
-                    if len(text) > self.max_content_length:
-                        text = text[:self.max_content_length] + "..."
-                    
-                    # 檢查總字數限制
-                    if total_length + len(text) > self.max_total_length:
-                        text = text[:self.max_total_length - total_length] + "..."
-                        
-                    total_length += len(text)
-                    
-                    logger.info(f"成功處理網頁，內容長度: {len(text)}")
-                    results.append({
-                        'url': url,
-                        'content': text
-                    })
-                    
+                    # 處理每個搜尋結果
+                    for url in search_results:
+                        content = self._get_page_content(url)
+                        if content and len(content) > 0:
+                            # 限制內容長度
+                            if len(content) > self.max_content_length:
+                                content = content[:self.max_content_length] + "..."
+                            
+                            results.append({
+                                'url': url,
+                                'content': content,
+                                'search_round': search_round + 1
+                            })
+                            
                 except Exception as e:
-                    logger.error(f"處理網頁時發生錯誤 {url}: {str(e)}", exc_info=True)
+                    logger.error(f"搜尋過程發生錯誤: {str(e)}")
                     continue
             
             if results:
-                # 保存結果到臨時文件，使用不同的檔名前綴
+                # 保存結果
                 timestamp = datetime.now(pytz.UTC).strftime('%Y%m%d_%H%M%S')
                 prefix = f"search_{'group' if is_group else 'personal'}_{source_id}_"
                 temp_file = os.path.join(self.temp_dir, f"{prefix}{timestamp}.json")
                 
-                logger.info(f"正在保存搜尋結果到: {temp_file}")
                 with open(temp_file, 'w', encoding='utf-8') as f:
                     json.dump(results, f, ensure_ascii=False, indent=2)
                 
-                logger.info("搜尋過程完成")
                 return temp_file
-            else:
-                logger.warning("沒有找到任何搜尋結果")
-                return None
-            
-        except Exception as e:
-            logger.error(f"搜尋過程中發生錯誤: {str(e)}", exc_info=True)
+                
             return None
             
+        except Exception as e:
+            logger.error(f"搜尋過程中發生錯誤: {str(e)}")
+            return None
+
     def read_search_results(self, file_path: str) -> str:
-        """讀取搜尋結果"""
+        """讀取並格式化搜尋結果"""
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 results = json.load(f)
             
-            # 組合所有結果
-            combined_text = ""
-            for i, result in enumerate(results, 1):
-                combined_text += f"\n來源 {i}: {result['url']}\n"
-                combined_text += f"內容摘要：{result['content']}\n"
+            formatted_text = ""
+            for round_num in [1, 2]:  # 分別處理兩輪搜尋結果
+                round_results = [r for r in results if r['search_round'] == round_num]
+                if round_results:
+                    formatted_text += f"\n=== 第 {round_num} 輪搜尋結果 ===\n"
+                    for i, result in enumerate(round_results, 1):
+                        formatted_text += f"\n來源 {i}: {result['url']}\n"
+                        formatted_text += f"內容摘要：{result['content']}\n"
             
-            return combined_text
+            return formatted_text.strip()
             
         except Exception as e:
             logger.error(f"讀取搜尋結果時發生錯誤: {str(e)}")
