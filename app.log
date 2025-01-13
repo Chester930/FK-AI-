@@ -12084,3 +12084,940 @@ HTTP response body: {"message":"Invalid reply token"}
 2025-01-13 11:34:45,503 - INFO - Starting LINE Bot service...
 2025-01-13 11:34:50,707 - INFO - Ngrok URL: https://d754-218-173-75-139.ngrok-free.app
 2025-01-13 11:34:50,707 - INFO - LINE Bot Webhook URL: https://d754-218-173-75-139.ngrok-free.app/callback
+2025-01-13 11:35:07,151 - INFO - Scheduler started
+2025-01-13 11:35:07,161 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-13 11:35:07,161 - INFO - Added weekly notification: 123...
+2025-01-13 11:35:07,404 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-13 11:35:07]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-13 11:35:07
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-13 11:35:07,407 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-13 11:35:07,409 - INFO - LINE Bot service started on port 5000
+2025-01-13 11:35:07,431 - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2025-01-13 11:35:17,762 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543427470243397636","quoteToken":"_fXo7s_onR9MIrp6hAVrMKSI_I2x62XmGNX_JRSbHAIkuZ7bDzZGInMNC07b6MboPrHmbfxc8avRCjja0PiEqSulhbpjZUVz5Ol5UwZpjLkX2HAm81NpesmHzWvD2tLfS1fG-i3FhL4w5vMKwNJRYg","text":"你好"},"webhookEventId":"01JHEVNT1QE1R2ASXZX6HFHNX0","deliveryContext":{"isRedelivery":false},"timestamp":1736739317307,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"a95c0660f12843228e243d0abeafcc59","mode":"active"}]}
+2025-01-13 11:35:17,974 - INFO - Message handled successfully
+2025-01-13 11:35:17,975 - INFO - 127.0.0.1 - - [13/Jan/2025 11:35:17] "POST /callback HTTP/1.1" 200 -
+2025-01-13 11:35:19,878 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543427474168742294","quoteToken":"xCZqn7TFoGDSclEY5n6rYT6REpqdOlseASInEZrsMA4bAzzHYJhS_6Yj_7KdznoqVSMJY4ru6iBJtqzupzlepaQ_zCJPEY3IscaX1SsFiNDiQkDn8u6mTLtas1pvzfDxyohYeThAhPCVjBfRUBTIMA","text":"A"},"webhookEventId":"01JHEVNW4AVFSSHA2QBTZ1JK8V","deliveryContext":{"isRedelivery":false},"timestamp":1736739319614,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"2baf3df040a6487bb5bcc3d4913e16f0","mode":"active"}]}
+2025-01-13 11:35:20,020 - INFO - Message handled successfully
+2025-01-13 11:35:20,021 - INFO - 127.0.0.1 - - [13/Jan/2025 11:35:20] "POST /callback HTTP/1.1" 200 -
+2025-01-13 11:35:42,157 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543427511800561890","quoteToken":"PSuWQMNf3UnAEgL5Vb56yvRACreo8Qc2FaLnZ8CRe7Ts3-p0o81ri7lwRrvJOj5_acKZ0sIxaRvo4zSXHp4GZaBmwWTLB-loQ9z-QT2ulYqLhAAqRIRqVCOPx7wjIfTYoEt26n-16G2mwQv9gRxsGA","text":"請問2024年台灣發生哪些重大事件"},"webhookEventId":"01JHEVPHWP744YXCXWG8NWVBBZ","deliveryContext":{"isRedelivery":false},"timestamp":1736739342073,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"3bb77db5f64145bba4f697040086f452","mode":"active"}]}
+2025-01-13 11:35:42,561 - DEBUG - Building prefix dict from the default dictionary ...
+2025-01-13 11:35:42,565 - DEBUG - Loading model from cache C:\Users\ipisj\AppData\Local\Temp\jieba.cache
+2025-01-13 11:35:43,242 - DEBUG - Loading model cost 0.679 seconds.
+2025-01-13 11:35:43,243 - DEBUG - Prefix dict has been built successfully.
+2025-01-13 11:35:43,245 - INFO - FK helper 開始網路搜尋: 請問2024年台灣發生哪些重大事件
+2025-01-13 11:35:43,246 - INFO - 用戶 U449870fffc8fd9e18b66fe46941fc84d 的搜尋歷史記錄已清除
+2025-01-13 11:35:43,246 - INFO - 開始搜尋查詢: 請問2024年台灣發生哪些重大事件
+2025-01-13 11:35:43,247 - INFO - 開始 Google 搜尋...
+2025-01-13 11:35:46,061 - INFO - 找到 5 個搜尋結果
+2025-01-13 11:35:46,062 - INFO - 正在處理 URL: https://news.tvbs.com.tw/exhibition/news-review/2024/index.html
+2025-01-13 11:35:46,272 - INFO - 正在解析網頁內容...
+2025-01-13 11:35:46,335 - INFO - 成功處理網頁，內容長度: 503
+2025-01-13 11:35:46,336 - INFO - 正在處理 URL: https://zh.wikipedia.org/zh-tw/2024%E5%B9%B4%E8%87%BA%E7%81%A3
+2025-01-13 11:35:46,762 - INFO - 正在解析網頁內容...
+2025-01-13 11:35:47,147 - INFO - 成功處理網頁，內容長度: 503
+2025-01-13 11:35:47,148 - INFO - 正在處理 URL: https://www.facebook.com/mysuperlucky/videos/2024%E5%8F%B0%E7%81%A3%E5%A4%A7%E4%BA%8B%E4%BB%B6%E5%93%AA%E4%BA%9B%E7%9E%AC%E9%96%93%E9%9C%87%E6%92%BC%E7%9A%84%E5%85%A8%E5%8F%B0%E4%BA%BA%E6%B0%91%E5%91%BD%E9%81%8B%E5%A5%BD%E5%A5%BD%E7%8E%A92024%E5%A4%A7%E4%BA%8B%E4%BB%B6%E9%A0%90%E5%91%8A/3715461462048963/
+2025-01-13 11:35:48,657 - INFO - 正在解析網頁內容...
+2025-01-13 11:35:48,779 - INFO - 成功處理網頁，內容長度: 145
+2025-01-13 11:35:48,779 - INFO - 正在處理 URL: https://www.facebook.com/myudn/videos/%E7%9C%8B%E6%96%B0%E8%81%9Eep41-%E9%A6%AC%E4%B8%8A%E8%A6%81%E8%B7%A8%E5%B9%B4%E5%9B%9E%E9%A1%A72024%E7%99%BC%E7%94%9F%E5%93%AA%E4%BA%9B%E5%A4%A7%E4%BA%8B/1328246831861324/
+2025-01-13 11:35:50,693 - INFO - 正在解析網頁內容...
+2025-01-13 11:35:50,733 - INFO - 成功處理網頁，內容長度: 199
+2025-01-13 11:35:50,734 - INFO - 正在處理 URL: https://www.youtube.com/watch?v=dgb9G3Dm-wY
+2025-01-13 11:35:51,210 - INFO - 正在解析網頁內容...
+2025-01-13 11:35:51,241 - INFO - 成功處理網頁，內容長度: 111
+2025-01-13 11:35:51,242 - INFO - 正在保存搜尋結果到: temp/web_search\search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_033551.json
+2025-01-13 11:35:51,243 - INFO - 搜尋過程完成
+2025-01-13 11:35:51,248 - INFO - 搜尋結果已保存到: temp/web_search\search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_033551.json
+2025-01-13 11:35:51,250 - INFO - 網路搜尋結果長度: 2213
+2025-01-13 11:35:54,927 - INFO - Message handled successfully
+2025-01-13 11:35:54,928 - INFO - 127.0.0.1 - - [13/Jan/2025 11:35:54] "POST /callback HTTP/1.1" 200 -
+2025-01-13 11:36:44,174 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543427511800561890","quoteToken":"PSuWQMNf3UnAEgL5Vb56yvRACreo8Qc2FaLnZ8CRe7Ts3-p0o81ri7lwRrvJOj5_acKZ0sIxaRvo4zSXHp4GZaBmwWTLB-loQ9z-QT2ulYqLhAAqRIRqVCOPx7wjIfTYoEt26n-16G2mwQv9gRxsGA","text":"請問2024年台灣發生哪些重大事件"},"webhookEventId":"01JHEVPHWP744YXCXWG8NWVBBZ","deliveryContext":{"isRedelivery":true},"timestamp":1736739342073,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"3bb77db5f64145bba4f697040086f452","mode":"active"}]}
+2025-01-13 11:36:44,252 - INFO - FK helper 開始網路搜尋: 請問2024年台灣發生哪些重大事件
+2025-01-13 11:36:44,262 - INFO - 已刪除用戶搜尋記錄: search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_033551.json
+2025-01-13 11:36:44,263 - INFO - 用戶 U449870fffc8fd9e18b66fe46941fc84d 的搜尋歷史記錄已清除
+2025-01-13 11:36:44,264 - INFO - 開始搜尋查詢: 請問2024年台灣發生哪些重大事件
+2025-01-13 11:36:44,264 - INFO - 開始 Google 搜尋...
+2025-01-13 11:36:46,669 - INFO - 找到 5 個搜尋結果
+2025-01-13 11:36:46,670 - INFO - 正在處理 URL: https://news.tvbs.com.tw/exhibition/news-review/2024/index.html
+2025-01-13 11:36:46,918 - INFO - 正在解析網頁內容...
+2025-01-13 11:36:46,982 - INFO - 成功處理網頁，內容長度: 503
+2025-01-13 11:36:46,983 - INFO - 正在處理 URL: https://zh.wikipedia.org/zh-tw/2024%E5%B9%B4%E8%87%BA%E7%81%A3
+2025-01-13 11:36:47,417 - INFO - 正在解析網頁內容...
+2025-01-13 11:36:47,837 - INFO - 成功處理網頁，內容長度: 503
+2025-01-13 11:36:47,837 - INFO - 正在處理 URL: https://www.facebook.com/mysuperlucky/videos/2024%E5%8F%B0%E7%81%A3%E5%A4%A7%E4%BA%8B%E4%BB%B6%E5%93%AA%E4%BA%9B%E7%9E%AC%E9%96%93%E9%9C%87%E6%92%BC%E7%9A%84%E5%85%A8%E5%8F%B0%E4%BA%BA%E6%B0%91%E5%91%BD%E9%81%8B%E5%A5%BD%E5%A5%BD%E7%8E%A92024%E5%A4%A7%E4%BA%8B%E4%BB%B6%E9%A0%90%E5%91%8A/3715461462048963/
+2025-01-13 11:36:49,122 - INFO - 正在解析網頁內容...
+2025-01-13 11:36:49,157 - INFO - 成功處理網頁，內容長度: 145
+2025-01-13 11:36:49,158 - INFO - 正在處理 URL: https://www.facebook.com/myudn/videos/%E7%9C%8B%E6%96%B0%E8%81%9Eep41-%E9%A6%AC%E4%B8%8A%E8%A6%81%E8%B7%A8%E5%B9%B4%E5%9B%9E%E9%A1%A72024%E7%99%BC%E7%94%9F%E5%93%AA%E4%BA%9B%E5%A4%A7%E4%BA%8B/1328246831861324/
+2025-01-13 11:36:50,956 - INFO - 正在解析網頁內容...
+2025-01-13 11:36:50,999 - INFO - 成功處理網頁，內容長度: 199
+2025-01-13 11:36:51,000 - INFO - 正在處理 URL: https://www.youtube.com/watch?v=dgb9G3Dm-wY
+2025-01-13 11:36:51,527 - INFO - 正在解析網頁內容...
+2025-01-13 11:36:51,552 - INFO - 成功處理網頁，內容長度: 111
+2025-01-13 11:36:51,554 - INFO - 正在保存搜尋結果到: temp/web_search\search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_033651.json
+2025-01-13 11:36:51,556 - INFO - 搜尋過程完成
+2025-01-13 11:36:51,559 - INFO - 搜尋結果已保存到: temp/web_search\search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_033651.json
+2025-01-13 11:36:51,562 - INFO - 網路搜尋結果長度: 2213
+2025-01-13 11:36:54,240 - ERROR - 處理個人訊息時發生錯誤: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': 'ac807e26-b856-483a-b969-995aa8aeff08', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:36:54 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:36:54 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 302, in handle_personal_message
+    line_bot_api.reply_message(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6570, in reply_message
+    return self.reply_message_with_http_info(reply_message_request, **kwargs)  # noqa: E501
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6674, in reply_message_with_http_info
+    return self.api_client.call_api(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 407, in call_api
+    return self.__call_api(resource_path, method,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 222, in __call_api
+    raise e
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 212, in __call_api
+    response_data = self.request(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 451, in request
+    return self.rest_client.post_request(url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 270, in post_request
+    return self.request("POST", url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 229, in request
+    raise ApiException(http_resp=r)
+linebot.v3.messaging.exceptions.ApiException: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': 'ac807e26-b856-483a-b969-995aa8aeff08', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:36:54 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:36:54 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:36:54,573 - ERROR - 發送錯誤訊息失敗: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '2661e82e-2363-4703-ab8a-5716003a9611', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:36:54 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:36:54 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:36:54,578 - INFO - Message handled successfully
+2025-01-13 11:36:54,579 - INFO - 127.0.0.1 - - [13/Jan/2025 11:36:54] "POST /callback HTTP/1.1" 200 -
+2025-01-13 11:37:46,204 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543427511800561890","quoteToken":"PSuWQMNf3UnAEgL5Vb56yvRACreo8Qc2FaLnZ8CRe7Ts3-p0o81ri7lwRrvJOj5_acKZ0sIxaRvo4zSXHp4GZaBmwWTLB-loQ9z-QT2ulYqLhAAqRIRqVCOPx7wjIfTYoEt26n-16G2mwQv9gRxsGA","text":"請問2024年台灣發生哪些重大事件"},"webhookEventId":"01JHEVPHWP744YXCXWG8NWVBBZ","deliveryContext":{"isRedelivery":true},"timestamp":1736739342073,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"3bb77db5f64145bba4f697040086f452","mode":"active"}]}
+2025-01-13 11:37:46,285 - INFO - FK helper 開始網路搜尋: 請問2024年台灣發生哪些重大事件
+2025-01-13 11:37:46,287 - INFO - 已刪除用戶搜尋記錄: search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_033651.json
+2025-01-13 11:37:46,288 - INFO - 用戶 U449870fffc8fd9e18b66fe46941fc84d 的搜尋歷史記錄已清除
+2025-01-13 11:37:46,289 - INFO - 開始搜尋查詢: 請問2024年台灣發生哪些重大事件
+2025-01-13 11:37:46,290 - INFO - 開始 Google 搜尋...
+2025-01-13 11:37:48,697 - INFO - 找到 5 個搜尋結果
+2025-01-13 11:37:48,698 - INFO - 正在處理 URL: https://news.tvbs.com.tw/exhibition/news-review/2024/index.html
+2025-01-13 11:37:48,918 - INFO - 正在解析網頁內容...
+2025-01-13 11:37:49,113 - INFO - 成功處理網頁，內容長度: 503
+2025-01-13 11:37:49,114 - INFO - 正在處理 URL: https://zh.wikipedia.org/zh-tw/2024%E5%B9%B4%E8%87%BA%E7%81%A3
+2025-01-13 11:37:49,550 - INFO - 正在解析網頁內容...
+2025-01-13 11:37:49,947 - INFO - 成功處理網頁，內容長度: 503
+2025-01-13 11:37:49,947 - INFO - 正在處理 URL: https://www.facebook.com/mysuperlucky/videos/2024%E5%8F%B0%E7%81%A3%E5%A4%A7%E4%BA%8B%E4%BB%B6%E5%93%AA%E4%BA%9B%E7%9E%AC%E9%96%93%E9%9C%87%E6%92%BC%E7%9A%84%E5%85%A8%E5%8F%B0%E4%BA%BA%E6%B0%91%E5%91%BD%E9%81%8B%E5%A5%BD%E5%A5%BD%E7%8E%A92024%E5%A4%A7%E4%BA%8B%E4%BB%B6%E9%A0%90%E5%91%8A/3715461462048963/
+2025-01-13 11:37:51,619 - INFO - 正在解析網頁內容...
+2025-01-13 11:37:51,650 - INFO - 成功處理網頁，內容長度: 145
+2025-01-13 11:37:51,651 - INFO - 正在處理 URL: https://www.facebook.com/myudn/videos/%E7%9C%8B%E6%96%B0%E8%81%9Eep41-%E9%A6%AC%E4%B8%8A%E8%A6%81%E8%B7%A8%E5%B9%B4%E5%9B%9E%E9%A1%A72024%E7%99%BC%E7%94%9F%E5%93%AA%E4%BA%9B%E5%A4%A7%E4%BA%8B/1328246831861324/
+2025-01-13 11:37:54,235 - INFO - 正在解析網頁內容...
+2025-01-13 11:37:54,280 - INFO - 成功處理網頁，內容長度: 199
+2025-01-13 11:37:54,281 - INFO - 正在處理 URL: https://www.youtube.com/watch?v=dgb9G3Dm-wY
+2025-01-13 11:37:54,774 - INFO - 正在解析網頁內容...
+2025-01-13 11:37:54,789 - INFO - 成功處理網頁，內容長度: 111
+2025-01-13 11:37:54,790 - INFO - 正在保存搜尋結果到: temp/web_search\search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_033754.json
+2025-01-13 11:37:54,792 - INFO - 搜尋過程完成
+2025-01-13 11:37:54,795 - INFO - 搜尋結果已保存到: temp/web_search\search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_033754.json
+2025-01-13 11:37:54,796 - INFO - 網路搜尋結果長度: 2213
+2025-01-13 11:37:58,064 - ERROR - 處理個人訊息時發生錯誤: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '80e280f8-77cc-4e7e-9003-8431f9c5003f', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:37:58 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:37:58 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 302, in handle_personal_message
+    line_bot_api.reply_message(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6570, in reply_message
+    return self.reply_message_with_http_info(reply_message_request, **kwargs)  # noqa: E501
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6674, in reply_message_with_http_info
+    return self.api_client.call_api(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 407, in call_api
+    return self.__call_api(resource_path, method,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 222, in __call_api
+    raise e
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 212, in __call_api
+    response_data = self.request(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 451, in request
+    return self.rest_client.post_request(url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 270, in post_request
+    return self.request("POST", url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 229, in request
+    raise ApiException(http_resp=r)
+linebot.v3.messaging.exceptions.ApiException: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '80e280f8-77cc-4e7e-9003-8431f9c5003f', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:37:58 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:37:58 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:37:58,247 - ERROR - 發送錯誤訊息失敗: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '264a86e3-ff18-4725-9667-7faeefe07521', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:37:58 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:37:58 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:37:58,251 - INFO - Message handled successfully
+2025-01-13 11:37:58,252 - INFO - 127.0.0.1 - - [13/Jan/2025 11:37:58] "POST /callback HTTP/1.1" 200 -
+2025-01-13 11:38:02,816 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543427747150561526","quoteToken":"RDbCdkkqie-XLgYx2fBg57k1B9oRnNcJPICrAHR0JwTADLuw99rOtQkbwR10GO5bFS7P6eC9F6Vj4GGeBG75fvgEVOittO9PRN3w61ctwJPCDSjYU1lmltkE062tDunxKaWgWHswxwyK8fEoOZvO5g","text":"告訴我 Fight.K教會 的歷史"},"webhookEventId":"01JHEVTV6SJZRHMESY1RKN0SCQ","deliveryContext":{"isRedelivery":false},"timestamp":1736739482488,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"964f1214f2794d539ea22d7d7bbe2b74","mode":"active"}]}
+2025-01-13 11:38:02,907 - INFO - 使用知識庫回答 Fight.K 相關問題
+2025-01-13 11:38:06,194 - INFO - Message handled successfully
+2025-01-13 11:38:06,195 - INFO - 127.0.0.1 - - [13/Jan/2025 11:38:06] "POST /callback HTTP/1.1" 200 -
+2025-01-13 11:38:48,218 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543427511800561890","quoteToken":"PSuWQMNf3UnAEgL5Vb56yvRACreo8Qc2FaLnZ8CRe7Ts3-p0o81ri7lwRrvJOj5_acKZ0sIxaRvo4zSXHp4GZaBmwWTLB-loQ9z-QT2ulYqLhAAqRIRqVCOPx7wjIfTYoEt26n-16G2mwQv9gRxsGA","text":"請問2024年台灣發生哪些重大事件"},"webhookEventId":"01JHEVPHWP744YXCXWG8NWVBBZ","deliveryContext":{"isRedelivery":true},"timestamp":1736739342073,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"3bb77db5f64145bba4f697040086f452","mode":"active"}]}
+2025-01-13 11:38:48,306 - INFO - FK helper 開始網路搜尋: 請問2024年台灣發生哪些重大事件
+2025-01-13 11:38:48,309 - INFO - 已刪除用戶搜尋記錄: search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_033754.json
+2025-01-13 11:38:48,309 - INFO - 用戶 U449870fffc8fd9e18b66fe46941fc84d 的搜尋歷史記錄已清除
+2025-01-13 11:38:48,310 - INFO - 開始搜尋查詢: 請問2024年台灣發生哪些重大事件
+2025-01-13 11:38:48,310 - INFO - 開始 Google 搜尋...
+2025-01-13 11:38:50,698 - INFO - 找到 5 個搜尋結果
+2025-01-13 11:38:50,699 - INFO - 正在處理 URL: https://news.tvbs.com.tw/exhibition/news-review/2024/index.html
+2025-01-13 11:38:50,936 - INFO - 正在解析網頁內容...
+2025-01-13 11:38:51,142 - INFO - 成功處理網頁，內容長度: 503
+2025-01-13 11:38:51,143 - INFO - 正在處理 URL: https://zh.wikipedia.org/zh-tw/2024%E5%B9%B4%E8%87%BA%E7%81%A3
+2025-01-13 11:38:51,653 - INFO - 正在解析網頁內容...
+2025-01-13 11:38:52,167 - INFO - 成功處理網頁，內容長度: 503
+2025-01-13 11:38:52,168 - INFO - 正在處理 URL: https://www.facebook.com/mysuperlucky/videos/2024%E5%8F%B0%E7%81%A3%E5%A4%A7%E4%BA%8B%E4%BB%B6%E5%93%AA%E4%BA%9B%E7%9E%AC%E9%96%93%E9%9C%87%E6%92%BC%E7%9A%84%E5%85%A8%E5%8F%B0%E4%BA%BA%E6%B0%91%E5%91%BD%E9%81%8B%E5%A5%BD%E5%A5%BD%E7%8E%A92024%E5%A4%A7%E4%BA%8B%E4%BB%B6%E9%A0%90%E5%91%8A/3715461462048963/
+2025-01-13 11:38:53,383 - INFO - 正在解析網頁內容...
+2025-01-13 11:38:53,413 - INFO - 成功處理網頁，內容長度: 145
+2025-01-13 11:38:53,414 - INFO - 正在處理 URL: https://www.facebook.com/myudn/videos/%E7%9C%8B%E6%96%B0%E8%81%9Eep41-%E9%A6%AC%E4%B8%8A%E8%A6%81%E8%B7%A8%E5%B9%B4%E5%9B%9E%E9%A1%A72024%E7%99%BC%E7%94%9F%E5%93%AA%E4%BA%9B%E5%A4%A7%E4%BA%8B/1328246831861324/
+2025-01-13 11:38:55,542 - INFO - 正在解析網頁內容...
+2025-01-13 11:38:55,593 - INFO - 成功處理網頁，內容長度: 199
+2025-01-13 11:38:55,595 - INFO - 正在處理 URL: https://www.youtube.com/watch?v=dgb9G3Dm-wY
+2025-01-13 11:38:56,122 - INFO - 正在解析網頁內容...
+2025-01-13 11:38:56,164 - INFO - 成功處理網頁，內容長度: 111
+2025-01-13 11:38:56,165 - INFO - 正在保存搜尋結果到: temp/web_search\search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_033856.json
+2025-01-13 11:38:56,168 - INFO - 搜尋過程完成
+2025-01-13 11:38:56,171 - INFO - 搜尋結果已保存到: temp/web_search\search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_033856.json
+2025-01-13 11:38:56,173 - INFO - 網路搜尋結果長度: 2213
+2025-01-13 11:38:58,306 - ERROR - 處理個人訊息時發生錯誤: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '9f083452-e1a1-4c8d-909c-0d773fa0b8d6', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:38:58 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:38:58 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 302, in handle_personal_message
+    line_bot_api.reply_message(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6570, in reply_message
+    return self.reply_message_with_http_info(reply_message_request, **kwargs)  # noqa: E501
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6674, in reply_message_with_http_info
+    return self.api_client.call_api(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 407, in call_api
+    return self.__call_api(resource_path, method,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 222, in __call_api
+    raise e
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 212, in __call_api
+    response_data = self.request(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 451, in request
+    return self.rest_client.post_request(url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 270, in post_request
+    return self.request("POST", url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 229, in request
+    raise ApiException(http_resp=r)
+linebot.v3.messaging.exceptions.ApiException: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '9f083452-e1a1-4c8d-909c-0d773fa0b8d6', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:38:58 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:38:58 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:38:58,562 - ERROR - 發送錯誤訊息失敗: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': 'b4dc2549-de1a-4dd6-946d-145ebaba66ed', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:38:58 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:38:58 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:38:58,565 - INFO - Message handled successfully
+2025-01-13 11:38:58,566 - INFO - 127.0.0.1 - - [13/Jan/2025 11:38:58] "POST /callback HTTP/1.1" 200 -
+2025-01-13 11:39:04,854 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543427747150561526","quoteToken":"RDbCdkkqie-XLgYx2fBg57k1B9oRnNcJPICrAHR0JwTADLuw99rOtQkbwR10GO5bFS7P6eC9F6Vj4GGeBG75fvgEVOittO9PRN3w61ctwJPCDSjYU1lmltkE062tDunxKaWgWHswxwyK8fEoOZvO5g","text":"告訴我 Fight.K教會 的歷史"},"webhookEventId":"01JHEVTV6SJZRHMESY1RKN0SCQ","deliveryContext":{"isRedelivery":true},"timestamp":1736739482488,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"964f1214f2794d539ea22d7d7bbe2b74","mode":"active"}]}
+2025-01-13 11:39:04,935 - INFO - 使用知識庫回答 Fight.K 相關問題
+2025-01-13 11:39:07,298 - ERROR - 處理個人訊息時發生錯誤: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '5f5de75e-ba36-4b23-a580-e0aca54026ce', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:39:07 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:39:07 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 302, in handle_personal_message
+    line_bot_api.reply_message(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6570, in reply_message
+    return self.reply_message_with_http_info(reply_message_request, **kwargs)  # noqa: E501
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6674, in reply_message_with_http_info
+    return self.api_client.call_api(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 407, in call_api
+    return self.__call_api(resource_path, method,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 222, in __call_api
+    raise e
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 212, in __call_api
+    response_data = self.request(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 451, in request
+    return self.rest_client.post_request(url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 270, in post_request
+    return self.request("POST", url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 229, in request
+    raise ApiException(http_resp=r)
+linebot.v3.messaging.exceptions.ApiException: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '5f5de75e-ba36-4b23-a580-e0aca54026ce', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:39:07 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:39:07 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:39:07,481 - ERROR - 發送錯誤訊息失敗: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': 'dfd37ee8-dc1d-42b1-b350-f38eb07debe4', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:39:07 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:39:07 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:39:07,484 - INFO - Message handled successfully
+2025-01-13 11:39:07,485 - INFO - 127.0.0.1 - - [13/Jan/2025 11:39:07] "POST /callback HTTP/1.1" 200 -
+2025-01-13 11:39:50,237 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543427511800561890","quoteToken":"PSuWQMNf3UnAEgL5Vb56yvRACreo8Qc2FaLnZ8CRe7Ts3-p0o81ri7lwRrvJOj5_acKZ0sIxaRvo4zSXHp4GZaBmwWTLB-loQ9z-QT2ulYqLhAAqRIRqVCOPx7wjIfTYoEt26n-16G2mwQv9gRxsGA","text":"請問2024年台灣發生哪些重大事件"},"webhookEventId":"01JHEVPHWP744YXCXWG8NWVBBZ","deliveryContext":{"isRedelivery":true},"timestamp":1736739342073,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"3bb77db5f64145bba4f697040086f452","mode":"active"}]}
+2025-01-13 11:39:50,377 - INFO - FK helper 開始網路搜尋: 請問2024年台灣發生哪些重大事件
+2025-01-13 11:39:50,379 - INFO - 已刪除用戶搜尋記錄: search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_033856.json
+2025-01-13 11:39:50,380 - INFO - 用戶 U449870fffc8fd9e18b66fe46941fc84d 的搜尋歷史記錄已清除
+2025-01-13 11:39:50,381 - INFO - 開始搜尋查詢: 請問2024年台灣發生哪些重大事件
+2025-01-13 11:39:50,381 - INFO - 開始 Google 搜尋...
+2025-01-13 11:39:56,295 - INFO - 找到 5 個搜尋結果
+2025-01-13 11:39:56,296 - INFO - 正在處理 URL: https://news.tvbs.com.tw/exhibition/news-review/2024/index.html
+2025-01-13 11:39:58,404 - INFO - 正在解析網頁內容...
+2025-01-13 11:39:58,710 - INFO - 成功處理網頁，內容長度: 503
+2025-01-13 11:39:58,711 - INFO - 正在處理 URL: https://zh.wikipedia.org/zh-tw/2024%E5%B9%B4%E8%87%BA%E7%81%A3
+2025-01-13 11:40:00,948 - INFO - 正在解析網頁內容...
+2025-01-13 11:40:01,359 - INFO - 成功處理網頁，內容長度: 503
+2025-01-13 11:40:01,360 - INFO - 正在處理 URL: https://www.facebook.com/mysuperlucky/videos/2024%E5%8F%B0%E7%81%A3%E5%A4%A7%E4%BA%8B%E4%BB%B6%E5%93%AA%E4%BA%9B%E7%9E%AC%E9%96%93%E9%9C%87%E6%92%BC%E7%9A%84%E5%85%A8%E5%8F%B0%E4%BA%BA%E6%B0%91%E5%91%BD%E9%81%8B%E5%A5%BD%E5%A5%BD%E7%8E%A92024%E5%A4%A7%E4%BA%8B%E4%BB%B6%E9%A0%90%E5%91%8A/3715461462048963/
+2025-01-13 11:40:04,846 - INFO - 正在解析網頁內容...
+2025-01-13 11:40:04,905 - INFO - 成功處理網頁，內容長度: 145
+2025-01-13 11:40:04,906 - INFO - 正在處理 URL: https://www.facebook.com/myudn/videos/%E7%9C%8B%E6%96%B0%E8%81%9Eep41-%E9%A6%AC%E4%B8%8A%E8%A6%81%E8%B7%A8%E5%B9%B4%E5%9B%9E%E9%A1%A72024%E7%99%BC%E7%94%9F%E5%93%AA%E4%BA%9B%E5%A4%A7%E4%BA%8B/1328246831861324/
+2025-01-13 11:40:06,872 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543427747150561526","quoteToken":"RDbCdkkqie-XLgYx2fBg57k1B9oRnNcJPICrAHR0JwTADLuw99rOtQkbwR10GO5bFS7P6eC9F6Vj4GGeBG75fvgEVOittO9PRN3w61ctwJPCDSjYU1lmltkE062tDunxKaWgWHswxwyK8fEoOZvO5g","text":"告訴我 Fight.K教會 的歷史"},"webhookEventId":"01JHEVTV6SJZRHMESY1RKN0SCQ","deliveryContext":{"isRedelivery":true},"timestamp":1736739482488,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"964f1214f2794d539ea22d7d7bbe2b74","mode":"active"}]}
+2025-01-13 11:40:07,038 - INFO - 使用知識庫回答 Fight.K 相關問題
+2025-01-13 11:40:08,802 - INFO - 正在解析網頁內容...
+2025-01-13 11:40:08,843 - INFO - 成功處理網頁，內容長度: 199
+2025-01-13 11:40:08,844 - INFO - 正在處理 URL: https://www.youtube.com/watch?v=dgb9G3Dm-wY
+2025-01-13 11:40:09,393 - INFO - 正在解析網頁內容...
+2025-01-13 11:40:09,419 - INFO - 成功處理網頁，內容長度: 111
+2025-01-13 11:40:09,420 - INFO - 正在保存搜尋結果到: temp/web_search\search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_034009.json
+2025-01-13 11:40:09,422 - INFO - 搜尋過程完成
+2025-01-13 11:40:09,425 - INFO - 搜尋結果已保存到: temp/web_search\search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_034009.json
+2025-01-13 11:40:09,426 - INFO - 網路搜尋結果長度: 2213
+2025-01-13 11:40:09,902 - ERROR - 處理個人訊息時發生錯誤: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '417dc54d-d22e-43a3-bc44-cd57535c29b1', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:40:10 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:40:10 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 302, in handle_personal_message
+    line_bot_api.reply_message(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6570, in reply_message
+    return self.reply_message_with_http_info(reply_message_request, **kwargs)  # noqa: E501
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6674, in reply_message_with_http_info
+    return self.api_client.call_api(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 407, in call_api
+    return self.__call_api(resource_path, method,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 222, in __call_api
+    raise e
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 212, in __call_api
+    response_data = self.request(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 451, in request
+    return self.rest_client.post_request(url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 270, in post_request
+    return self.request("POST", url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 229, in request
+    raise ApiException(http_resp=r)
+linebot.v3.messaging.exceptions.ApiException: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '417dc54d-d22e-43a3-bc44-cd57535c29b1', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:40:10 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:40:10 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:40:10,088 - ERROR - 發送錯誤訊息失敗: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': 'b49cc3ae-cf20-4047-b1fd-0ac36b105b1e', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:40:10 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:40:10 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:40:10,091 - INFO - Message handled successfully
+2025-01-13 11:40:10,092 - INFO - 127.0.0.1 - - [13/Jan/2025 11:40:10] "POST /callback HTTP/1.1" 200 -
+2025-01-13 11:40:11,530 - ERROR - 處理個人訊息時發生錯誤: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '4ca8e680-ff1d-4aef-8807-27a09d25a440', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:40:11 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:40:11 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 302, in handle_personal_message
+    line_bot_api.reply_message(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6570, in reply_message
+    return self.reply_message_with_http_info(reply_message_request, **kwargs)  # noqa: E501
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6674, in reply_message_with_http_info
+    return self.api_client.call_api(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 407, in call_api
+    return self.__call_api(resource_path, method,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 222, in __call_api
+    raise e
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 212, in __call_api
+    response_data = self.request(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 451, in request
+    return self.rest_client.post_request(url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 270, in post_request
+    return self.request("POST", url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 229, in request
+    raise ApiException(http_resp=r)
+linebot.v3.messaging.exceptions.ApiException: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '4ca8e680-ff1d-4aef-8807-27a09d25a440', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:40:11 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:40:11 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:40:11,712 - ERROR - 發送錯誤訊息失敗: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '6f2d9ca4-f116-46c9-a74c-28afffaa554b', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:40:11 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:40:11 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:40:11,715 - INFO - Message handled successfully
+2025-01-13 11:40:11,716 - INFO - 127.0.0.1 - - [13/Jan/2025 11:40:11] "POST /callback HTTP/1.1" 200 -
+2025-01-13 11:40:52,283 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543427511800561890","quoteToken":"PSuWQMNf3UnAEgL5Vb56yvRACreo8Qc2FaLnZ8CRe7Ts3-p0o81ri7lwRrvJOj5_acKZ0sIxaRvo4zSXHp4GZaBmwWTLB-loQ9z-QT2ulYqLhAAqRIRqVCOPx7wjIfTYoEt26n-16G2mwQv9gRxsGA","text":"請問2024年台灣發生哪些重大事件"},"webhookEventId":"01JHEVPHWP744YXCXWG8NWVBBZ","deliveryContext":{"isRedelivery":true},"timestamp":1736739342073,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"3bb77db5f64145bba4f697040086f452","mode":"active"}]}
+2025-01-13 11:40:52,669 - INFO - FK helper 開始網路搜尋: 請問2024年台灣發生哪些重大事件
+2025-01-13 11:40:52,674 - INFO - 已刪除用戶搜尋記錄: search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_034009.json
+2025-01-13 11:40:52,676 - INFO - 用戶 U449870fffc8fd9e18b66fe46941fc84d 的搜尋歷史記錄已清除
+2025-01-13 11:40:52,678 - INFO - 開始搜尋查詢: 請問2024年台灣發生哪些重大事件
+2025-01-13 11:40:52,679 - INFO - 開始 Google 搜尋...
+2025-01-13 11:40:55,499 - INFO - 找到 5 個搜尋結果
+2025-01-13 11:40:55,500 - INFO - 正在處理 URL: https://news.tvbs.com.tw/exhibition/news-review/2024/index.html
+2025-01-13 11:40:56,055 - INFO - 正在解析網頁內容...
+2025-01-13 11:40:56,636 - INFO - 成功處理網頁，內容長度: 503
+2025-01-13 11:40:56,638 - INFO - 正在處理 URL: https://zh.wikipedia.org/zh-tw/2024%E5%B9%B4%E8%87%BA%E7%81%A3
+2025-01-13 11:40:57,090 - INFO - 正在解析網頁內容...
+2025-01-13 11:40:58,708 - INFO - 成功處理網頁，內容長度: 503
+2025-01-13 11:40:58,721 - INFO - 正在處理 URL: https://www.facebook.com/mysuperlucky/videos/2024%E5%8F%B0%E7%81%A3%E5%A4%A7%E4%BA%8B%E4%BB%B6%E5%93%AA%E4%BA%9B%E7%9E%AC%E9%96%93%E9%9C%87%E6%92%BC%E7%9A%84%E5%85%A8%E5%8F%B0%E4%BA%BA%E6%B0%91%E5%91%BD%E9%81%8B%E5%A5%BD%E5%A5%BD%E7%8E%A92024%E5%A4%A7%E4%BA%8B%E4%BB%B6%E9%A0%90%E5%91%8A/3715461462048963/
+2025-01-13 11:41:00,390 - INFO - 正在解析網頁內容...
+2025-01-13 11:41:00,579 - INFO - 成功處理網頁，內容長度: 145
+2025-01-13 11:41:00,581 - INFO - 正在處理 URL: https://www.facebook.com/myudn/videos/%E7%9C%8B%E6%96%B0%E8%81%9Eep41-%E9%A6%AC%E4%B8%8A%E8%A6%81%E8%B7%A8%E5%B9%B4%E5%9B%9E%E9%A1%A72024%E7%99%BC%E7%94%9F%E5%93%AA%E4%BA%9B%E5%A4%A7%E4%BA%8B/1328246831861324/
+2025-01-13 11:41:02,698 - INFO - 正在解析網頁內容...
+2025-01-13 11:41:02,784 - INFO - 成功處理網頁，內容長度: 199
+2025-01-13 11:41:02,785 - INFO - 正在處理 URL: https://www.youtube.com/watch?v=dgb9G3Dm-wY
+2025-01-13 11:41:03,278 - INFO - 正在解析網頁內容...
+2025-01-13 11:41:03,321 - INFO - 成功處理網頁，內容長度: 111
+2025-01-13 11:41:03,322 - INFO - 正在保存搜尋結果到: temp/web_search\search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_034103.json
+2025-01-13 11:41:03,325 - INFO - 搜尋過程完成
+2025-01-13 11:41:03,329 - INFO - 搜尋結果已保存到: temp/web_search\search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_034103.json
+2025-01-13 11:41:03,330 - INFO - 網路搜尋結果長度: 2213
+2025-01-13 11:41:05,869 - ERROR - 處理個人訊息時發生錯誤: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '9cbf6337-40c9-42c1-a48e-f83a115d9717', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:41:06 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:41:06 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 302, in handle_personal_message
+    line_bot_api.reply_message(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6570, in reply_message
+    return self.reply_message_with_http_info(reply_message_request, **kwargs)  # noqa: E501
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6674, in reply_message_with_http_info
+    return self.api_client.call_api(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 407, in call_api
+    return self.__call_api(resource_path, method,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 222, in __call_api
+    raise e
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 212, in __call_api
+    response_data = self.request(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 451, in request
+    return self.rest_client.post_request(url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 270, in post_request
+    return self.request("POST", url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 229, in request
+    raise ApiException(http_resp=r)
+linebot.v3.messaging.exceptions.ApiException: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '9cbf6337-40c9-42c1-a48e-f83a115d9717', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:41:06 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:41:06 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:41:06,130 - ERROR - 發送錯誤訊息失敗: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': 'e202ca6c-34df-4bd1-b62e-1487e9c20e84', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:41:06 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:41:06 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:41:06,134 - INFO - Message handled successfully
+2025-01-13 11:41:06,135 - INFO - 127.0.0.1 - - [13/Jan/2025 11:41:06] "POST /callback HTTP/1.1" 200 -
+2025-01-13 11:41:08,861 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543427747150561526","quoteToken":"RDbCdkkqie-XLgYx2fBg57k1B9oRnNcJPICrAHR0JwTADLuw99rOtQkbwR10GO5bFS7P6eC9F6Vj4GGeBG75fvgEVOittO9PRN3w61ctwJPCDSjYU1lmltkE062tDunxKaWgWHswxwyK8fEoOZvO5g","text":"告訴我 Fight.K教會 的歷史"},"webhookEventId":"01JHEVTV6SJZRHMESY1RKN0SCQ","deliveryContext":{"isRedelivery":true},"timestamp":1736739482488,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"964f1214f2794d539ea22d7d7bbe2b74","mode":"active"}]}
+2025-01-13 11:41:09,060 - INFO - 使用知識庫回答 Fight.K 相關問題
+2025-01-13 11:41:11,439 - ERROR - 處理個人訊息時發生錯誤: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '88e59874-f640-47c2-af9b-55180784fb5b', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:41:11 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:41:11 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 302, in handle_personal_message
+    line_bot_api.reply_message(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6570, in reply_message
+    return self.reply_message_with_http_info(reply_message_request, **kwargs)  # noqa: E501
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6674, in reply_message_with_http_info
+    return self.api_client.call_api(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 407, in call_api
+    return self.__call_api(resource_path, method,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 222, in __call_api
+    raise e
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 212, in __call_api
+    response_data = self.request(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 451, in request
+    return self.rest_client.post_request(url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 270, in post_request
+    return self.request("POST", url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 229, in request
+    raise ApiException(http_resp=r)
+linebot.v3.messaging.exceptions.ApiException: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '88e59874-f640-47c2-af9b-55180784fb5b', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:41:11 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:41:11 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:41:11,629 - ERROR - 發送錯誤訊息失敗: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': 'a1344d6a-9ff7-4357-a16d-25f6a8567fce', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:41:11 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:41:11 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:41:11,639 - INFO - Message handled successfully
+2025-01-13 11:41:11,641 - INFO - 127.0.0.1 - - [13/Jan/2025 11:41:11] "POST /callback HTTP/1.1" 200 -
+2025-01-13 11:41:54,299 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543427511800561890","quoteToken":"PSuWQMNf3UnAEgL5Vb56yvRACreo8Qc2FaLnZ8CRe7Ts3-p0o81ri7lwRrvJOj5_acKZ0sIxaRvo4zSXHp4GZaBmwWTLB-loQ9z-QT2ulYqLhAAqRIRqVCOPx7wjIfTYoEt26n-16G2mwQv9gRxsGA","text":"請問2024年台灣發生哪些重大事件"},"webhookEventId":"01JHEVPHWP744YXCXWG8NWVBBZ","deliveryContext":{"isRedelivery":true},"timestamp":1736739342073,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"3bb77db5f64145bba4f697040086f452","mode":"active"}]}
+2025-01-13 11:41:54,377 - INFO - FK helper 開始網路搜尋: 請問2024年台灣發生哪些重大事件
+2025-01-13 11:41:54,379 - INFO - 已刪除用戶搜尋記錄: search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_034103.json
+2025-01-13 11:41:54,380 - INFO - 用戶 U449870fffc8fd9e18b66fe46941fc84d 的搜尋歷史記錄已清除
+2025-01-13 11:41:54,381 - INFO - 開始搜尋查詢: 請問2024年台灣發生哪些重大事件
+2025-01-13 11:41:54,381 - INFO - 開始 Google 搜尋...
+2025-01-13 11:41:56,804 - INFO - 找到 5 個搜尋結果
+2025-01-13 11:41:56,805 - INFO - 正在處理 URL: https://news.tvbs.com.tw/exhibition/news-review/2024/index.html
+2025-01-13 11:41:57,033 - INFO - 正在解析網頁內容...
+2025-01-13 11:41:57,284 - INFO - 成功處理網頁，內容長度: 503
+2025-01-13 11:41:57,286 - INFO - 正在處理 URL: https://zh.wikipedia.org/zh-tw/2024%E5%B9%B4%E8%87%BA%E7%81%A3
+2025-01-13 11:41:57,739 - INFO - 正在解析網頁內容...
+2025-01-13 11:41:58,243 - INFO - 成功處理網頁，內容長度: 503
+2025-01-13 11:41:58,244 - INFO - 正在處理 URL: https://www.facebook.com/mysuperlucky/videos/2024%E5%8F%B0%E7%81%A3%E5%A4%A7%E4%BA%8B%E4%BB%B6%E5%93%AA%E4%BA%9B%E7%9E%AC%E9%96%93%E9%9C%87%E6%92%BC%E7%9A%84%E5%85%A8%E5%8F%B0%E4%BA%BA%E6%B0%91%E5%91%BD%E9%81%8B%E5%A5%BD%E5%A5%BD%E7%8E%A92024%E5%A4%A7%E4%BA%8B%E4%BB%B6%E9%A0%90%E5%91%8A/3715461462048963/
+2025-01-13 11:41:59,712 - INFO - 正在解析網頁內容...
+2025-01-13 11:41:59,771 - INFO - 成功處理網頁，內容長度: 145
+2025-01-13 11:41:59,772 - INFO - 正在處理 URL: https://www.facebook.com/myudn/videos/%E7%9C%8B%E6%96%B0%E8%81%9Eep41-%E9%A6%AC%E4%B8%8A%E8%A6%81%E8%B7%A8%E5%B9%B4%E5%9B%9E%E9%A1%A72024%E7%99%BC%E7%94%9F%E5%93%AA%E4%BA%9B%E5%A4%A7%E4%BA%8B/1328246831861324/
+2025-01-13 11:42:01,953 - INFO - 正在解析網頁內容...
+2025-01-13 11:42:01,989 - INFO - 成功處理網頁，內容長度: 199
+2025-01-13 11:42:01,990 - INFO - 正在處理 URL: https://www.youtube.com/watch?v=dgb9G3Dm-wY
+2025-01-13 11:42:02,433 - INFO - 正在解析網頁內容...
+2025-01-13 11:42:02,463 - INFO - 成功處理網頁，內容長度: 111
+2025-01-13 11:42:02,464 - INFO - 正在保存搜尋結果到: temp/web_search\search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_034202.json
+2025-01-13 11:42:02,465 - INFO - 搜尋過程完成
+2025-01-13 11:42:02,467 - INFO - 搜尋結果已保存到: temp/web_search\search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_034202.json
+2025-01-13 11:42:02,469 - INFO - 網路搜尋結果長度: 2213
+2025-01-13 11:42:04,643 - ERROR - 處理個人訊息時發生錯誤: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': 'c5c9ab52-482e-4307-ab7f-aa1934c0b9c7', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:42:04 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:42:04 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 302, in handle_personal_message
+    line_bot_api.reply_message(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6570, in reply_message
+    return self.reply_message_with_http_info(reply_message_request, **kwargs)  # noqa: E501
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6674, in reply_message_with_http_info
+    return self.api_client.call_api(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 407, in call_api
+    return self.__call_api(resource_path, method,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 222, in __call_api
+    raise e
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 212, in __call_api
+    response_data = self.request(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 451, in request
+    return self.rest_client.post_request(url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 270, in post_request
+    return self.request("POST", url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 229, in request
+    raise ApiException(http_resp=r)
+linebot.v3.messaging.exceptions.ApiException: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': 'c5c9ab52-482e-4307-ab7f-aa1934c0b9c7', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:42:04 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:42:04 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:42:04,798 - ERROR - 發送錯誤訊息失敗: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '18e85f34-e2e5-41ee-a9e4-fa7434f945c5', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:42:04 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:42:04 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:42:04,802 - INFO - Message handled successfully
+2025-01-13 11:42:04,802 - INFO - 127.0.0.1 - - [13/Jan/2025 11:42:04] "POST /callback HTTP/1.1" 200 -
+2025-01-13 11:42:10,910 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543427747150561526","quoteToken":"RDbCdkkqie-XLgYx2fBg57k1B9oRnNcJPICrAHR0JwTADLuw99rOtQkbwR10GO5bFS7P6eC9F6Vj4GGeBG75fvgEVOittO9PRN3w61ctwJPCDSjYU1lmltkE062tDunxKaWgWHswxwyK8fEoOZvO5g","text":"告訴我 Fight.K教會 的歷史"},"webhookEventId":"01JHEVTV6SJZRHMESY1RKN0SCQ","deliveryContext":{"isRedelivery":true},"timestamp":1736739482488,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"964f1214f2794d539ea22d7d7bbe2b74","mode":"active"}]}
+2025-01-13 11:42:10,984 - INFO - 使用知識庫回答 Fight.K 相關問題
+2025-01-13 11:42:12,714 - ERROR - 處理個人訊息時發生錯誤: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': 'f18c1dd8-e8d5-4ff5-9719-aad6a6667fe4', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:42:12 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:42:12 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 302, in handle_personal_message
+    line_bot_api.reply_message(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6570, in reply_message
+    return self.reply_message_with_http_info(reply_message_request, **kwargs)  # noqa: E501
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6674, in reply_message_with_http_info
+    return self.api_client.call_api(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 407, in call_api
+    return self.__call_api(resource_path, method,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 222, in __call_api
+    raise e
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 212, in __call_api
+    response_data = self.request(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 451, in request
+    return self.rest_client.post_request(url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 270, in post_request
+    return self.request("POST", url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 229, in request
+    raise ApiException(http_resp=r)
+linebot.v3.messaging.exceptions.ApiException: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': 'f18c1dd8-e8d5-4ff5-9719-aad6a6667fe4', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:42:12 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:42:12 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:42:13,063 - ERROR - 發送錯誤訊息失敗: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '97ad9f4c-133c-450e-8ecf-49cb12b46310', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:42:13 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:42:13 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:42:13,067 - INFO - Message handled successfully
+2025-01-13 11:42:13,068 - INFO - 127.0.0.1 - - [13/Jan/2025 11:42:13] "POST /callback HTTP/1.1" 200 -
+2025-01-13 11:42:56,314 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543427511800561890","quoteToken":"PSuWQMNf3UnAEgL5Vb56yvRACreo8Qc2FaLnZ8CRe7Ts3-p0o81ri7lwRrvJOj5_acKZ0sIxaRvo4zSXHp4GZaBmwWTLB-loQ9z-QT2ulYqLhAAqRIRqVCOPx7wjIfTYoEt26n-16G2mwQv9gRxsGA","text":"請問2024年台灣發生哪些重大事件"},"webhookEventId":"01JHEVPHWP744YXCXWG8NWVBBZ","deliveryContext":{"isRedelivery":true},"timestamp":1736739342073,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"3bb77db5f64145bba4f697040086f452","mode":"active"}]}
+2025-01-13 11:42:56,393 - INFO - FK helper 開始網路搜尋: 請問2024年台灣發生哪些重大事件
+2025-01-13 11:42:56,395 - INFO - 已刪除用戶搜尋記錄: search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_034202.json
+2025-01-13 11:42:56,396 - INFO - 用戶 U449870fffc8fd9e18b66fe46941fc84d 的搜尋歷史記錄已清除
+2025-01-13 11:42:56,396 - INFO - 開始搜尋查詢: 請問2024年台灣發生哪些重大事件
+2025-01-13 11:42:56,397 - INFO - 開始 Google 搜尋...
+2025-01-13 11:42:58,807 - INFO - 找到 5 個搜尋結果
+2025-01-13 11:42:58,808 - INFO - 正在處理 URL: https://news.tvbs.com.tw/exhibition/news-review/2024/index.html
+2025-01-13 11:42:59,348 - INFO - 正在解析網頁內容...
+2025-01-13 11:42:59,523 - INFO - 成功處理網頁，內容長度: 503
+2025-01-13 11:42:59,524 - INFO - 正在處理 URL: https://zh.wikipedia.org/zh-tw/2024%E5%B9%B4%E8%87%BA%E7%81%A3
+2025-01-13 11:43:00,003 - INFO - 正在解析網頁內容...
+2025-01-13 11:43:00,437 - INFO - 成功處理網頁，內容長度: 503
+2025-01-13 11:43:00,437 - INFO - 正在處理 URL: https://www.facebook.com/mysuperlucky/videos/2024%E5%8F%B0%E7%81%A3%E5%A4%A7%E4%BA%8B%E4%BB%B6%E5%93%AA%E4%BA%9B%E7%9E%AC%E9%96%93%E9%9C%87%E6%92%BC%E7%9A%84%E5%85%A8%E5%8F%B0%E4%BA%BA%E6%B0%91%E5%91%BD%E9%81%8B%E5%A5%BD%E5%A5%BD%E7%8E%A92024%E5%A4%A7%E4%BA%8B%E4%BB%B6%E9%A0%90%E5%91%8A/3715461462048963/
+2025-01-13 11:43:01,782 - INFO - 正在解析網頁內容...
+2025-01-13 11:43:01,813 - INFO - 成功處理網頁，內容長度: 145
+2025-01-13 11:43:01,814 - INFO - 正在處理 URL: https://www.facebook.com/myudn/videos/%E7%9C%8B%E6%96%B0%E8%81%9Eep41-%E9%A6%AC%E4%B8%8A%E8%A6%81%E8%B7%A8%E5%B9%B4%E5%9B%9E%E9%A1%A72024%E7%99%BC%E7%94%9F%E5%93%AA%E4%BA%9B%E5%A4%A7%E4%BA%8B/1328246831861324/
+2025-01-13 11:43:04,391 - INFO - 正在解析網頁內容...
+2025-01-13 11:43:04,427 - INFO - 成功處理網頁，內容長度: 199
+2025-01-13 11:43:04,427 - INFO - 正在處理 URL: https://www.youtube.com/watch?v=dgb9G3Dm-wY
+2025-01-13 11:43:04,933 - INFO - 正在解析網頁內容...
+2025-01-13 11:43:04,955 - INFO - 成功處理網頁，內容長度: 111
+2025-01-13 11:43:04,956 - INFO - 正在保存搜尋結果到: temp/web_search\search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_034304.json
+2025-01-13 11:43:04,957 - INFO - 搜尋過程完成
+2025-01-13 11:43:04,960 - INFO - 搜尋結果已保存到: temp/web_search\search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_034304.json
+2025-01-13 11:43:04,962 - INFO - 網路搜尋結果長度: 2213
+2025-01-13 11:43:06,971 - ERROR - 處理個人訊息時發生錯誤: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '91a14f53-a716-436e-9366-9bd82ddd72a6', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:43:07 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:43:07 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 302, in handle_personal_message
+    line_bot_api.reply_message(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6570, in reply_message
+    return self.reply_message_with_http_info(reply_message_request, **kwargs)  # noqa: E501
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6674, in reply_message_with_http_info
+    return self.api_client.call_api(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 407, in call_api
+    return self.__call_api(resource_path, method,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 222, in __call_api
+    raise e
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 212, in __call_api
+    response_data = self.request(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 451, in request
+    return self.rest_client.post_request(url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 270, in post_request
+    return self.request("POST", url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 229, in request
+    raise ApiException(http_resp=r)
+linebot.v3.messaging.exceptions.ApiException: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '91a14f53-a716-436e-9366-9bd82ddd72a6', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:43:07 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:43:07 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:43:07,320 - ERROR - 發送錯誤訊息失敗: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '7f2c1946-eab5-46d9-b2d5-bf7a61738569', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:43:07 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:43:07 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:43:07,327 - INFO - Message handled successfully
+2025-01-13 11:43:07,329 - INFO - 127.0.0.1 - - [13/Jan/2025 11:43:07] "POST /callback HTTP/1.1" 200 -
+2025-01-13 11:43:12,913 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543427747150561526","quoteToken":"RDbCdkkqie-XLgYx2fBg57k1B9oRnNcJPICrAHR0JwTADLuw99rOtQkbwR10GO5bFS7P6eC9F6Vj4GGeBG75fvgEVOittO9PRN3w61ctwJPCDSjYU1lmltkE062tDunxKaWgWHswxwyK8fEoOZvO5g","text":"告訴我 Fight.K教會 的歷史"},"webhookEventId":"01JHEVTV6SJZRHMESY1RKN0SCQ","deliveryContext":{"isRedelivery":true},"timestamp":1736739482488,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"964f1214f2794d539ea22d7d7bbe2b74","mode":"active"}]}
+2025-01-13 11:43:13,000 - INFO - 使用知識庫回答 Fight.K 相關問題
+2025-01-13 11:43:14,856 - ERROR - 處理個人訊息時發生錯誤: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': 'f5531602-98df-4b65-80a5-b831c072e77d', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:43:15 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:43:15 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 302, in handle_personal_message
+    line_bot_api.reply_message(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6570, in reply_message
+    return self.reply_message_with_http_info(reply_message_request, **kwargs)  # noqa: E501
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6674, in reply_message_with_http_info
+    return self.api_client.call_api(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 407, in call_api
+    return self.__call_api(resource_path, method,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 222, in __call_api
+    raise e
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 212, in __call_api
+    response_data = self.request(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 451, in request
+    return self.rest_client.post_request(url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 270, in post_request
+    return self.request("POST", url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 229, in request
+    raise ApiException(http_resp=r)
+linebot.v3.messaging.exceptions.ApiException: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': 'f5531602-98df-4b65-80a5-b831c072e77d', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:43:15 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:43:15 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:43:15,047 - ERROR - 發送錯誤訊息失敗: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': 'fce7ac33-c1a4-4bc5-8e0e-098486fbcf9b', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:43:15 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:43:15 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:43:15,049 - INFO - Message handled successfully
+2025-01-13 11:43:15,050 - INFO - 127.0.0.1 - - [13/Jan/2025 11:43:15] "POST /callback HTTP/1.1" 200 -
+2025-01-13 11:43:58,315 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543427511800561890","quoteToken":"PSuWQMNf3UnAEgL5Vb56yvRACreo8Qc2FaLnZ8CRe7Ts3-p0o81ri7lwRrvJOj5_acKZ0sIxaRvo4zSXHp4GZaBmwWTLB-loQ9z-QT2ulYqLhAAqRIRqVCOPx7wjIfTYoEt26n-16G2mwQv9gRxsGA","text":"請問2024年台灣發生哪些重大事件"},"webhookEventId":"01JHEVPHWP744YXCXWG8NWVBBZ","deliveryContext":{"isRedelivery":true},"timestamp":1736739342073,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"3bb77db5f64145bba4f697040086f452","mode":"active"}]}
+2025-01-13 11:43:58,391 - INFO - FK helper 開始網路搜尋: 請問2024年台灣發生哪些重大事件
+2025-01-13 11:43:58,393 - INFO - 已刪除用戶搜尋記錄: search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_034304.json
+2025-01-13 11:43:58,394 - INFO - 用戶 U449870fffc8fd9e18b66fe46941fc84d 的搜尋歷史記錄已清除
+2025-01-13 11:43:58,395 - INFO - 開始搜尋查詢: 請問2024年台灣發生哪些重大事件
+2025-01-13 11:43:58,396 - INFO - 開始 Google 搜尋...
+2025-01-13 11:44:00,817 - INFO - 找到 5 個搜尋結果
+2025-01-13 11:44:00,818 - INFO - 正在處理 URL: https://news.tvbs.com.tw/exhibition/news-review/2024/index.html
+2025-01-13 11:44:01,044 - INFO - 正在解析網頁內容...
+2025-01-13 11:44:01,349 - INFO - 成功處理網頁，內容長度: 503
+2025-01-13 11:44:01,349 - INFO - 正在處理 URL: https://zh.wikipedia.org/zh-tw/2024%E5%B9%B4%E8%87%BA%E7%81%A3
+2025-01-13 11:44:01,880 - INFO - 正在解析網頁內容...
+2025-01-13 11:44:02,294 - INFO - 成功處理網頁，內容長度: 503
+2025-01-13 11:44:02,295 - INFO - 正在處理 URL: https://www.facebook.com/mysuperlucky/videos/2024%E5%8F%B0%E7%81%A3%E5%A4%A7%E4%BA%8B%E4%BB%B6%E5%93%AA%E4%BA%9B%E7%9E%AC%E9%96%93%E9%9C%87%E6%92%BC%E7%9A%84%E5%85%A8%E5%8F%B0%E4%BA%BA%E6%B0%91%E5%91%BD%E9%81%8B%E5%A5%BD%E5%A5%BD%E7%8E%A92024%E5%A4%A7%E4%BA%8B%E4%BB%B6%E9%A0%90%E5%91%8A/3715461462048963/
+2025-01-13 11:44:03,390 - INFO - 正在解析網頁內容...
+2025-01-13 11:44:03,423 - INFO - 成功處理網頁，內容長度: 145
+2025-01-13 11:44:03,424 - INFO - 正在處理 URL: https://www.facebook.com/myudn/videos/%E7%9C%8B%E6%96%B0%E8%81%9Eep41-%E9%A6%AC%E4%B8%8A%E8%A6%81%E8%B7%A8%E5%B9%B4%E5%9B%9E%E9%A1%A72024%E7%99%BC%E7%94%9F%E5%93%AA%E4%BA%9B%E5%A4%A7%E4%BA%8B/1328246831861324/
+2025-01-13 11:44:06,161 - INFO - 正在解析網頁內容...
+2025-01-13 11:44:06,269 - INFO - 成功處理網頁，內容長度: 199
+2025-01-13 11:44:06,270 - INFO - 正在處理 URL: https://www.youtube.com/watch?v=dgb9G3Dm-wY
+2025-01-13 11:44:06,796 - INFO - 正在解析網頁內容...
+2025-01-13 11:44:06,825 - INFO - 成功處理網頁，內容長度: 111
+2025-01-13 11:44:06,826 - INFO - 正在保存搜尋結果到: temp/web_search\search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_034406.json
+2025-01-13 11:44:06,828 - INFO - 搜尋過程完成
+2025-01-13 11:44:06,831 - INFO - 搜尋結果已保存到: temp/web_search\search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_034406.json
+2025-01-13 11:44:06,833 - INFO - 網路搜尋結果長度: 2213
+2025-01-13 11:44:08,885 - ERROR - 處理個人訊息時發生錯誤: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': 'cec3d853-6f12-4487-bf16-91dc5e056771', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:44:09 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:44:09 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 302, in handle_personal_message
+    line_bot_api.reply_message(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6570, in reply_message
+    return self.reply_message_with_http_info(reply_message_request, **kwargs)  # noqa: E501
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6674, in reply_message_with_http_info
+    return self.api_client.call_api(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 407, in call_api
+    return self.__call_api(resource_path, method,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 222, in __call_api
+    raise e
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 212, in __call_api
+    response_data = self.request(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 451, in request
+    return self.rest_client.post_request(url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 270, in post_request
+    return self.request("POST", url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 229, in request
+    raise ApiException(http_resp=r)
+linebot.v3.messaging.exceptions.ApiException: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': 'cec3d853-6f12-4487-bf16-91dc5e056771', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:44:09 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:44:09 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:44:09,096 - ERROR - 發送錯誤訊息失敗: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '23e29b8d-abd7-4b13-bdb9-7eb536fd9f4a', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:44:09 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:44:09 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:44:09,102 - INFO - Message handled successfully
+2025-01-13 11:44:09,104 - INFO - 127.0.0.1 - - [13/Jan/2025 11:44:09] "POST /callback HTTP/1.1" 200 -
+2025-01-13 11:44:14,942 - INFO - Request body: {"destination":"U96fc0873f979845891b94eb16ade02ab","events":[{"type":"message","message":{"type":"text","id":"543427747150561526","quoteToken":"RDbCdkkqie-XLgYx2fBg57k1B9oRnNcJPICrAHR0JwTADLuw99rOtQkbwR10GO5bFS7P6eC9F6Vj4GGeBG75fvgEVOittO9PRN3w61ctwJPCDSjYU1lmltkE062tDunxKaWgWHswxwyK8fEoOZvO5g","text":"告訴我 Fight.K教會 的歷史"},"webhookEventId":"01JHEVTV6SJZRHMESY1RKN0SCQ","deliveryContext":{"isRedelivery":true},"timestamp":1736739482488,"source":{"type":"user","userId":"U449870fffc8fd9e18b66fe46941fc84d"},"replyToken":"964f1214f2794d539ea22d7d7bbe2b74","mode":"active"}]}
+2025-01-13 11:44:15,014 - INFO - 使用知識庫回答 Fight.K 相關問題
+2025-01-13 11:44:17,235 - ERROR - 處理個人訊息時發生錯誤: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': 'fa1a4fd8-cce2-48bb-9444-9d1afb7aa2b4', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:44:17 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:44:17 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 302, in handle_personal_message
+    line_bot_api.reply_message(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6570, in reply_message
+    return self.reply_message_with_http_info(reply_message_request, **kwargs)  # noqa: E501
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6674, in reply_message_with_http_info
+    return self.api_client.call_api(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 407, in call_api
+    return self.__call_api(resource_path, method,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 222, in __call_api
+    raise e
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 212, in __call_api
+    response_data = self.request(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 451, in request
+    return self.rest_client.post_request(url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 270, in post_request
+    return self.request("POST", url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 229, in request
+    raise ApiException(http_resp=r)
+linebot.v3.messaging.exceptions.ApiException: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': 'fa1a4fd8-cce2-48bb-9444-9d1afb7aa2b4', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:44:17 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:44:17 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:44:17,386 - ERROR - 發送錯誤訊息失敗: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': 'fb5ec1cb-dbf1-4ad9-a653-f3dcee35f79c', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Mon, 13 Jan 2025 03:44:17 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Mon, 13 Jan 2025 03:44:17 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-13 11:44:17,391 - INFO - Message handled successfully
+2025-01-13 11:44:17,392 - INFO - 127.0.0.1 - - [13/Jan/2025 11:44:17] "POST /callback HTTP/1.1" 200 -

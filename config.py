@@ -3,13 +3,19 @@ import os
 
 BASE_DIR = os.path.dirname(__file__)
 
+# 定義常用檔案路徑
+CORE_DOC_PATH = 'data/Fight.K核心理念.docx'
+INTRO_DOC_PATH = 'data/Fight.K簡介.docx'
+HISTORY_DOC_PATH = 'data/Fight.K歷史.docx'
+LINKS_DOC_PATH = 'data/Fight.K相關連結整理.xlsx'
+
 # 共同參考資料路徑
 COMMON_PATHS = [
-    os.path.join(BASE_DIR, "data", "Fight.K核心理念.docx"),  # 共用的基礎資料
+    os.path.join(BASE_DIR, CORE_DOC_PATH),
     os.path.join(BASE_DIR, "data", "knowledge_base.txt"), 
-    os.path.join(BASE_DIR, "data", "Fight.K歷史.docx"),  # 所有角色都需要的基礎
-    os.path.join(BASE_DIR, "data", "Fight.K簡介.docx"),  
-    os.path.join(BASE_DIR, "data", "Fight.K相關連結整理.xlsx"),  
+    os.path.join(BASE_DIR, HISTORY_DOC_PATH),  # 所有角色都需要的基礎
+    os.path.join(BASE_DIR, INTRO_DOC_PATH),  
+    os.path.join(BASE_DIR, LINKS_DOC_PATH),  
     os.path.join(BASE_DIR, "data", "info.json"),  
     os.path.join(BASE_DIR, "data", "knowledge_base.txt"),  
 ]
@@ -39,8 +45,88 @@ ROLE_SPECIFIC_PATHS = {
 
 # 組合共同路徑和角色專屬路徑
 KNOWLEDGE_BASE_PATHS = {
-    role: COMMON_PATHS + paths 
-    for role, paths in ROLE_SPECIFIC_PATHS.items()
+    'common': {  # 共同參考資料
+        'core': {
+            'path': CORE_DOC_PATH,
+            'description': 'Fight.K核心理念文件',
+            'keywords': ['核心', '理念', '價值觀', '使命', 'Fight.K'],
+            'priority': 1
+        },
+        'intro': {
+            'path': INTRO_DOC_PATH,
+            'description': 'Fight.K 基本介紹',
+            'keywords': ['簡介', '介紹', '認識', 'Fight.K'],
+            'priority': 2
+        },
+        'history': {
+            'path': HISTORY_DOC_PATH,
+            'description': 'Fight.K 歷史記錄',
+            'keywords': ['歷史', '發展', '里程碑', 'Fight.K'],
+            'priority': 3
+        },
+        'links': {
+            'path': LINKS_DOC_PATH,
+            'description': 'Fight.K 相關資源連結',
+            'keywords': ['連結', '資源', '網站', 'Fight.K'],
+            'priority': 4
+        }
+    },
+    'FK helper': {
+        'common': {
+            'path': CORE_DOC_PATH,
+            'description': 'Fight.K 核心理念文件',
+            'keywords': ['核心', '理念', '價值觀', '使命', 'Fight.K'],
+            'priority': 1
+        },
+        'samaria': {
+            'path': 'data/撒瑪利亞教會',
+            'description': '撒瑪利亞教會相關資料',
+            'keywords': ['撒瑪利亞', '夥伴', '單位'],
+            'priority': 2
+        }
+    },
+    'FK teacher': {
+        'bible': {
+            'path': 'data/聖經',
+            'description': '聖經相關資料',
+            'keywords': ['聖經', '經文', '章節'],
+            'priority': 1
+        },
+        'dna': {
+            'path': 'data/裝備課程/DNA',
+            'description': 'DNA 課程資料',
+            'keywords': ['DNA', '講義', '考卷', '解答'],
+            'priority': 2
+        },
+        'cloud': {
+            'path': 'data/裝備課程/雲端神學院',
+            'description': '雲端神學院課程',
+            'keywords': ['神學院', '課程', '裝備'],
+            'priority': 3
+        }
+    },
+    'FK Prophet': {
+        'home_church': {
+            'path': 'data/FK計畫與轉型/家教會',
+            'description': '家教會相關資料',
+            'keywords': ['家教會', 'QA', '簡介', '計畫'],
+            'priority': 1
+        },
+        'partners': {
+            'path': 'data/夥伴單位簡介',
+            'description': '夥伴單位資料',
+            'keywords': ['夥伴', '單位', '合作'],
+            'priority': 2
+        }
+    },
+    'FK Business': {
+        'business': {
+            'path': 'data/FK商業理念',
+            'description': 'Fight.K 商業相關資料',
+            'keywords': ['商業', '理念', '經營'],
+            'priority': 1
+        }
+    }
 }
 
 # Retrieve API key from environment variable
@@ -80,4 +166,71 @@ ADMIN_COMMANDS = {
     "!add_group": "新增群組",
     "!remove_group": "移除群組",
     "!help": "顯示管理員指令說明"
+}
+
+# 知識庫路徑配置
+KNOWLEDGE_BASE_PATHS = {
+    'FK helper': {
+        'common': {
+            'path': CORE_DOC_PATH,
+            'description': 'Fight.K 核心理念文件',
+            'keywords': ['核心', '理念', '價值觀', '使命'],
+            'priority': 1
+        },
+        'samaria': {
+            'path': 'data/撒瑪利亞教會',
+            'description': '撒瑪利亞教會相關資料',
+            'keywords': ['撒瑪利亞', '夥伴', '單位'],
+            'priority': 2
+        }
+    },
+    'FK teacher': {
+        'bible': {
+            'path': 'data/聖經',
+            'description': '聖經相關資料',
+            'keywords': ['聖經', '經文', '章節'],
+            'priority': 1
+        },
+        'dna': {
+            'path': 'data/裝備課程/DNA',
+            'description': 'DNA 課程資料',
+            'keywords': ['DNA', '講義', '考卷', '解答'],
+            'priority': 2
+        },
+        'cloud': {
+            'path': 'data/裝備課程/雲端神學院',
+            'description': '雲端神學院課程',
+            'keywords': ['神學院', '課程', '裝備'],
+            'priority': 3
+        }
+    },
+    'FK Prophet': {
+        'home_church': {
+            'path': 'data/FK計畫與轉型/家教會',
+            'description': '家教會相關資料',
+            'keywords': ['家教會', 'QA', '簡介', '計畫'],
+            'priority': 1
+        },
+        'partners': {
+            'path': 'data/夥伴單位簡介',
+            'description': '夥伴單位資料',
+            'keywords': ['夥伴', '單位', '合作'],
+            'priority': 2
+        }
+    },
+    'FK Business': {
+        'business': {
+            'path': 'data/FK商業理念',
+            'description': 'Fight.K 商業相關資料',
+            'keywords': ['商業', '理念', '經營'],
+            'priority': 1
+        }
+    }
+}
+
+# 知識庫搜尋設定
+KNOWLEDGE_BASE_SETTINGS = {
+    'max_results': 5,        # 每次搜尋返回的最大結果數
+    'min_similarity': 0.3,   # 最小相似度閾值
+    'context_length': 1000   # 上下文長度
 }
