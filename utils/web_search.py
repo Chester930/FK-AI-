@@ -13,26 +13,71 @@ class WebSearcher:
     def __init__(self):
         self.temp_dir = "temp/web_search"
         os.makedirs(self.temp_dir, exist_ok=True)
-        self.max_content_length = 800  # 每個網頁的最大字數
-        self.max_total_length = 2400   # 總字數限制 (3個網頁合計)
         
-    def search_and_save(self, query: str) -> str:
+        # 修改限制
+        self.max_content_length = 500   # 每個網頁最大字數改為 500
+        self.max_total_length = 2500    # 總字數限制 (5個網頁合計)
+        
+    def _clear_user_search_history(self, user_id: str):
+        """清除特定用戶的搜尋紀錄"""
+        try:
+            prefix = f"search_personal_{user_id}_"
+            if os.path.exists(self.temp_dir):
+                for file in os.listdir(self.temp_dir):
+                    if file.startswith(prefix):
+                        file_path = os.path.join(self.temp_dir, file)
+                        try:
+                            if os.path.isfile(file_path):
+                                os.remove(file_path)
+                                logger.info(f"已刪除用戶搜尋記錄: {file}")
+                        except Exception as e:
+                            logger.error(f"刪除檔案時發生錯誤 {file_path}: {str(e)}")
+            logger.info(f"用戶 {user_id} 的搜尋歷史記錄已清除")
+        except Exception as e:
+            logger.error(f"清除用戶搜尋歷史時發生錯誤: {str(e)}")
+
+    def _clear_group_search_history(self, group_id: str):
+        """清除特定群組的搜尋紀錄"""
+        try:
+            prefix = f"search_group_{group_id}_"
+            if os.path.exists(self.temp_dir):
+                for file in os.listdir(self.temp_dir):
+                    if file.startswith(prefix):
+                        file_path = os.path.join(self.temp_dir, file)
+                        try:
+                            if os.path.isfile(file_path):
+                                os.remove(file_path)
+                                logger.info(f"已刪除群組搜尋記錄: {file}")
+                        except Exception as e:
+                            logger.error(f"刪除檔案時發生錯誤 {file_path}: {str(e)}")
+            logger.info(f"群組 {group_id} 的搜尋歷史記錄已清除")
+        except Exception as e:
+            logger.error(f"清除群組搜尋歷史時發生錯誤: {str(e)}")
+    
+    def search_and_save(self, query: str, source_id: str, is_group: bool = False) -> str:
         """
         搜尋 Google 並保存結果到臨時文件
-        返回臨時文件路徑
+        source_id: 用戶ID或群組ID
+        is_group: 是否為群組搜尋
         """
         try:
+            # 先清除該來源的歷史記錄
+            if is_group:
+                self._clear_group_search_history(source_id)
+            else:
+                self._clear_user_search_history(source_id)
+            
             logger.info(f"開始搜尋查詢: {query}")
             results = []
             total_length = 0
             
-            # 修改搜尋參數，使用正確的參數名稱
+            # 修改搜尋參數
             search_params = {
-                'num': 3,              # 改用 'num' 而不是 'num_results'
+                'num': 5,              # 改為搜尋 5 個結果
                 'lang': 'zh-TW',
-                'stop': 3,            # 限制搜尋結果數量
-                'pause': 2.0,         # 搜尋間隔
-                'tld': 'com.tw',      # 使用台灣的 Google 網域
+                'stop': 5,             # 限制搜尋結果數量
+                'pause': 2.0,
+                'tld': 'com.tw',
                 'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
             }
             
@@ -108,9 +153,10 @@ class WebSearcher:
                     continue
             
             if results:
-                # 保存結果到臨時文件
+                # 保存結果到臨時文件，使用不同的檔名前綴
                 timestamp = datetime.now(pytz.UTC).strftime('%Y%m%d_%H%M%S')
-                temp_file = os.path.join(self.temp_dir, f"search_{timestamp}.json")
+                prefix = f"search_{'group' if is_group else 'personal'}_{source_id}_"
+                temp_file = os.path.join(self.temp_dir, f"{prefix}{timestamp}.json")
                 
                 logger.info(f"正在保存搜尋結果到: {temp_file}")
                 with open(temp_file, 'w', encoding='utf-8') as f:

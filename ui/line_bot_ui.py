@@ -254,7 +254,7 @@ def handle_personal_message(event, user_id: str, text: str):
         web_content = ""
         if current_role == 'FK helper' and need_web_search:
             logger.info(f"FK helper 開始網路搜尋: {text}")
-            temp_file = web_searcher.search_and_save(text)
+            temp_file = web_searcher.search_and_save(text, user_id, is_group=False)
             if temp_file:
                 logger.info(f"搜尋結果已保存到: {temp_file}")
                 web_content = web_searcher.read_search_results(temp_file)
@@ -964,6 +964,9 @@ if __name__ == "__main__":
         
         # 初始化一個全新的 chat_history 物件
         chat_history = ChatHistory(max_history=10)
+        
+        # 初始化 WebSearcher (會自動清除搜尋紀錄)
+        web_searcher = WebSearcher()
         
         # 建立 ngrok 設定檔
         ngrok_config = {

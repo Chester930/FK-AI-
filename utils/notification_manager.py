@@ -4,6 +4,7 @@ import yaml
 from datetime import datetime
 import pytz
 import logging
+import time
 
 # 設置日誌
 logging.basicConfig(level=logging.INFO)
@@ -103,11 +104,8 @@ class NotificationManager:
     def add_group(self, group_id: str, group_name: str):
         """新增群組"""
         try:
-            # 更新群組資訊
-            self.groups[group_id] = {
-                'name': group_name,
-                'joined_at': datetime.now(pytz.UTC).isoformat()
-            }
+            # 使用統一格式
+            self.groups[group_id] = self._format_group_info(group_name)
             
             # 如果群組還沒有 NID，分配一個新的
             if not self.get_nid_by_group_id(group_id):
@@ -142,7 +140,12 @@ class NotificationManager:
         """更新群組名稱"""
         try:
             if group_id in self.groups:
-                self.groups[group_id]['name'] = new_name
+                # 保持其他資訊不變，只更新名稱
+                current_info = self.groups[group_id]
+                if isinstance(current_info, str):
+                    current_info = self._format_group_info(current_info)
+                current_info['name'] = new_name
+                self.groups[group_id] = current_info
                 return self.save_groups()
             return False
         except Exception as e:
@@ -161,8 +164,27 @@ class NotificationManager:
 
     def add_schedule(self, schedule_data: dict):
         """新增排程"""
-        self.schedules.append(schedule_data)
-        return self.save_schedules()
+        try:
+            # 確保排程有唯一ID
+            if 'id' not in schedule_data:
+                schedule_data['id'] = f"s{int(time.time())}"
+            
+            # 添加建立時間
+            schedule_data['created_at'] = datetime.now(pytz.UTC).isoformat()
+            
+            # 添加到排程列表
+            self.schedules.append(schedule_data)
+            
+            # 立即保存
+            success = self.save_schedules()
+            if success:
+                logger.info(f"成功新增排程: {schedule_data}")
+                # 重新載入排程確保資料同步
+                self.schedules = self.load_schedules()
+            return success
+        except Exception as e:
+            logger.error(f"新增排程時發生錯誤: {e}")
+            return False
 
     def remove_schedule(self, schedule_id: str):
         """移除排程"""
@@ -186,25 +208,74 @@ class NotificationManager:
 
     def get_formatted_schedules(self):
         """獲取格式化的排程列表"""
-        return [
-            {
-                'id': schedule['id'],
-                'name': schedule.get('name', 'Unnamed Schedule'),
-                'scheduled_time': schedule.get('scheduled_time', 'Unknown'),
-                'group_id': schedule.get('group_id'),
-                'message': schedule.get('message')
-            }
-            for schedule in self.schedules
-        ]
+        try:
+            # 重新載入確保資料最新
+            self.schedules = self.load_schedules()
+            
+            formatted_schedules = []
+            for schedule in self.schedules:
+                try:
+                    # 獲取群組名稱
+                    group_id = schedule.get('group_id')
+                    group_info = self.groups.get(group_id, {})
+                    group_name = group_info.get('name', '未知群組') if isinstance(group_info, dict) else group_info
+                    
+                    formatted_schedule = {
+                        'id': schedule.get('id', 'unknown'),
+                        'scheduled_time': schedule.get('scheduled_time', 'Unknown'),
+                        'group_id': group_id,
+                        'group_name': group_name,
+                        'message': schedule.get('message', ''),
+                        'created_at': schedule.get('created_at', 'Unknown')
+                    }
+                    formatted_schedules.append(formatted_schedule)
+                except Exception as e:
+                    logger.error(f"格式化排程時發生錯誤: {e}")
+                    continue
+                    
+            # 按時間排序
+            formatted_schedules.sort(key=lambda x: x['scheduled_time'])
+            
+            return formatted_schedules
+        except Exception as e:
+            logger.error(f"獲取排程列表時發生錯誤: {e}")
+            return []
 
     def _load_groups(self):
         """載入群組資訊"""
         try:
-            with open('data/line_groups.json', 'r', encoding='utf-8') as f:
-                return json.load(f)
-        except FileNotFoundError:
+            if os.path.exists(self.groups_file):
+                with open(self.groups_file, 'r', encoding='utf-8') as f:
+                    groups = json.load(f)
+                    # 統一格式化所有群組資訊
+                    formatted_groups = {}
+                    for group_id, info in groups.items():
+                        formatted_groups[group_id] = self._format_group_info(info)
+                    return formatted_groups
             return {}
-            
+        except Exception as e:
+            logger.error(f"載入群組資料時發生錯誤: {e}")
+            return {}
+
+    def _format_group_info(self, info):
+        """統一格式化群組資訊"""
+        if isinstance(info, str):
+            return {
+                'name': info,
+                'joined_at': datetime.now(pytz.UTC).isoformat()
+            }
+        elif isinstance(info, dict):
+            if 'name' not in info:
+                info['name'] = '未命名群組'
+            if 'joined_at' not in info:
+                info['joined_at'] = datetime.now(pytz.UTC).isoformat()
+            return info
+        else:
+            return {
+                'name': '未命名群組',
+                'joined_at': datetime.now(pytz.UTC).isoformat()
+            }
+
     def _load_nids(self):
         """載入群組 NID 對應"""
         try:
@@ -233,6 +304,9 @@ class NotificationManager:
         formatted_groups = []
         for nid, group_id in self.nids.items():
             group_info = self.groups.get(group_id, {})
+            if isinstance(group_info, str):
+                group_info = self._format_group_info(group_info)
+            
             formatted_groups.append({
                 'nid': nid,
                 'name': group_info.get('name', f'群組 {nid}')
