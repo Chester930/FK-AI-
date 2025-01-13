@@ -5,6 +5,10 @@ import openpyxl
 import fitz  # PyMuPDF
 import jieba
 import json
+import logging
+
+# 設置日誌
+logger = logging.getLogger(__name__)
 
 # 將專案根目錄加入到 sys.path
 import sys
@@ -25,19 +29,29 @@ class KnowledgeBase:
         for path_info in relevant_paths:
             path = path_info['path']
             try:
-                # 讀取文件內容
+                content = ""
                 if os.path.isfile(path):
-                    with open(path, 'r', encoding='utf-8') as f:
-                        content = f.read()
+                    # 根據檔案類型讀取內容
+                    if path.endswith('.xlsx'):
+                        content = self._read_excel(path)
+                    elif path.endswith('.docx'):
+                        content = self._read_docx(path)
+                    elif path.endswith('.txt'):
+                        content = self._read_text(path)
+                    elif path.endswith('.pdf'):
+                        content = self._read_pdf(path)
+                        
+                    if content:
                         results.append({
                             'content': content,
                             'path': path,
                             'description': path_info['description']
                         })
+            
             except Exception as e:
                 logger.error(f"讀取文件時發生錯誤 {path}: {str(e)}")
                 continue
-            
+        
         return self._format_results(results)
 
     def _format_results(self, results):
@@ -76,4 +90,41 @@ class KnowledgeBase:
         # 按優先級排序
         relevant_paths.sort(key=lambda x: x['priority'])
         return relevant_paths
+
+    def _read_excel(self, path):
+        """讀取 Excel 文件"""
+        wb = openpyxl.load_workbook(path)
+        content = []
+        for sheet in wb.worksheets:
+            headers = None
+            for row in sheet.iter_rows(values_only=True):
+                if not headers:
+                    headers = row  # 第一行作為標題
+                    continue
+                # 將標題和內容組合
+                row_data = []
+                for header, cell in zip(headers, row):
+                    if cell:  # 只添加非空的單元格
+                        row_data.append(f"{header}: {cell}")
+                if row_data:
+                    content.append(' | '.join(row_data))
+        return '\n'.join(content)
+
+    def _read_docx(self, path):
+        """讀取 Word 文件"""
+        doc = docx.Document(path)
+        return '\n'.join(paragraph.text for paragraph in doc.paragraphs)
+
+    def _read_text(self, path):
+        """讀取文本文件"""
+        with open(path, 'r', encoding='utf-8') as f:
+            return f.read()
+
+    def _read_pdf(self, path):
+        """讀取 PDF 文件"""
+        doc = fitz.open(path)
+        content = []
+        for page in doc:
+            content.append(page.get_text())
+        return '\n'.join(content)
 

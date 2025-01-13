@@ -78,10 +78,10 @@ KNOWLEDGE_BASE_PATHS = {
             'keywords': ['核心', '理念', '價值觀', '使命', 'Fight.K'],
             'priority': 1
         },
-        'samaria': {
-            'path': 'data/撒瑪利亞教會',
-            'description': '撒瑪利亞教會相關資料',
-            'keywords': ['撒瑪利亞', '夥伴', '單位'],
+        'partners': {
+            'path': 'data/撒瑪利亞教會/夥伴單位簡介.xlsx',
+            'description': 'Fight.K 夥伴單位資料',
+            'keywords': ['夥伴', '單位', '合作', '協會', '商會', '組織', 'Fight.K'],
             'priority': 2
         }
     },
@@ -113,7 +113,7 @@ KNOWLEDGE_BASE_PATHS = {
             'priority': 1
         },
         'partners': {
-            'path': 'data/夥伴單位簡介',
+            'path': 'data/撒瑪利亞教會/夥伴單位簡介.xlsx',
             'description': '夥伴單位資料',
             'keywords': ['夥伴', '單位', '合作'],
             'priority': 2
@@ -174,13 +174,13 @@ KNOWLEDGE_BASE_PATHS = {
         'common': {
             'path': CORE_DOC_PATH,
             'description': 'Fight.K 核心理念文件',
-            'keywords': ['核心', '理念', '價值觀', '使命'],
+            'keywords': ['核心', '理念', '價值觀', '使命', 'Fight.K'],
             'priority': 1
         },
-        'samaria': {
-            'path': 'data/撒瑪利亞教會',
-            'description': '撒瑪利亞教會相關資料',
-            'keywords': ['撒瑪利亞', '夥伴', '單位'],
+        'partners': {
+            'path': 'data/撒瑪利亞教會/夥伴單位簡介.xlsx',
+            'description': 'Fight.K 夥伴單位資料',
+            'keywords': ['夥伴', '單位', '合作', '協會', '商會', '組織', 'Fight.K'],
             'priority': 2
         }
     },
