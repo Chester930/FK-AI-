@@ -273,21 +273,23 @@ def handle_personal_message(event, user_id: str, text: str):
             )
             return
 
-        # 組合完整提示詞
+        # 修改提示詞格式
         full_prompt = (
             f"{prompt}\n\n"
-            f"系統資訊：\n"
-            f"1. 你是 {current_role}\n"
+            f"指示：\n"
+            "1. 直接提供答案，不要顯示思考過程\n"
+            "2. 使用繁體中文回答\n"
+            "3. 保持簡潔明瞭\n"
+            f"4. 你是 {current_role}\n"
         )
 
         if current_role == 'FK helper':
-            full_prompt += "2. 你有上網搜尋的能力，可以查詢最新資訊\n"
+            full_prompt += "5. 你可以使用網路搜尋功能\n"
             if is_fightk_related(text):
-                full_prompt += "3. 這是一個與 Fight.K 相關的問題，優先使用知識庫的內容回答\n"
+                full_prompt += "6. 這是 Fight.K 相關問題，優先使用知識庫回答\n"
         
         full_prompt += f"\n背景知識：\n{relevant_knowledge}\n\n"
 
-        # 如果有網路搜尋結果，加入提示詞
         if web_content:
             full_prompt += f"網路搜尋結果：\n{web_content}\n\n"
             
