@@ -1,19 +1,35 @@
-flask==2.0.1
-werkzeug==2.0.1
-line-bot-sdk==3.5.0
-streamlit==1.22.0
-google-generativeai==0.3.1
-python-dotenv==0.19.0
-pyyaml==6.0.1
-google==3.0.0
-beautifulsoup4
-requests
-youtube-transcript-api==0.6.1
-pytube==15.0.0
-pytesseract==0.3.10
-SpeechRecognition==3.10.0
-vosk==0.3.45
-pyttsx3==2.90
+# 基礎依賴
+flask>=2.0.1
+python-dotenv>=0.19.0
+line-bot-sdk>=3.5.0
+pyyaml>=5.4.1
+
+# AI 和向量搜索
+google-generativeai>=0.3.0
+sentence-transformers>=2.2.2
+scikit-learn>=1.0.2
+numpy>=1.21.0
+
+# 文檔處理
+python-docx>=0.8.11
+pandas>=1.3.0
+openpyxl>=3.0.7
+PyPDF2>=3.0.0
+Pillow>=8.3.1
+
+# 音訊處理
+SpeechRecognition>=3.8.1
+pydub>=0.25.1
+
+# 排程和快取
+APScheduler>=3.9.1
+cachetools>=5.0.0
+
+# 工具和輔助
+requests>=2.26.0
+beautifulsoup4>=4.9.3
+jieba>=0.42.1
+pytz>=2021.1
 
 
 
