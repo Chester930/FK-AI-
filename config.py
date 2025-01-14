@@ -234,3 +234,82 @@ KNOWLEDGE_BASE_SETTINGS = {
     'min_similarity': 0.3,   # 最小相似度閾值
     'context_length': 1000   # 上下文長度
 }
+
+# Vector Store Settings
+VECTOR_STORE_SETTINGS = {
+    'model_name': 'paraphrase-multilingual-MiniLM-L12-v2',  # 使用多語言模型
+    'min_score': 0.3,  # 最小相似度閾值
+    'top_k': 5,  # 默認返回結果數
+}
+
+# Role-specific Search Settings
+ROLE_SEARCH_SETTINGS = {
+    'FK helper': {
+        'top_k': 3,
+        'min_score': 0.3,
+        'local_weight': 0.3,   # 本地知識庫權重
+        'web_weight': 0.5,     # 網路搜尋權重
+        'history_weight': 0.2   # 對話歷史權重
+    },
+    'FK teacher': {
+        'top_k': 5,
+        'min_score': 0.4,
+        'local_weight': 0.6,
+        'web_weight': 0.2,
+        'history_weight': 0.2
+    },
+    'FK Prophet': {
+        'top_k': 4,
+        'min_score': 0.35,
+        'local_weight': 0.5,
+        'web_weight': 0.3,
+        'history_weight': 0.2
+    },
+    'FK Business': {
+        'top_k': 4,
+        'min_score': 0.35,
+        'local_weight': 0.4,
+        'web_weight': 0.4,
+        'history_weight': 0.2
+    }
+}
+
+# Cache Settings
+CACHE_SETTINGS = {
+    'FK helper': {
+        'type': 'lru',
+        'max_size': 100,
+        'cache_duration': 1800  # 30分鐘
+    },
+    'FK teacher': {
+        'type': 'ttl',
+        'max_size': 200,
+        'cache_duration': 3600  # 1小時
+    },
+    'FK Prophet': {
+        'type': 'ttl',
+        'max_size': 150,
+        'cache_duration': 7200  # 2小時
+    },
+    'FK Business': {
+        'type': 'lru',
+        'max_size': 150,
+        'cache_duration': 3600  # 1小時
+    }
+}
+
+# 文檔處理設置
+DOCUMENT_PROCESSING = {
+    'chunk_size': 1000,  # 文檔分塊大小
+    'chunk_overlap': 200,  # 分塊重疊大小
+    'allowed_extensions': ['.txt', '.docx', '.xlsx', '.pdf'],
+    'encoding': 'utf-8'
+}
+
+# 更新 KNOWLEDGE_BASE_SETTINGS
+KNOWLEDGE_BASE_SETTINGS.update({
+    'vector_store': VECTOR_STORE_SETTINGS,
+    'role_search': ROLE_SEARCH_SETTINGS,
+    'cache': CACHE_SETTINGS,
+    'document_processing': DOCUMENT_PROCESSING
+})

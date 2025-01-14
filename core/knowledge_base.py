@@ -1,130 +1,140 @@
 import os
-import re
-import docx
-import openpyxl
-import fitz  # PyMuPDF
-import jieba
-import json
 import logging
+from typing import Dict, List, Optional
+from config import KNOWLEDGE_BASE_SETTINGS
+from utils.vector_store import VectorStore
+from utils.embedding_manager import EmbeddingManager
+from utils.cache_manager import CacheManager
+from utils.web_search import WebSearcher
 
-# 設置日誌
 logger = logging.getLogger(__name__)
 
-# 將專案根目錄加入到 sys.path
-import sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from config import KNOWLEDGE_BASE_PATHS
-
 class KnowledgeBase:
-    def __init__(self, paths_config):
+    def __init__(self, paths_config: dict):
+        """
+        初始化知識庫
+        
+        Args:
+            paths_config: 知識庫路徑配置
+        """
         self.paths_config = paths_config
         
-    def search(self, query: str):
-        """根據查詢搜尋相關知識"""
-        results = []
+        # 初始化向量存儲
+        self.vector_store = VectorStore(
+            model_name=KNOWLEDGE_BASE_SETTINGS['vector_store']['model_name']
+        )
         
-        # 根據關鍵字選擇合適的知識庫
-        relevant_paths = self._select_relevant_paths(query)
+        # 初始化嵌入管理器
+        self.embedding_manager = EmbeddingManager(
+            vector_store=self.vector_store
+        )
         
-        for path_info in relevant_paths:
-            path = path_info['path']
-            try:
-                content = ""
-                if os.path.isfile(path):
-                    # 根據檔案類型讀取內容
-                    if path.endswith('.xlsx'):
-                        content = self._read_excel(path)
-                    elif path.endswith('.docx'):
-                        content = self._read_docx(path)
-                    elif path.endswith('.txt'):
-                        content = self._read_text(path)
-                    elif path.endswith('.pdf'):
-                        content = self._read_pdf(path)
-                        
-                    if content:
-                        results.append({
-                            'content': content,
-                            'path': path,
-                            'description': path_info['description']
-                        })
+        # 初始化快取管理器
+        self.cache_manager = CacheManager(
+            cache_settings=KNOWLEDGE_BASE_SETTINGS['cache']
+        )
+        
+        # 初始化網路搜索器
+        self.web_searcher = WebSearcher()
+        
+        # 載入知識庫文檔
+        self._load_documents()
+        
+    def _load_documents(self):
+        """載入所有知識庫文檔"""
+        try:
+            # 處理每個角色的文檔
+            for role, categories in self.paths_config.items():
+                if role == 'common':
+                    # 處理共用文檔
+                    for category in categories.values():
+                        path = category['path']
+                        if os.path.exists(path):
+                            self.embedding_manager.process_directory(path)
+                else:
+                    # 處理角色特定文檔
+                    for category in categories.values():
+                        path = category['path']
+                        if os.path.exists(path):
+                            self.embedding_manager.process_directory(path, role)
+                            
+        except Exception as e:
+            logger.error(f"Error loading documents: {e}")
             
-            except Exception as e:
-                logger.error(f"讀取文件時發生錯誤 {path}: {str(e)}")
-                continue
+    def search(self, query: str, role: Optional[str] = None) -> str:
+        """
+        搜索相關知識
         
-        return self._format_results(results)
-
-    def _format_results(self, results):
-        """格式化搜尋結果"""
+        Args:
+            query: 查詢文本
+            role: 角色標識
+            
+        Returns:
+            格式化的搜索結果
+        """
+        try:
+            # 1. 檢查快取
+            cached_response = self.cache_manager.get_cached_response(role, query)
+            if cached_response:
+                logger.info("Cache hit")
+                return cached_response
+                
+            # 2. 獲取角色特定的搜索設置
+            search_settings = KNOWLEDGE_BASE_SETTINGS['role_search'].get(
+                role,
+                KNOWLEDGE_BASE_SETTINGS['role_search']['FK helper']  # 默認設置
+            )
+            
+            # 3. 本地知識庫搜索
+            local_results = self.embedding_manager.search_documents(
+                query=query,
+                role=role,
+                top_k=search_settings['top_k']
+            )
+            
+            # 4. 如果是 FK helper 且本地結果不足，進行網路搜索
+            web_content = ""
+            if role == 'FK helper' and len(local_results) < search_settings['top_k']:
+                temp_file = self.web_searcher.search_and_save(query, "system")
+                if temp_file:
+                    web_content = self.web_searcher.read_search_results(temp_file)
+                    
+            # 5. 組合並格式化結果
+            formatted_results = self._format_results(
+                local_results=local_results,
+                web_content=web_content,
+                search_settings=search_settings
+            )
+            
+            # 6. 快取結果
+            self.cache_manager.cache_response(role, query, formatted_results)
+            
+            return formatted_results
+            
+        except Exception as e:
+            logger.error(f"Error in search: {e}")
+            return f"搜索時發生錯誤: {str(e)}"
+            
+    def _format_results(self, 
+                       local_results: List[Dict],
+                       web_content: str,
+                       search_settings: Dict) -> str:
+        """格式化搜索結果"""
         formatted_text = ""
-        for result in results:
-            formatted_text += f"=== {result['description']} ===\n"
-            formatted_text += f"{result['content']}\n\n"
+        
+        # 添加本地知識庫結果
+        if local_results:
+            formatted_text += "=== 本地知識庫 ===\n"
+            for result in local_results:
+                score = result['score']
+                if score >= search_settings['min_score']:
+                    content = result['content'].replace("[Role: ", "來源: ")
+                    formatted_text += f"{content}\n\n"
+                    
+        # 添加網路搜索結果
+        if web_content:
+            formatted_text += "=== 網路搜索結果 ===\n"
+            formatted_text += f"{web_content}\n"
+            
         return formatted_text.strip()
-
-    def _select_relevant_paths(self, query):
-        """選擇與查詢相關的知識庫路徑"""
-        relevant_paths = []
-        
-        # 先檢查共同資料
-        if 'common' in self.paths_config:
-            for category_name, info in self.paths_config['common'].items():
-                if any(keyword in query.lower() for keyword in info['keywords']):
-                    relevant_paths.append({
-                        'path': info['path'],
-                        'priority': info['priority'],
-                        'description': info['description']
-                    })
-        
-        # 再檢查角色特定資料
-        for role_name, categories in self.paths_config.items():
-            if role_name != 'common':  # 跳過共同資料
-                for category_name, info in categories.items():
-                    if any(keyword in query.lower() for keyword in info['keywords']):
-                        relevant_paths.append({
-                            'path': info['path'],
-                            'priority': info['priority'],
-                            'description': info['description']
-                        })
-        
-        # 按優先級排序
-        relevant_paths.sort(key=lambda x: x['priority'])
-        return relevant_paths
-
-    def _read_excel(self, path):
-        """讀取 Excel 文件"""
-        wb = openpyxl.load_workbook(path)
-        content = []
-        for sheet in wb.worksheets:
-            headers = None
-            for row in sheet.iter_rows(values_only=True):
-                if not headers:
-                    headers = row  # 第一行作為標題
-                    continue
-                # 將標題和內容組合
-                row_data = []
-                for header, cell in zip(headers, row):
-                    if cell:  # 只添加非空的單元格
-                        row_data.append(f"{header}: {cell}")
-                if row_data:
-                    content.append(' | '.join(row_data))
-        return '\n'.join(content)
-
-    def _read_docx(self, path):
-        """讀取 Word 文件"""
-        doc = docx.Document(path)
-        return '\n'.join(paragraph.text for paragraph in doc.paragraphs)
-
-    def _read_text(self, path):
-        """讀取文本文件"""
-        with open(path, 'r', encoding='utf-8') as f:
-            return f.read()
-
-    def _read_pdf(self, path):
-        """讀取 PDF 文件"""
-        doc = fitz.open(path)
-        content = []
-        for page in doc:
-            content.append(page.get_text())
-        return '\n'.join(content)
 
