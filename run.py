@@ -1,87 +1,48 @@
-import argparse
-import sys
 import os
+import logging
 import subprocess
 import time
 import yaml
 import requests
-import json
-import logging
-from pathlib import Path
-import shutil
+from flask import Flask
+from utils.cache_manager import CacheManager
+from utils.web_search import WebSearcher
+from utils.chat_history import ChatHistory
+from utils.youtube_handler import YouTubeHandler
+from core.ai_engine import AIEngine
+from core.prompts import PromptManager
+from config import KNOWLEDGE_BASE_PATHS
 
 # 設置日誌
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.StreamHandler(),
-        logging.FileHandler('app.log', encoding='utf-8')
-    ]
+    format='%(asctime)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
 
-def get_ngrok_url():
-    """獲取 ngrok 的公開 URL"""
+def create_app():
+    # 創建 Flask app
+    app = Flask(__name__)
+    
+    # 初始化所有組件
+    app.config['cache_manager'] = CacheManager()
+    app.config['web_searcher'] = WebSearcher(app.config['cache_manager'])
+    app.config['chat_history'] = ChatHistory(max_history=10)
+    app.config['youtube_handler'] = YouTubeHandler()
+    app.config['ai_engine'] = AIEngine()
+    app.config['prompt_manager'] = PromptManager()
+    
+    # 導入視圖函數
+    from ui.line_bot_ui import initialize_line_bot
+    initialize_line_bot(app)
+    
+    return app
+
+def start_line_bot():
     try:
-        response = requests.get('http://localhost:4040/api/tunnels')
-        tunnels = json.loads(response.text)['tunnels']
-        return next((tunnel['public_url'] for tunnel in tunnels if tunnel['proto'] == 'https'), None)
-    except Exception as e:
-        logger.error(f"Error getting ngrok URL: {e}")
-        return None
-
-def ensure_dependencies():
-    """確保必要的依賴都已安裝"""
-    try:
-        # 檢查 ffmpeg
-        ffmpeg_path = None
-        if sys.platform.startswith('win'):
-            # Windows: 檢查環境變數
-            ffmpeg_path = shutil.which('ffmpeg.exe')
-        else:
-            # Linux/Mac: 檢查常見路徑
-            ffmpeg_path = shutil.which('ffmpeg')
-            
-        if not ffmpeg_path:
-            logger.warning("""
-            未找到 ffmpeg，語音功能可能無法正常工作。
-            請安裝 ffmpeg:
-            - Windows: https://ffmpeg.org/download.html
-            - Linux: sudo apt-get install ffmpeg
-            - Mac: brew install ffmpeg
-            """)
-    except Exception as e:
-        logger.error(f"檢查依賴時發生錯誤: {e}")
-
-def ensure_directories():
-    """確保必要的目錄存在"""
-    directories = ['data', 'temp', 'logs']
-    for directory in directories:
-        Path(directory).mkdir(exist_ok=True)
-    ensure_dependencies()  # 添加依賴檢查
-
-def run_streamlit():
-    """運行 Streamlit 界面"""
-    try:
-        import streamlit.web.cli as stcli
-        sys.argv = ["streamlit", "run", "ui/streamlit_ui.py"]
-        logger.info("Starting Streamlit interface...")
-        sys.exit(stcli.main())
-    except Exception as e:
-        logger.error(f"Error running Streamlit: {e}")
-        sys.exit(1)
-
-def run_line_bot():
-    """運行 LINE Bot 服務"""
-    try:
-        # 檢查環境變數
-        required_env_vars = ['LINE_CHANNEL_SECRET', 'LINE_CHANNEL_ACCESS_TOKEN', 'NGROK_AUTH_TOKEN']
-        missing_vars = [var for var in required_env_vars if not os.environ.get(var)]
-        if missing_vars:
-            logger.error(f"Missing required environment variables: {', '.join(missing_vars)}")
-            sys.exit(1)
-
+        logger.info("Starting LINE Bot service...")
+        print("-" * 50)
+        
         # 建立 ngrok 設定檔
         ngrok_config = {
             "version": "2",
@@ -98,80 +59,42 @@ def run_line_bot():
         with open(config_path, "w") as f:
             yaml.dump(ngrok_config, f)
         
-        # 清除終端機畫面
-        os.system('cls' if os.name == 'nt' else 'clear')
-        
-        logger.info("Starting LINE Bot service...")
-        print("-" * 50)
-        
         # 啟動 ngrok
-        ngrok_process = subprocess.Popen(
-            ["ngrok", "start", "line-bot", "--config", config_path],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE
-        )
+        ngrok_process = subprocess.Popen(["ngrok", "start", "line-bot", "--config", config_path])
         
         # 等待 ngrok 啟動
-        time.sleep(3)
+        time.sleep(5)
         
-        # 獲取並顯示 ngrok URL
-        ngrok_url = get_ngrok_url()
-        if ngrok_url:
+        # 獲取 ngrok 公開網址
+        try:
+            response = requests.get("http://localhost:4040/api/tunnels")
+            ngrok_url = response.json()["tunnels"][0]["public_url"]
             logger.info(f"Ngrok URL: {ngrok_url}")
-            logger.info(f"LINE Bot Webhook URL: {ngrok_url}/callback")
+            
+            webhook_url = f"{ngrok_url}/callback"
+            logger.info(f"LINE Bot Webhook URL: {webhook_url}")
+            
             print(f"\n✅ Ngrok 轉發網址: {ngrok_url}")
-            print(f"✅ LINE Bot Webhook URL: {ngrok_url}/callback")
+            print(f"✅ LINE Bot Webhook URL: {webhook_url}")
             print("\n請將上述 Webhook URL 設定到 LINE Developers Console")
             print("網址: https://developers.line.biz/console/")
-            print("\n📝 Ngrok 狀態面板: http://localhost:4040")
-        else:
-            logger.error("Could not get ngrok URL")
-            raise Exception("Failed to get ngrok URL")
-        
-        print("-" * 50)
-        
-        try:
-            from ui.line_bot_ui import app
-            logger.info("LINE Bot service started on port 5000")
-            print('\n🚀 LINE Bot 服務已啟動於 port 5000')
-            print('按下 Ctrl+C 可以停止服務\n')
-            app.run(port=5000)
-        finally:
+            print(f"\n📝 Ngrok 狀態面板: http://localhost:4040")
+            print("-" * 50)
+            
+            # 創建並啟動 Flask 應用
+            app = create_app()
+            app.run(host='0.0.0.0', port=5000)
+            
+        except Exception as e:
+            logger.error(f"Error getting ngrok URL: {str(e)}")
             ngrok_process.terminate()
+            raise
             
     except Exception as e:
-        logger.error(f"Error starting LINE Bot: {e}")
-        sys.exit(1)
+        logger.error(f"Error starting LINE Bot: {str(e)}")
     finally:
         if os.path.exists(config_path):
             os.remove(config_path)
 
 if __name__ == "__main__":
-    # 確保必要的目錄存在
-    ensure_directories()
-    
-    parser = argparse.ArgumentParser(description='Run Fight.K AI Assistant')
-    parser.add_argument('--mode', type=str, choices=['streamlit', 'line', 'admin'], 
-                       required=True, help='Choose the UI mode: streamlit, line, or admin')
-    
-    args = parser.parse_args()
-    
-    try:
-        if args.mode == 'streamlit':
-            run_streamlit()
-        elif args.mode == 'line':
-            run_line_bot()
-        elif args.mode == 'admin':
-            try:
-                import streamlit.web.cli as stcli
-                sys.argv = ["streamlit", "run", "ui/admin_ui.py"]
-                logger.info("Starting admin interface...")
-                sys.exit(stcli.main())
-            except Exception as e:
-                logger.error(f"Error running admin interface: {e}")
-                sys.exit(1)
-    except KeyboardInterrupt:
-        logger.info("Application stopped by user")
-    except Exception as e:
-        logger.error(f"Application error: {e}")
-        sys.exit(1)
+    start_line_bot()

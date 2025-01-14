@@ -7,11 +7,13 @@ import json
 from datetime import datetime
 import pytz
 from core.ai_engine import AIEngine
+from utils.cache_manager import CacheManager
 
 logger = logging.getLogger(__name__)
 
 class WebSearcher:
-    def __init__(self):
+    def __init__(self, cache_manager):
+        self.cache_manager = cache_manager
         self.temp_dir = "temp/web_search"
         os.makedirs(self.temp_dir, exist_ok=True)
         self.max_content_length = 500   # 每個網頁最大字數
@@ -132,19 +134,17 @@ class WebSearcher:
             return self.extract_search_queries(query)
 
     def search_and_save(self, query: str, source_id: str, is_group: bool = False) -> str:
-        """執行搜尋流程"""
+        """使用 RAG 策略執行搜尋"""
         try:
-            # 清除歷史記錄
-            if is_group:
-                self._clear_group_search_history(source_id)
-            else:
-                self._clear_user_search_history(source_id)
+            # 檢查快取中是否有結果
+            cached_result = self.cache_manager.get_rag_result(source_id, query, is_group)
+            if cached_result:
+                return cached_result
             
             # 使用 AI 生成搜尋關鍵字
             query1, query2 = self.get_search_keywords(query)
-            logger.info(f"最終搜尋關鍵字 - 第一組: {query1}")
-            logger.info(f"最終搜尋關鍵字 - 第二組: {query2}")
             
+            # 不再需要手動清除搜尋紀錄，由 CacheManager 統一管理
             results = []
             search_queries = [query1, query2]
             
@@ -190,12 +190,15 @@ class WebSearcher:
                 with open(temp_file, 'w', encoding='utf-8') as f:
                     json.dump(results, f, ensure_ascii=False, indent=2)
                 
+                # 將結果保存到 RAG 快取
+                self.cache_manager.add_rag_result(source_id, query, results, is_group)
+                
                 return temp_file
                 
             return None
             
         except Exception as e:
-            logger.error(f"搜尋過程中發生錯誤: {str(e)}")
+            logger.error(f"RAG 搜尋過程中發生錯誤: {str(e)}")
             return None
 
     def read_search_results(self, file_path: str) -> str:
