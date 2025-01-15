@@ -171,54 +171,18 @@ def is_fightk_related(text: str) -> bool:
 def handle_personal_message(event, user_id: str, text: str):
     """處理個人對話消息"""
     try:
-        # 檢查用戶狀態
-        user_state = chat_history.get_state(user_id)
+        user_state = user_states.get(user_id, {})
         
-        # 確保新用戶或重啟後的用戶都會看到歡迎訊息
-        if not user_state or 'role' not in user_state:
-            chat_history.set_state(user_id, {"role": None})
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=event.reply_token,
-                    messages=[create_role_selection_message()]
-                )
-            )
-            return
-            
-        # 檢查是否要求切換身分
-        if text.lower() in ["切換身分", "切換角色", "重新選擇"]:
-            chat_history.set_state(user_id, {"role": None})
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=event.reply_token,
-                    messages=[create_role_selection_message()]
-                )
-            )
-            return
-
-        # 檢查是否直接選擇角色
+        # 檢查角色選擇
         if text in ROLE_OPTIONS:
             selected_role = ROLE_OPTIONS[text]
-            chat_history.set_state(user_id, {"role": selected_role})
-            
-            # 根據不同角色給出不同的回應
-            if selected_role == 'FK helper':
-                response = (
-                    f"您已選擇 {ROLE_DESCRIPTIONS[text]}，我可以：\n"
-                    "1. 回答一般問題\n"
-                    "2. 使用網路搜尋最新資訊\n"
-                    "3. 協助解答各種疑問\n\n"
-                    "💡 提示：\n"
-                    "- 直接輸入 A、B、C、D 切換角色\n"
-                    "- 輸入「切換身分」重新選擇"
-                )
-            else:
-                response = (
-                    f"您已選擇 {ROLE_DESCRIPTIONS[text]}，請問有什麼我可以協助您的嗎？\n\n"
-                    "💡 您可以：\n"
-                    "1. 直接輸入 A、B、C、D 切換角色\n"
-                    "2. 輸入「切換身分」重新選擇"
-                )
+            user_states[user_id] = {"role": selected_role}
+            response = (
+                f"已切換到 {ROLE_DESCRIPTIONS[text]}，請問有什麼我可以協助您的嗎？\n\n"
+                "💡 您可以：\n"
+                "1. 直接輸入 A、B、C、D 切換角色\n"
+                "2. 輸入「切換身分」重新選擇"
+            )
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
@@ -226,79 +190,39 @@ def handle_personal_message(event, user_id: str, text: str):
                 )
             )
             return
-
-        # 如果用戶沒有選擇角色，顯示選擇訊息
-        if user_state.get('role') is None:
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=event.reply_token,
-                    messages=[create_role_selection_message()]
-                )
-            )
-            return
-
-        # 處理一般對話
-        current_role = user_state.get('role')
-        
-        # 初始化 KnowledgeBase
-        paths_config = {}
-        # 添加共同知識庫
-        if 'common' in KNOWLEDGE_BASE_PATHS:
-            paths_config['common'] = KNOWLEDGE_BASE_PATHS['common']
-        # 添加角色特定知識庫
-        if current_role in KNOWLEDGE_BASE_PATHS:
-            paths_config[current_role] = KNOWLEDGE_BASE_PATHS[current_role]
             
-        knowledge_base = KnowledgeBase(paths_config)
-        
-        # 獲取相關知識
-        relevant_knowledge = knowledge_base.search(text)
-        
-        # 檢查是否需要網路搜尋
-        need_web_search = True
-        if is_fightk_related(text):
-            # 如果問題與 Fight.K 相關且知識庫有內容，就不需要網路搜尋
-            if relevant_knowledge.strip():
-                need_web_search = False
-                logger.info("使用知識庫回答 Fight.K 相關問題")
-        
-        # 進行網路搜尋（如果需要）
-        web_content = ""
-        if current_role == 'FK helper' and need_web_search:
-            logger.info(f"FK helper 開始網路搜尋: {text}")
-            temp_file = web_searcher.search_and_save(text, user_id, is_group=False)
-            if temp_file:
-                logger.info(f"搜尋結果已保存到: {temp_file}")
-                web_content = web_searcher.read_search_results(temp_file)
-                logger.info(f"網路搜尋結果長度: {len(web_content)}")
-            else:
-                logger.warning("網路搜尋未返回結果")
-        
-        # 獲取提示詞
-        prompt = prompt_manager.get_prompt(current_role)
-        if not prompt:
+        # 檢查是否已選擇角色
+        current_role = user_state.get('role')
+        if not current_role:
+            welcome_message = create_role_selection_message()
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,
-                    messages=[TextMessage(text="系統錯誤：找不到對應的提示詞")]
+                    messages=[welcome_message]
                 )
             )
             return
 
-        # 獲取歷史對話
-        chat_context = chat_history.get_recent_messages(user_id, limit=5)  # 獲取最近5條對話
-        conversation_history = "\n".join([
-            f"用戶: {msg['message']}" if msg['role'] == 'user' else f"助理: {msg['message']}"
-            for msg in chat_context
-        ])
+        # 初始化所需組件
+        knowledge_base = KnowledgeBase(KNOWLEDGE_BASE_PATHS)
+        web_searcher = WebSearcher()
+        youtube_handler = YouTubeHandler()
+        chat_history = ChatHistory(max_history=10)
+        prompt_manager = PromptManager()
+        ai_engine = AIEngine()
+
+        # 先搜索知識庫
+        knowledge_results = knowledge_base.search(text, current_role)
+        
+        # 進行網路搜索
+        search_file = web_searcher.search_and_save(text, user_id, is_group=False)
+        web_results = web_searcher.read_search_results(search_file) if search_file else ""
         
         # 檢查是否包含 YouTube 連結
         youtube_content = ""
-        if 'youtube.com' in text or 'youtu.be' in text:
-            logger.info("檢測到 YouTube 連結")
+        if "youtube.com" in text or "youtu.be" in text:
             transcript = youtube_handler.get_transcript(text)
             video_info = youtube_handler.get_video_info(text)
-            
             if transcript and video_info:
                 youtube_content = (
                     f"\nYouTube 影片資訊：\n"
@@ -306,37 +230,28 @@ def handle_personal_message(event, user_id: str, text: str):
                     f"作者: {video_info['author']}\n"
                     f"字幕內容：\n{transcript[:2000]}...\n\n"
                 )
-                logger.info("成功獲取 YouTube 影片資訊和字幕")
         
-        # 修改提示詞格式
+        # 獲取對話歷史
+        chat_context = chat_history.format_context(user_id)
+        
+        # 組合完整的提示詞
+        prompt = prompt_manager.get_prompt(current_role)
         full_prompt = (
             f"{prompt}\n\n"
-            f"指示：\n"
-            "1. 直接提供答案，不要顯示思考過程\n"
-            "2. 使用繁體中文回答\n"
-            "3. 保持簡潔明瞭\n"
-            f"4. 你是 {current_role}\n"
-            "5. 根據對話歷史理解上下文\n\n"
-            f"對話歷史：\n{conversation_history}\n\n"
+            f"知識庫結果：\n{knowledge_results}\n\n"
+            f"網路搜索結果：\n{web_results}\n\n"
+            f"{youtube_content}"
+            f"對話歷史：\n{chat_context}\n\n"
+            f"問題：{text}\n"
+            f"回答："
         )
-
-        if current_role == 'FK helper':
-            full_prompt += "6. 你可以使用網路搜尋功能\n"
-            if is_fightk_related(text):
-                full_prompt += "7. 這是 Fight.K 相關問題，優先使用知識庫回答\n"
-        
-        full_prompt += f"\n背景知識：\n{relevant_knowledge}\n\n"
-
-        if web_content:
-            full_prompt += f"網路搜尋結果：\n{web_content}\n\n"
-            
-        if youtube_content:
-            full_prompt += youtube_content
-            
-        full_prompt += f"當前問題：{text}\n回答："
         
         # 生成回應
         response = ai_engine.generate_response(full_prompt)
+        
+        # 更新對話歷史
+        chat_history.add_message(user_id, "user", text)
+        chat_history.add_message(user_id, "assistant", response)
         
         # 發送回應
         line_bot_api.reply_message(
@@ -345,31 +260,28 @@ def handle_personal_message(event, user_id: str, text: str):
                 messages=[TextMessage(text=response)]
             )
         )
-        
-        # 處理一般對話時才保存對話歷史
-        if user_state.get('role') is not None:
-            # 更新對話歷史（僅保存最近的對話）
-            chat_history.add_message(user_id, "user", text)
-            chat_history.add_message(user_id, "assistant", response)
             
-            # 保存到文件
-            chat_history.save_to_file('data/chat_history.json')
-        
     except Exception as e:
         logger.error(f"處理個人訊息時發生錯誤: {str(e)}", exc_info=True)
-        try:
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=event.reply_token,
-                    messages=[TextMessage(text="抱歉，處理訊息時發生錯誤。")]
-                )
+        line_bot_api.reply_message(
+            ReplyMessageRequest(
+                reply_token=event.reply_token,
+                messages=[TextMessage(text="抱歉，處理訊息時發生錯誤。")]
             )
-        except Exception as reply_error:
-            logger.error(f"發送錯誤訊息失敗: {str(reply_error)}")
+        )
 
 def handle_group_message(event, group_id: str, text: str):
     """處理群組對話消息"""
     try:
+        # 檢查前綴
+        is_command = text.startswith(('!', '！'))
+        if not is_command:
+            return
+
+        # 移除前綴
+        text = text[1:].strip()
+        # ... 處理群組命令
+
         # 檢查是否有前綴（支持中英文驚嘆號）
         is_command = text.startswith(('!', '！'))
         if not is_command:
@@ -537,8 +449,9 @@ def handle_message(event):
         else:
             # 處理個人訊息
             user_id = event.source.user_id
-            message_text = event.message.text
-            handle_personal_message(event, user_id, message_text)
+            if isinstance(event.message, TextMessageContent):
+                message_text = event.message.text
+                handle_personal_message(event, user_id, message_text)
             
     except Exception as e:
         logger.error(f"處理訊息時發生錯誤: {str(e)}", exc_info=True)

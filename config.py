@@ -170,9 +170,9 @@ ADMIN_COMMANDS = {
 
 # Vector Store Settings
 VECTOR_STORE_SETTINGS = {
-    'model_name': 'paraphrase-multilingual-MiniLM-L12-v2',  # 使用多語言模型
-    'min_score': 0.3,  # 最小相似度閾值
-    'top_k': 5,  # 默認返回結果數
+    'model_name': 'paraphrase-multilingual-MiniLM-L12-v2',
+    'min_score': 0.3,
+    'top_k': 5
 }
 
 # Role-specific Search Settings
@@ -180,9 +180,9 @@ ROLE_SEARCH_SETTINGS = {
     'FK helper': {
         'top_k': 3,
         'min_score': 0.3,
-        'local_weight': 0.3,   # 本地知識庫權重
-        'web_weight': 0.5,     # 網路搜尋權重
-        'history_weight': 0.2   # 對話歷史權重
+        'local_weight': 0.3,
+        'web_weight': 0.5,
+        'history_weight': 0.2
     },
     'FK teacher': {
         'top_k': 5,

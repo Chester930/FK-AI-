@@ -34,32 +34,32 @@ class KnowledgeBase:
                 KNOWLEDGE_BASE_SETTINGS['role_search']['FK helper']
             )
             
-            # 進行向量搜索
+            # 1. 本地知識庫搜索
             vector_results = self.vector_store.search(
                 query,
                 top_k=role_settings['top_k'],
                 min_score=role_settings['min_score']
             )
             
-            # 組合結果
             results = []
+            # 添加本地搜索結果
             for result in vector_results:
                 results.append({
                     'content': result['content'],
                     'score': result['score'],
                     'source': 'local',
-                    'weight': role_settings['local_weight']
+                    'weight': role_settings['local_weight']  # 本地權重
                 })
                 
-            # 如果是 FK helper 且需要網路搜索
-            if role == 'FK helper' and role_settings['web_weight'] > 0:
+            # 2. 網路搜索結果
+            if role_settings['web_weight'] > 0:
                 web_results = self._get_web_results(query)
                 for result in web_results:
                     results.append({
                         'content': result['content'],
                         'score': result.get('score', 0.5),
                         'source': 'web',
-                        'weight': role_settings['web_weight']
+                        'weight': role_settings['web_weight']  # 網路權重
                     })
                     
             # 根據權重和分數排序

@@ -18,11 +18,11 @@ prompt_manager = PromptManager()
 ROLE_DESCRIPTIONS = {
     "FK helper": {
         "name": "Fight.K 小幫手",
-        "description": "您是「Fight.K 小幫手」，你會依照提供的背景知識來回答問題。回答關於Fight.K 的問題，並且提供訊息來源給使用者："
+        "description": "您是「Fight.K 小幫手」，你會依照提供的背景知識來回答問題..."
     },
     "FK teacher": {
         "name": "FK裝備課程",
-        "description": "您是「Fight.K 教師」，一位精通聖經、Fight.K 理念和歷史的專家。你會依照提供的背景知識來回答問題。參考Fight.K 的裝備課程資料，回答使用者的問題："
+        "description": "您是「Fight.K 教師」，一位精通聖經、Fight.K 理念和歷史的專家..."
     },
     "FK Prophet": {
         "name": "Fight.K 策士",
