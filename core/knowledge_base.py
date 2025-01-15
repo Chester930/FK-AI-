@@ -19,16 +19,21 @@ from utils.vector_store import VectorStore
 
 class KnowledgeBase:
     def __init__(self, paths_config):
-        """初始化知識庫
-        
-        Args:
-            paths_config: 知識庫路徑配置
-        """
+        """初始化知識庫"""
         self.paths_config = paths_config
+        logger.info(f"初始化知識庫，配置: {paths_config}")
+        
+        # 檢查文件是否存在
+        for role, categories in paths_config.items():
+            for category, info in categories.items():
+                path = info['path']
+                if not os.path.exists(path):
+                    logger.warning(f"文件不存在: {path}")
+                else:
+                    logger.info(f"找到文件: {path}")
+        
         # 初始化向量存儲
         self.vector_store = VectorStore()
-        
-        # 載入所有文檔到向量存儲
         self._load_documents()
     
     def _load_documents(self):
@@ -59,18 +64,30 @@ class KnowledgeBase:
     def _read_document(self, path):
         """根據文件類型讀取文檔內容"""
         try:
-            ext = os.path.splitext(path)[1].lower()
-            if ext == '.docx':
-                return self._read_docx(path)
-            elif ext == '.txt':
-                return self._read_text(path)
-            elif ext == '.pdf':
-                return self._read_pdf(path)
+            # 如果是目錄，掃描並讀取所有支援的文件
+            if os.path.isdir(path):
+                logger.info(f"掃描目錄: {path}")
+                content = []
+                for file_path in self._get_supported_files(path):
+                    file_content = self._read_single_document(file_path)
+                    if file_content:
+                        content.append(file_content)
+                return "\n\n".join(content)
+            # 如果是文件列表
+            elif isinstance(path, list):
+                content = []
+                for p in path:
+                    if os.path.exists(p):
+                        file_content = self._read_single_document(p)
+                        if file_content:
+                            content.append(file_content)
+                return "\n\n".join(content)
+            # 如果是單個文件
             else:
-                logger.warning(f"不支援的文件類型: {path}")
-                return None
+                return self._read_single_document(path)
+            
         except Exception as e:
-            logger.error(f"讀取文檔時發生錯誤 {path}: {str(e)}")
+            logger.error(f"讀取文檔時發生錯誤: {str(e)}")
             return None
 
     def search(self, query: str, role: str = None):
@@ -136,32 +153,48 @@ class KnowledgeBase:
 
     def _select_relevant_paths(self, query):
         """選擇與查詢相關的知識庫路徑"""
-        relevant_paths = []
-        
-        # 先檢查共同資料
-        if 'common' in self.paths_config:
-            for category_name, info in self.paths_config['common'].items():
-                if any(keyword in query.lower() for keyword in info['keywords']):
-                    relevant_paths.append({
-                        'path': info['path'],
-                        'priority': info['priority'],
-                        'description': info['description']
-                    })
-        
-        # 再檢查角色特定資料
-        for role_name, categories in self.paths_config.items():
-            if role_name != 'common':  # 跳過共同資料
-                for category_name, info in categories.items():
-                    if any(keyword in query.lower() for keyword in info['keywords']):
+        try:
+            relevant_paths = []
+            logger.info(f"開始選擇相關路徑，當前設定: {self.paths_config}")
+            
+            # 先檢查共同資料
+            if 'common' in self.paths_config:
+                logger.info("檢查共同資料...")
+                for category_name, info in self.paths_config['common'].items():
+                    # 如果關鍵字包含 '*' 或符合查詢
+                    if '*' in info['keywords'] or \
+                       any(keyword in query.lower() for keyword in info['keywords']):
+                        path = info['path']
+                        logger.info(f"找到相關路徑: {path}")
                         relevant_paths.append({
-                            'path': info['path'],
+                            'path': path,
                             'priority': info['priority'],
                             'description': info['description']
                         })
-        
-        # 按優先級排序
-        relevant_paths.sort(key=lambda x: x['priority'])
-        return relevant_paths
+            
+            # 檢查角色特定資料
+            for role_name, categories in self.paths_config.items():
+                if role_name != 'common':
+                    logger.info(f"檢查角色 {role_name} 的資料...")
+                    for category_name, info in categories.items():
+                        if '*' in info['keywords'] or \
+                           any(keyword in query.lower() for keyword in info['keywords']):
+                            path = info['path']
+                            logger.info(f"找到相關路徑: {path}")
+                            relevant_paths.append({
+                                'path': path,
+                                'priority': info['priority'],
+                                'description': info['description']
+                            })
+            
+            # 按優先級排序
+            relevant_paths.sort(key=lambda x: x['priority'])
+            logger.info(f"共找到 {len(relevant_paths)} 個相關路徑")
+            return relevant_paths
+            
+        except Exception as e:
+            logger.error(f"選擇相關路徑時發生錯誤: {str(e)}", exc_info=True)
+            return []
 
     def _read_excel(self, path):
         """讀取 Excel 文件"""
@@ -217,4 +250,40 @@ class KnowledgeBase:
         except Exception as e:
             logger.error(f"網路搜索時發生錯誤: {str(e)}", exc_info=True)
             return []
+
+    def _get_supported_files(self, directory):
+        """掃描目錄並返回所有支援的文件"""
+        supported_extensions = {'.docx', '.txt', '.pdf', '.xlsx'}
+        files = []
+        
+        try:
+            # 遞迴掃描目錄
+            for root, _, filenames in os.walk(directory):
+                for filename in filenames:
+                    ext = os.path.splitext(filename)[1].lower()
+                    if ext in supported_extensions:
+                        full_path = os.path.join(root, filename)
+                        files.append(full_path)
+                        logger.info(f"找到支援的文件: {full_path}")
+        except Exception as e:
+            logger.error(f"掃描目錄時發生錯誤 {directory}: {str(e)}")
+        
+        return files
+
+    def _read_single_document(self, path):
+        """讀取單個文件的內容"""
+        try:
+            ext = os.path.splitext(path)[1].lower()
+            if ext == '.docx':
+                return self._read_docx(path)
+            elif ext == '.txt':
+                return self._read_text(path)
+            elif ext == '.pdf':
+                return self._read_pdf(path)
+            else:
+                logger.warning(f"不支援的文件類型: {path}")
+                return None
+        except Exception as e:
+            logger.error(f"讀取單個文件時發生錯誤: {str(e)}")
+            return None
 

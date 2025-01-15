@@ -1,13 +1,13 @@
 # Configuration for the AI customer service
 import os
 
-BASE_DIR = os.path.dirname(__file__)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # 定義常用檔案路徑
-CORE_DOC_PATH = 'data/Fight.K核心理念.docx'
-INTRO_DOC_PATH = 'data/Fight.K簡介.docx'
-HISTORY_DOC_PATH = 'data/Fight.K歷史.docx'
-LINKS_DOC_PATH = 'data/Fight.K相關連結整理.xlsx'
+CORE_DOC_PATH = os.path.join(BASE_DIR, 'data', 'Fight.K核心理念.docx')
+INTRO_DOC_PATH = os.path.join(BASE_DIR, 'data', 'Fight.K簡介.docx')
+HISTORY_DOC_PATH = os.path.join(BASE_DIR, 'data', 'Fight.K歷史.docx')
+LINKS_DOC_PATH = os.path.join(BASE_DIR, 'data', 'Fight.K相關連結整理.xlsx')
 
 # 共同參考資料路徑
 COMMON_PATHS = [
@@ -43,19 +43,22 @@ ROLE_SPECIFIC_PATHS = {
     ]
 }
 
+# 定義 DNA 課程路徑
+DNA_PATH = os.path.join(BASE_DIR, "data", "裝備課程", "DNA")
+
 # 組合共同路徑和角色專屬路徑
 KNOWLEDGE_BASE_PATHS = {
     'common': {  # 共同參考資料
         'core': {
             'path': CORE_DOC_PATH,
             'description': 'Fight.K核心理念文件',
-            'keywords': ['核心', '理念', '價值觀', '使命', 'Fight.K'],
+            'keywords': ['*'],  # 使用 * 表示匹配所有查詢
             'priority': 1
         },
         'intro': {
             'path': INTRO_DOC_PATH,
             'description': 'Fight.K 基本介紹',
-            'keywords': ['簡介', '介紹', '認識', 'Fight.K'],
+            'keywords': ['*'],
             'priority': 2
         },
         'history': {
@@ -86,23 +89,29 @@ KNOWLEDGE_BASE_PATHS = {
         }
     },
     'FK teacher': {
-        # 'bible': {
-        #     'path': 'data/聖經',
-        #     'description': '聖經相關資料',
-        #     'keywords': ['聖經', '經文', '章節'],
-        #     'priority': 3
-        # },
-        # 'cloud': {
-        #     'path': 'data/裝備課程/雲端神學院',
-        #     'description': '雲端神學院課程',
-        #     'keywords': ['神學院', '課程', '裝備'],
-        #     'priority': 2
-        # },
-        'dna': {
-            'path': 'data/裝備課程/DNA',
-            'description': 'DNA 課程資料',
-            'keywords': ['DNA', '講義', '考卷', '解答'],
+        'ai_intro': {
+            'path': os.path.join(DNA_PATH, "AI大意"),
+            'description': 'DNA 課程 AI大意教材',
+            'keywords': ['AI', '大意', '人工智慧'],
             'priority': 1
+        },
+        'ai_points': {
+            'path': os.path.join(DNA_PATH, "AI重點整理"),
+            'description': 'DNA 課程 AI重點整理',
+            'keywords': ['AI', '重點', '整理'],
+            'priority': 2
+        },
+        'dna_lectures': {
+            'path': os.path.join(DNA_PATH, "DNA講義"),
+            'description': 'DNA 課程講義',
+            'keywords': ['DNA', '講義', '課程'],
+            'priority': 3
+        },
+        'dna_excel': {
+            'path': os.path.join(DNA_PATH, "Fight.K DNA.xlsx"),
+            'description': 'DNA 課程總表',
+            'keywords': ['DNA', '總表', '規劃'],
+            'priority': 4
         }
     },
     'FK Prophet': {
@@ -187,8 +196,8 @@ ROLE_SEARCH_SETTINGS = {
     'FK teacher': {
         'top_k': 5,
         'min_score': 0.4,
-        'local_weight': 0.6,
-        'web_weight': 0.2,
+        'local_weight': 0.7,
+        'web_weight': 0.1,
         'history_weight': 0.2
     },
     'FK Prophet': {
