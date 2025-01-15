@@ -27,7 +27,7 @@ ROLE_SPECIFIC_PATHS = {
         os.path.join(BASE_DIR, "data", "撒瑪利亞教會", "撒瑪利亞教會說明文件.txt"),
     ],
     "FK teacher": [
-        os.path.join(BASE_DIR, "data", "聖經"),
+        
         os.path.join(BASE_DIR, "data", "裝備課程", "雲端神學院"),
         os.path.join(BASE_DIR, "data", "裝備課程", "DNA", "AI大意"),
         os.path.join(BASE_DIR, "data", "裝備課程", "DNA", "AI重點整理"),
@@ -35,11 +35,11 @@ ROLE_SPECIFIC_PATHS = {
     "FK Prophet": [
         os.path.join(BASE_DIR, "data/FK計畫與轉型/家教會/家教會簡介.docx"),
         os.path.join(BASE_DIR, "data/FK計畫與轉型/家教會/家教會QA.xlsx"),        
-        os.path.join(BASE_DIR, "data/FK計畫與轉型/家教會/家教會 PDF"),
-        os.path.join(BASE_DIR, "data/夥伴單位簡介.xlsx"),        
+        os.path.join(BASE_DIR, "data/FK計畫與轉型/家教會/家教會PDF"),
+        os.path.join(BASE_DIR, "data/撒瑪利亞教會/夥伴單位簡介.xlsx"),        
     ],
     "FK Business": [
-        os.path.join(BASE_DIR, "data/FK商業理念"),
+        os.path.join(BASE_DIR, "data/FK商業理念.docx"),
     ]
 }
 
@@ -86,23 +86,23 @@ KNOWLEDGE_BASE_PATHS = {
         }
     },
     'FK teacher': {
-        'bible': {
-            'path': 'data/聖經',
-            'description': '聖經相關資料',
-            'keywords': ['聖經', '經文', '章節'],
-            'priority': 1
-        },
+        # 'bible': {
+        #     'path': 'data/聖經',
+        #     'description': '聖經相關資料',
+        #     'keywords': ['聖經', '經文', '章節'],
+        #     'priority': 3
+        # },
+        # 'cloud': {
+        #     'path': 'data/裝備課程/雲端神學院',
+        #     'description': '雲端神學院課程',
+        #     'keywords': ['神學院', '課程', '裝備'],
+        #     'priority': 2
+        # },
         'dna': {
             'path': 'data/裝備課程/DNA',
             'description': 'DNA 課程資料',
             'keywords': ['DNA', '講義', '考卷', '解答'],
-            'priority': 2
-        },
-        'cloud': {
-            'path': 'data/裝備課程/雲端神學院',
-            'description': '雲端神學院課程',
-            'keywords': ['神學院', '課程', '裝備'],
-            'priority': 3
+            'priority': 1
         }
     },
     'FK Prophet': {
@@ -178,11 +178,11 @@ VECTOR_STORE_SETTINGS = {
 # Role-specific Search Settings
 ROLE_SEARCH_SETTINGS = {
     'FK helper': {
-        'top_k': 3,
+        'top_k': 5,
         'min_score': 0.3,
         'local_weight': 0.3,   # 本地知識庫權重
-        'web_weight': 0.5,     # 網路搜尋權重
-        'history_weight': 0.2   # 對話歷史權重
+        'web_weight': 0.4,     # 網路搜尋權重
+        'history_weight': 0.3   # 對話歷史權重
     },
     'FK teacher': {
         'top_k': 5,
@@ -215,12 +215,18 @@ DOCUMENT_PROCESSING = {
     'encoding': 'utf-8'
 }
 
-# 更新 KNOWLEDGE_BASE_SETTINGS
+# 知識庫全局設定
 KNOWLEDGE_BASE_SETTINGS = {
-    'max_results': 5,
-    'min_similarity': 0.3,
-    'context_length': 1000,
-    'vector_store': VECTOR_STORE_SETTINGS,
-    'role_search': ROLE_SEARCH_SETTINGS,
-    'document_processing': DOCUMENT_PROCESSING
+    'max_results': 5,        # 搜尋結果的最大返回數量
+    'min_similarity': 0.25,   # 最低相似度閾值 (0-1)，低於此值的結果將被過濾
+    'context_length': 1000,  # 每個文檔片段的最大字符長度
+    
+    # 向量存儲的相關設定
+    'vector_store': VECTOR_STORE_SETTINGS,  # 包含模型名稱、相似度閾值等
+    
+    # 不同角色的搜尋設定
+    'role_search': ROLE_SEARCH_SETTINGS,    # 包含各角色的權重、結果數等
+    
+    # 文檔處理相關設定
+    'document_processing': DOCUMENT_PROCESSING  # 包含分塊大小、重疊度等
 }

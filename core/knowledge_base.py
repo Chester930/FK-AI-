@@ -35,7 +35,8 @@ class KnowledgeBase:
         """載入所有文檔到向量存儲"""
         try:
             # 獲取所有相關路徑
-            paths = self._select_relevant_paths("")  # 空字符串獲取所有路徑
+            paths = self._select_relevant_paths("")
+            logger.info(f"正在載入知識庫文件，共找到 {len(paths)} 個文件")
             
             for path_info in paths:
                 path = path_info['path']
@@ -43,12 +44,14 @@ class KnowledgeBase:
                     logger.warning(f"文件不存在: {path}")
                     continue
                     
-                # 根據文件類型讀取內容
+                logger.info(f"正在處理文件: {path}")
                 content = self._read_document(path)
                 if content:
-                    # 使用文件路徑作為文檔ID
                     doc_id = path
                     self.vector_store.add_document(doc_id, content)
+                    logger.info(f"成功載入文件: {path}")
+            
+            logger.info("知識庫載入完成")
                     
         except Exception as e:
             logger.error(f"載入文檔時發生錯誤: {str(e)}", exc_info=True)
@@ -126,8 +129,9 @@ class KnowledgeBase:
         formatted_text = ""
         for result in results:
             source_type = "知識庫" if result['source'] == 'local' else "網路搜索"
-            formatted_text += f"=== {source_type} (相關度: {result['score']:.2f}) ===\n"
-            formatted_text += f"{result['content']}\n\n"
+            formatted_text += f"\n=== {source_type} (相關度: {result['score']:.2f}) ===\n"
+            formatted_text += f"來源: {result.get('doc_id', '未知')}\n"
+            formatted_text += f"{result['content']}\n"
         return formatted_text.strip()
 
     def _select_relevant_paths(self, query):
