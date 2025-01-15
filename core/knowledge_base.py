@@ -15,11 +15,61 @@ logger = logging.getLogger(__name__)
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config import KNOWLEDGE_BASE_PATHS, KNOWLEDGE_BASE_SETTINGS
+from utils.vector_store import VectorStore
 
 class KnowledgeBase:
     def __init__(self, paths_config):
-        self.paths_config = paths_config
+        """初始化知識庫
         
+        Args:
+            paths_config: 知識庫路徑配置
+        """
+        self.paths_config = paths_config
+        # 初始化向量存儲
+        self.vector_store = VectorStore()
+        
+        # 載入所有文檔到向量存儲
+        self._load_documents()
+    
+    def _load_documents(self):
+        """載入所有文檔到向量存儲"""
+        try:
+            # 獲取所有相關路徑
+            paths = self._select_relevant_paths("")  # 空字符串獲取所有路徑
+            
+            for path_info in paths:
+                path = path_info['path']
+                if not os.path.exists(path):
+                    logger.warning(f"文件不存在: {path}")
+                    continue
+                    
+                # 根據文件類型讀取內容
+                content = self._read_document(path)
+                if content:
+                    # 使用文件路徑作為文檔ID
+                    doc_id = path
+                    self.vector_store.add_document(doc_id, content)
+                    
+        except Exception as e:
+            logger.error(f"載入文檔時發生錯誤: {str(e)}", exc_info=True)
+
+    def _read_document(self, path):
+        """根據文件類型讀取文檔內容"""
+        try:
+            ext = os.path.splitext(path)[1].lower()
+            if ext == '.docx':
+                return self._read_docx(path)
+            elif ext == '.txt':
+                return self._read_text(path)
+            elif ext == '.pdf':
+                return self._read_pdf(path)
+            else:
+                logger.warning(f"不支援的文件類型: {path}")
+                return None
+        except Exception as e:
+            logger.error(f"讀取文檔時發生錯誤 {path}: {str(e)}")
+            return None
+
     def search(self, query: str, role: str = None):
         """根據查詢搜尋相關知識
         
