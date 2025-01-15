@@ -20,9 +20,8 @@ class KnowledgeBase:
         self.paths_config = paths_config
         
         # 初始化向量存儲
-        self.vector_store = VectorStore(
-            model_name=KNOWLEDGE_BASE_SETTINGS['vector_store']['model_name']
-        )
+        self.vector_store = None
+        self.initialize_vector_store()
         
         # 初始化嵌入管理器
         self.embedding_manager = EmbeddingManager(
@@ -30,9 +29,7 @@ class KnowledgeBase:
         )
         
         # 初始化快取管理器
-        self.cache_manager = CacheManager(
-            cache_settings=KNOWLEDGE_BASE_SETTINGS['cache']
-        )
+        self.cache_manager = CacheManager()
         
         # 初始化網路搜索器
         self.web_searcher = WebSearcher()
@@ -40,6 +37,14 @@ class KnowledgeBase:
         # 載入知識庫文檔
         self._load_documents()
         
+    def initialize_vector_store(self):
+        """初始化向量存儲"""
+        try:
+            # 向量存儲初始化邏輯
+            pass
+        except Exception as e:
+            logger.error(f"初始化向量存儲時發生錯誤: {e}")
+            
     def _load_documents(self):
         """載入所有知識庫文檔"""
         try:

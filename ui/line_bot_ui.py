@@ -59,7 +59,7 @@ from utils.scheduled_messages import MessageScheduler
 from utils.chat_history import ChatHistory
 from utils.web_search import WebSearcher
 from utils.youtube_handler import YouTubeHandler
-from utils.cache_manager import CacheManager
+from utils.simple_cache import SimpleCache
 
 load_dotenv()  # 加載 .env 檔案中的環境變數
 
@@ -72,42 +72,147 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# 初始化 LINE Bot API
-configuration = Configuration(access_token=os.environ.get('LINE_CHANNEL_ACCESS_TOKEN'))
-handler = WebhookHandler(os.environ.get('LINE_CHANNEL_SECRET'))
-
-with ApiClient(configuration) as api_client:
-    line_bot_api = MessagingApi(api_client)
-
-# Initialize core components
-ai_engine = AIEngine()
-prompt_manager = PromptManager()
-
 # Store user states (可以之後改用 Redis 或資料庫)
 user_states = {}
 
-# 初始化 ChatHistory
-chat_history = ChatHistory(max_history=10)
+# LINE Bot 配置
+configuration = Configuration(
+    access_token=os.environ.get('LINE_CHANNEL_ACCESS_TOKEN')
+)
 
-# 初始化 WebSearcher
-web_searcher = WebSearcher()
+# 創建 WebhookHandler
+handler = WebhookHandler(os.environ.get('LINE_CHANNEL_SECRET'))
 
-# 初始化 YouTube 處理器
-youtube_handler = YouTubeHandler()
+class LineBotUI:
+    def __init__(self):
+        self.configuration = configuration
+        self.handler = handler
+        # 修改 KnowledgeBase 初始化，傳入配置
+        self.knowledge_base = KnowledgeBase(paths_config=KNOWLEDGE_BASE_PATHS)
+        self.ai_engine = AIEngine()
+        self.prompt_manager = PromptManager()
+        self.chat_history = ChatHistory(max_history=10)
+        self.web_searcher = WebSearcher()
+        self.youtube_handler = YouTubeHandler()
+        self.cache = SimpleCache(max_size=1000, ttl=3600)
 
-# 初始化 CacheManager
-cache_manager = CacheManager()
+    def handle_personal_message(self, event, user_id: str, text: str):
+        """處理個人對話消息"""
+        reply_token = event.reply_token
+        try:
+            # 獲取或初始化用戶狀態
+            user_state = user_states.get(user_id, {})
+            
+            # 處理角色選擇
+            if text in ['A', 'B', 'C', 'D']:
+                role = ROLE_OPTIONS[text]
+                user_state['role'] = role
+                user_states[user_id] = user_state
+                
+                with ApiClient(self.configuration) as api_client:
+                    line_bot_api = MessagingApi(api_client)
+                    line_bot_api.reply_message(
+                        ReplyMessageRequest(
+                            reply_token=reply_token,
+                            messages=[TextMessage(text=f"已切換到 {ROLE_DESCRIPTIONS[text]} 模式")]
+                        )
+                    )
+                return
+                
+            # 檢查是否已選擇角色
+            if 'role' not in user_state:
+                with ApiClient(self.configuration) as api_client:
+                    line_bot_api = MessagingApi(api_client)
+                    line_bot_api.reply_message(
+                        ReplyMessageRequest(
+                            reply_token=reply_token,
+                            messages=[create_role_selection_message()]
+                        )
+                    )
+                return
+                
+            current_role = user_state['role']
+            
+            # 檢查快取
+            cached_response = self.cache.get(current_role, text)
+            if cached_response:
+                with ApiClient(self.configuration) as api_client:
+                    line_bot_api = MessagingApi(api_client)
+                    line_bot_api.reply_message(
+                        ReplyMessageRequest(
+                            reply_token=reply_token,
+                            messages=[TextMessage(text=cached_response)]
+                        )
+                    )
+                return
+            
+            # 搜索知識庫
+            knowledge_results = self.knowledge_base.search(text, current_role)
+            
+            # 進行網路搜索
+            search_file = self.web_searcher.search_and_save(text, user_id, is_group=False)
+            if search_file:
+                web_results = self.web_searcher.read_search_results(search_file)
+            else:
+                web_results = "無法獲取網路搜索結果"
+            
+            # 組合搜索結果
+            combined_results = f"""
+知識庫結果：
+{knowledge_results}
 
-# 自我介紹訊息
-INTRODUCTION_MESSAGE = """
-歡迎使用 Fight.K AI 助手！👋
-
-我是您的智能助理，可以協助您了解 Fight.K 的各個面向。請選擇您想要諮詢的對象：
-
-{role_options}
-
-💡 提示：您隨時可以輸入「切換身分」來重新選擇諮詢對象
+網路搜索結果：
+{web_results}
 """
+            
+            # 獲取對話歷史
+            chat_context = self.chat_history.format_context(user_id)
+            
+            # 生成 prompt
+            prompt = self.prompt_manager.get_prompt(current_role)
+            
+            # 組合完整的 prompt
+            full_prompt = (
+                f"{prompt}\n\n"
+                f"相關資訊：\n{combined_results}\n\n"
+                f"歷史對話：\n{chat_context}\n\n"
+                f"問題：{text}\n"
+                f"回答："
+            )
+            
+            # 生成回應
+            response = self.ai_engine.generate_response(full_prompt)
+            
+            # 設置快取
+            self.cache.set(current_role, text, response)
+            
+            # 更新對話歷史
+            self.chat_history.add_message(user_id, "user", text)
+            self.chat_history.add_message(user_id, "assistant", response)
+            
+            # 發送回應
+            with ApiClient(self.configuration) as api_client:
+                line_bot_api = MessagingApi(api_client)
+                line_bot_api.reply_message(
+                    ReplyMessageRequest(
+                        reply_token=reply_token,
+                        messages=[TextMessage(text=response)]
+                    )
+                )
+            
+        except Exception as e:
+            logger.error(f"處理訊息時發生錯誤: {str(e)}", exc_info=True)
+            try:
+                with ApiClient(self.configuration) as api_client:
+                    line_bot_api = MessagingApi(api_client)
+                    line_bot_api.reply_message(
+                        ReplyMessageRequest(
+                            reply_token=reply_token,
+                            messages=[TextMessage(text="抱歉，處理您的訊息時發生錯誤。")]
+                        )
+                    )
+            except Exception as reply_error:
+                logger.error(f"發送錯誤訊息失敗: {str(reply_error)}")
 
 # 定義角色選項
 ROLE_OPTIONS = {
@@ -171,98 +276,6 @@ def is_fightk_related(text: str) -> bool:
     ]
     text_lower = text.lower()
     return any(keyword in text_lower for keyword in keywords)
-
-def handle_personal_message(event, user_id: str, text: str):
-    """處理個人對話消息"""
-    reply_token = event.reply_token
-    try:
-        # 獲取或初始化用戶狀態
-        user_state = user_states.get(user_id, {})
-        
-        # 處理角色選擇
-        if text in ['A', 'B', 'C', 'D']:
-            role = ROLE_OPTIONS[text]
-            user_state['role'] = role
-            user_states[user_id] = user_state
-            
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=reply_token,
-                    messages=[TextMessage(text=f"已切換到 {ROLE_DESCRIPTIONS[text]} 模式")]
-                )
-            )
-            return
-            
-        # 檢查是否已選擇角色
-        if 'role' not in user_state:
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=reply_token,
-                    messages=[create_role_selection_message()]
-                )
-            )
-            return
-            
-        current_role = user_state['role']
-        
-        # 1. 檢查快取的回應
-        cached_response = cache_manager.get_cached_response(current_role, text)
-        if cached_response:
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=reply_token,
-                    messages=[TextMessage(text=cached_response)]
-                )
-            )
-            return
-            
-        # 2. 搜索知識庫
-        knowledge_results = knowledge_base.search(text, current_role)
-        
-        # 3. 獲取對話歷史
-        chat_context = chat_history.format_context(user_id)
-        
-        # 4. 生成 prompt
-        prompt = prompt_manager.get_prompt(current_role)
-        
-        # 5. 組合完整的 prompt
-        full_prompt = (
-            f"{prompt}\n\n"
-            f"相關知識：\n{knowledge_results}\n\n"
-            f"歷史對話：\n{chat_context}\n\n"
-            f"問題：{text}\n"
-            f"回答："
-        )
-        
-        # 6. 生成回應
-        response = ai_engine.generate_response(full_prompt)
-        
-        # 7. 快取回應
-        cache_manager.cache_response(current_role, text, response)
-        
-        # 8. 更新對話歷史
-        chat_history.add_message(user_id, "user", text)
-        chat_history.add_message(user_id, "assistant", response)
-        
-        # 9. 發送回應
-        line_bot_api.reply_message(
-            ReplyMessageRequest(
-                reply_token=reply_token,
-                messages=[TextMessage(text=response)]
-            )
-        )
-        
-    except Exception as e:
-        logger.error(f"處理訊息時發生錯誤: {str(e)}", exc_info=True)
-        try:
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=reply_token,
-                    messages=[TextMessage(text="抱歉，處理您的訊息時發生錯誤。")]
-                )
-            )
-        except Exception as reply_error:
-            logger.error(f"發送錯誤訊息失敗: {str(reply_error)}")
 
 def handle_group_message(event, group_id: str, text: str):
     """處理群組對話消息"""
@@ -390,56 +403,27 @@ def handle_group_message(event, group_id: str, text: str):
             )
         )
 
-# 修改主要的 handle_message 函數
+# 創建 LineBotUI 實例
+line_bot_ui = LineBotUI()
+
+# 修改 handle_message 裝飾器函數
 @handler.add(MessageEvent)
 def handle_message(event):
     try:
-        # 檢查是否來自群組
         if isinstance(event.source, GroupSource):
-            group_id = event.source.group_id
-            message_text = event.message.text
-            
-            # 只有在收到文字訊息時才檢查群組名稱
-            if isinstance(event.message, TextMessageContent):
-                # 檢查是否有前綴（支持中英文驚嘆號）
-                is_command = message_text.startswith(('!', '！'))
-                
-                # 只在收到指令時才檢查群組名稱
-                if is_command:
-                    try:
-                        with ApiClient(configuration) as api_client:
-                            line_bot_api = MessagingApi(api_client)
-                            group_summary = line_bot_api.get_group_summary(group_id)
-                            current_name = group_summary.group_name
-                            
-                            # 從資料庫獲取舊的群組名稱
-                            old_name = message_scheduler.notification_manager.groups.get(group_id, {}).get('name', '')
-                            
-                            # 如果名稱有變更，才更新
-                            if old_name and old_name != current_name:
-                                if message_scheduler.notification_manager.update_group_name(group_id, current_name):
-                                    logger.info(f"群組名稱已更新：{old_name} -> {current_name} (ID: {group_id})")
-                                else:
-                                    logger.warning(f"群組名稱更新失敗：{old_name} -> {current_name} (ID: {group_id})")
-                    except Exception as e:
-                        logger.error(f"檢查群組名稱時發生錯誤: {str(e)}")
-                
-                # 檢查是否來自管理員群組
-                is_admin = group_id == ADMIN_GROUP_ID
-                
-                if is_admin and is_command:
-                    handle_admin_command(event)
-                elif is_command:
-                    handle_group_message(event, group_id, message_text)
+            # ... group message handling ...
+            pass
         else:
             # 處理個人訊息
             user_id = event.source.user_id
             message_text = event.message.text
-            handle_personal_message(event, user_id, message_text)
+            line_bot_ui.handle_personal_message(event, user_id, message_text)
             
     except Exception as e:
         logger.error(f"處理訊息時發生錯誤: {str(e)}", exc_info=True)
         try:
+            with ApiClient(configuration) as api_client:
+                line_bot_api = MessagingApi(api_client)
             line_bot_api.reply_message(
                 ReplyMessageRequest(
                     reply_token=event.reply_token,

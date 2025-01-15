@@ -232,7 +232,12 @@ KNOWLEDGE_BASE_PATHS = {
 KNOWLEDGE_BASE_SETTINGS = {
     'max_results': 5,        # 每次搜尋返回的最大結果數
     'min_similarity': 0.3,   # 最小相似度閾值
-    'context_length': 1000   # 上下文長度
+    'context_length': 1000,  # 上下文長度
+    'cache': {              # 添加快取設定
+        'enabled': True,
+        'ttl': 3600,        # 快取存活時間（秒）
+        'max_size': 1000    # 最大快取條目數
+    }
 }
 
 # Vector Store Settings
@@ -274,30 +279,6 @@ ROLE_SEARCH_SETTINGS = {
     }
 }
 
-# Cache Settings
-CACHE_SETTINGS = {
-    'FK helper': {
-        'type': 'lru',
-        'max_size': 100,
-        'cache_duration': 1800  # 30分鐘
-    },
-    'FK teacher': {
-        'type': 'ttl',
-        'max_size': 200,
-        'cache_duration': 3600  # 1小時
-    },
-    'FK Prophet': {
-        'type': 'ttl',
-        'max_size': 150,
-        'cache_duration': 7200  # 2小時
-    },
-    'FK Business': {
-        'type': 'lru',
-        'max_size': 150,
-        'cache_duration': 3600  # 1小時
-    }
-}
-
 # 文檔處理設置
 DOCUMENT_PROCESSING = {
     'chunk_size': 1000,  # 文檔分塊大小
@@ -310,6 +291,5 @@ DOCUMENT_PROCESSING = {
 KNOWLEDGE_BASE_SETTINGS.update({
     'vector_store': VECTOR_STORE_SETTINGS,
     'role_search': ROLE_SEARCH_SETTINGS,
-    'cache': CACHE_SETTINGS,
     'document_processing': DOCUMENT_PROCESSING
 })

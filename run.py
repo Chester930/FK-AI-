@@ -82,6 +82,17 @@ def run_line_bot():
             logger.error(f"Missing required environment variables: {', '.join(missing_vars)}")
             sys.exit(1)
 
+        # 檢查必要的套件
+        try:
+            import torch
+            import sentence_transformers
+            logger.info(f"PyTorch version: {torch.__version__}")
+            logger.info(f"Sentence-transformers version: {sentence_transformers.__version__}")
+        except ImportError as e:
+            logger.error(f"Required package not found: {e}")
+            logger.error("Please run: pip install torch sentence-transformers")
+            sys.exit(1)
+
         # 建立 ngrok 設定檔
         ngrok_config = {
             "version": "2",
@@ -140,7 +151,7 @@ def run_line_bot():
             ngrok_process.terminate()
             
     except Exception as e:
-        logger.error(f"Error starting LINE Bot: {e}")
+        logger.error(f"Error starting LINE Bot: {e}", exc_info=True)
         sys.exit(1)
     finally:
         if os.path.exists(config_path):
