@@ -168,69 +168,59 @@ ADMIN_COMMANDS = {
     "!help": "顯示管理員指令說明"
 }
 
-# 知識庫路徑配置
-KNOWLEDGE_BASE_PATHS = {
+# Vector Store Settings
+VECTOR_STORE_SETTINGS = {
+    'model_name': 'paraphrase-multilingual-MiniLM-L12-v2',  # 使用多語言模型
+    'min_score': 0.3,  # 最小相似度閾值
+    'top_k': 5,  # 默認返回結果數
+}
+
+# Role-specific Search Settings
+ROLE_SEARCH_SETTINGS = {
     'FK helper': {
-        'common': {
-            'path': CORE_DOC_PATH,
-            'description': 'Fight.K 核心理念文件',
-            'keywords': ['核心', '理念', '價值觀', '使命', 'Fight.K'],
-            'priority': 1
-        },
-        'partners': {
-            'path': 'data/撒瑪利亞教會/夥伴單位簡介.xlsx',
-            'description': 'Fight.K 夥伴單位資料',
-            'keywords': ['夥伴', '單位', '合作', '協會', '商會', '組織', 'Fight.K'],
-            'priority': 2
-        }
+        'top_k': 3,
+        'min_score': 0.3,
+        'local_weight': 0.3,   # 本地知識庫權重
+        'web_weight': 0.5,     # 網路搜尋權重
+        'history_weight': 0.2   # 對話歷史權重
     },
     'FK teacher': {
-        'bible': {
-            'path': 'data/聖經',
-            'description': '聖經相關資料',
-            'keywords': ['聖經', '經文', '章節'],
-            'priority': 1
-        },
-        'dna': {
-            'path': 'data/裝備課程/DNA',
-            'description': 'DNA 課程資料',
-            'keywords': ['DNA', '講義', '考卷', '解答'],
-            'priority': 2
-        },
-        'cloud': {
-            'path': 'data/裝備課程/雲端神學院',
-            'description': '雲端神學院課程',
-            'keywords': ['神學院', '課程', '裝備'],
-            'priority': 3
-        }
+        'top_k': 5,
+        'min_score': 0.4,
+        'local_weight': 0.6,
+        'web_weight': 0.2,
+        'history_weight': 0.2
     },
     'FK Prophet': {
-        'home_church': {
-            'path': 'data/FK計畫與轉型/家教會',
-            'description': '家教會相關資料',
-            'keywords': ['家教會', 'QA', '簡介', '計畫'],
-            'priority': 1
-        },
-        'partners': {
-            'path': 'data/夥伴單位簡介',
-            'description': '夥伴單位資料',
-            'keywords': ['夥伴', '單位', '合作'],
-            'priority': 2
-        }
+        'top_k': 4,
+        'min_score': 0.35,
+        'local_weight': 0.5,
+        'web_weight': 0.3,
+        'history_weight': 0.2
     },
     'FK Business': {
-        'business': {
-            'path': 'data/FK商業理念',
-            'description': 'Fight.K 商業相關資料',
-            'keywords': ['商業', '理念', '經營'],
-            'priority': 1
-        }
+        'top_k': 4,
+        'min_score': 0.35,
+        'local_weight': 0.4,
+        'web_weight': 0.4,
+        'history_weight': 0.2
     }
 }
 
-# 知識庫搜尋設定
+# Document Processing Settings
+DOCUMENT_PROCESSING = {
+    'chunk_size': 1000,  # 文檔分塊大小
+    'chunk_overlap': 200,  # 分塊重疊大小
+    'allowed_extensions': ['.txt', '.docx', '.xlsx', '.pdf'],
+    'encoding': 'utf-8'
+}
+
+# 更新 KNOWLEDGE_BASE_SETTINGS
 KNOWLEDGE_BASE_SETTINGS = {
-    'max_results': 5,        # 每次搜尋返回的最大結果數
-    'min_similarity': 0.3,   # 最小相似度閾值
-    'context_length': 1000   # 上下文長度
+    'max_results': 5,
+    'min_similarity': 0.3,
+    'context_length': 1000,
+    'vector_store': VECTOR_STORE_SETTINGS,
+    'role_search': ROLE_SEARCH_SETTINGS,
+    'document_processing': DOCUMENT_PROCESSING
 }

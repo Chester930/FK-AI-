@@ -6,6 +6,7 @@ import fitz  # PyMuPDF
 import jieba
 import json
 import logging
+from typing import List, Dict
 
 # 設置日誌
 logger = logging.getLogger(__name__)
@@ -13,52 +14,69 @@ logger = logging.getLogger(__name__)
 # 將專案根目錄加入到 sys.path
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from config import KNOWLEDGE_BASE_PATHS
+from config import KNOWLEDGE_BASE_PATHS, KNOWLEDGE_BASE_SETTINGS
 
 class KnowledgeBase:
     def __init__(self, paths_config):
         self.paths_config = paths_config
         
-    def search(self, query: str):
-        """根據查詢搜尋相關知識"""
-        results = []
+    def search(self, query: str, role: str = None):
+        """根據查詢搜尋相關知識
         
-        # 根據關鍵字選擇合適的知識庫
-        relevant_paths = self._select_relevant_paths(query)
-        
-        for path_info in relevant_paths:
-            path = path_info['path']
-            try:
-                content = ""
-                if os.path.isfile(path):
-                    # 根據檔案類型讀取內容
-                    if path.endswith('.xlsx'):
-                        content = self._read_excel(path)
-                    elif path.endswith('.docx'):
-                        content = self._read_docx(path)
-                    elif path.endswith('.txt'):
-                        content = self._read_text(path)
-                    elif path.endswith('.pdf'):
-                        content = self._read_pdf(path)
-                        
-                    if content:
-                        results.append({
-                            'content': content,
-                            'path': path,
-                            'description': path_info['description']
-                        })
+        Args:
+            query: 查詢文本
+            role: 角色名稱，用於獲取角色特定的搜索設置
+        """
+        try:
+            # 獲取角色特定的搜索設置
+            role_settings = KNOWLEDGE_BASE_SETTINGS['role_search'].get(
+                role, 
+                KNOWLEDGE_BASE_SETTINGS['role_search']['FK helper']
+            )
             
-            except Exception as e:
-                logger.error(f"讀取文件時發生錯誤 {path}: {str(e)}")
-                continue
-        
-        return self._format_results(results)
+            # 進行向量搜索
+            vector_results = self.vector_store.search(
+                query,
+                top_k=role_settings['top_k'],
+                min_score=role_settings['min_score']
+            )
+            
+            # 組合結果
+            results = []
+            for result in vector_results:
+                results.append({
+                    'content': result['content'],
+                    'score': result['score'],
+                    'source': 'local',
+                    'weight': role_settings['local_weight']
+                })
+                
+            # 如果是 FK helper 且需要網路搜索
+            if role == 'FK helper' and role_settings['web_weight'] > 0:
+                web_results = self._get_web_results(query)
+                for result in web_results:
+                    results.append({
+                        'content': result['content'],
+                        'score': result.get('score', 0.5),
+                        'source': 'web',
+                        'weight': role_settings['web_weight']
+                    })
+                    
+            # 根據權重和分數排序
+            results.sort(key=lambda x: x['score'] * x['weight'], reverse=True)
+            
+            return self._format_results(results)
+            
+        except Exception as e:
+            logger.error(f"搜索知識庫時發生錯誤: {str(e)}", exc_info=True)
+            return "搜索時發生錯誤"
 
     def _format_results(self, results):
         """格式化搜尋結果"""
         formatted_text = ""
         for result in results:
-            formatted_text += f"=== {result['description']} ===\n"
+            source_type = "知識庫" if result['source'] == 'local' else "網路搜索"
+            formatted_text += f"=== {source_type} (相關度: {result['score']:.2f}) ===\n"
             formatted_text += f"{result['content']}\n\n"
         return formatted_text.strip()
 
@@ -127,4 +145,22 @@ class KnowledgeBase:
         for page in doc:
             content.append(page.get_text())
         return '\n'.join(content)
+
+    def _get_web_results(self, query: str) -> List[Dict]:
+        """獲取網路搜索結果"""
+        try:
+            from utils.web_search import WebSearcher
+            web_searcher = WebSearcher()
+            search_file = web_searcher.search_and_save(query, "temp", is_group=False)
+            if search_file:
+                content = web_searcher.read_search_results(search_file)
+                return [{
+                    'content': content,
+                    'score': 0.5,  # 默認分數
+                    'source': 'web'
+                }]
+            return []
+        except Exception as e:
+            logger.error(f"網路搜索時發生錯誤: {str(e)}", exc_info=True)
+            return []
 
