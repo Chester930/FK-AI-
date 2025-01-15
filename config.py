@@ -91,15 +91,15 @@ KNOWLEDGE_BASE_PATHS = {
     'FK teacher': {
         'ai_intro': {
             'path': os.path.join(DNA_PATH, "AI大意"),
-            'description': 'DNA 課程 AI大意教材',
-            'keywords': ['AI', '大意', '人工智慧'],
+            'description': 'DNA課程 AI 大意',
+            'keywords': ['*'],  # 使用 * 確保所有查詢都會檢索這個資料夾
             'priority': 1
         },
         'ai_points': {
             'path': os.path.join(DNA_PATH, "AI重點整理"),
-            'description': 'DNA 課程 AI重點整理',
-            'keywords': ['AI', '重點', '整理'],
-            'priority': 2
+            'description': 'DNA課程 AI 重點整理',
+            'keywords': ['*'],  # 使用 * 確保所有查詢都會檢索這個資料夾
+            'priority': 1      # 與 AI大意 同優先級
         },
         'dna_lectures': {
             'path': os.path.join(DNA_PATH, "DNA講義"),
@@ -194,11 +194,11 @@ ROLE_SEARCH_SETTINGS = {
         'history_weight': 0.3   # 對話歷史權重
     },
     'FK teacher': {
-        'top_k': 5,
-        'min_score': 0.4,
-        'local_weight': 0.7,
-        'web_weight': 0.1,
-        'history_weight': 0.2
+        'top_k': 5,              # 返回較多相關結果以確保完整性
+        'min_score': 0.1,        # 降低相似度門檻以確保返回結果
+        'local_weight': 1.0,     # 只使用本地知識庫
+        'web_weight': 0.0,       # 禁用網路搜尋
+        'history_weight': 0.0    # 禁用歷史對話影響
     },
     'FK Prophet': {
         'top_k': 4,
@@ -218,8 +218,8 @@ ROLE_SEARCH_SETTINGS = {
 
 # Document Processing Settings
 DOCUMENT_PROCESSING = {
-    'chunk_size': 1000,  # 文檔分塊大小
-    'chunk_overlap': 200,  # 分塊重疊大小
+    'chunk_size': 1000,        # 較大的分塊以保持上下文
+    'chunk_overlap': 200,      # 適當的重疊以確保連貫性
     'allowed_extensions': ['.txt', '.docx', '.xlsx', '.pdf'],
     'encoding': 'utf-8'
 }

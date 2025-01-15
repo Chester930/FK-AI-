@@ -23,14 +23,17 @@ class KnowledgeBase:
         self.paths_config = paths_config
         logger.info(f"初始化知識庫，配置: {paths_config}")
         
-        # 檢查文件是否存在
-        for role, categories in paths_config.items():
-            for category, info in categories.items():
+        # 檢查 FK teacher 的文件
+        if 'FK teacher' in paths_config:
+            logger.info("檢查 FK teacher 的教材文件...")
+            for category, info in paths_config['FK teacher'].items():
                 path = info['path']
-                if not os.path.exists(path):
-                    logger.warning(f"文件不存在: {path}")
+                if os.path.exists(path):
+                    logger.info(f"找到 {category} 文件: {path}")
+                    files = self._get_supported_files(path)
+                    logger.info(f"在 {category} 中找到 {len(files)} 個可用文件")
                 else:
-                    logger.info(f"找到文件: {path}")
+                    logger.warning(f"找不到 {category} 文件: {path}")
         
         # 初始化向量存儲
         self.vector_store = VectorStore()
@@ -155,41 +158,22 @@ class KnowledgeBase:
         """選擇與查詢相關的知識庫路徑"""
         try:
             relevant_paths = []
-            logger.info(f"開始選擇相關路徑，當前設定: {self.paths_config}")
             
-            # 先檢查共同資料
-            if 'common' in self.paths_config:
-                logger.info("檢查共同資料...")
-                for category_name, info in self.paths_config['common'].items():
-                    # 如果關鍵字包含 '*' 或符合查詢
-                    if '*' in info['keywords'] or \
-                       any(keyword in query.lower() for keyword in info['keywords']):
-                        path = info['path']
-                        logger.info(f"找到相關路徑: {path}")
-                        relevant_paths.append({
-                            'path': path,
-                            'priority': info['priority'],
-                            'description': info['description']
-                        })
-            
-            # 檢查角色特定資料
-            for role_name, categories in self.paths_config.items():
-                if role_name != 'common':
-                    logger.info(f"檢查角色 {role_name} 的資料...")
-                    for category_name, info in categories.items():
-                        if '*' in info['keywords'] or \
-                           any(keyword in query.lower() for keyword in info['keywords']):
-                            path = info['path']
-                            logger.info(f"找到相關路徑: {path}")
-                            relevant_paths.append({
-                                'path': path,
-                                'priority': info['priority'],
-                                'description': info['description']
-                            })
+            # 對於 FK teacher，總是返回所有 DNA 課程文件
+            if 'FK teacher' in self.paths_config:
+                logger.info("載入 FK teacher 的所有教材...")
+                for category, info in self.paths_config['FK teacher'].items():
+                    path = info['path']
+                    relevant_paths.append({
+                        'path': path,
+                        'priority': info['priority'],
+                        'description': info['description']
+                    })
+                    logger.info(f"添加路徑: {path}")
             
             # 按優先級排序
             relevant_paths.sort(key=lambda x: x['priority'])
-            logger.info(f"共找到 {len(relevant_paths)} 個相關路徑")
+            logger.info(f"共選擇了 {len(relevant_paths)} 個相關路徑")
             return relevant_paths
             
         except Exception as e:
@@ -257,14 +241,22 @@ class KnowledgeBase:
         files = []
         
         try:
-            # 遞迴掃描目錄
-            for root, _, filenames in os.walk(directory):
-                for filename in filenames:
-                    ext = os.path.splitext(filename)[1].lower()
-                    if ext in supported_extensions:
-                        full_path = os.path.join(root, filename)
-                        files.append(full_path)
-                        logger.info(f"找到支援的文件: {full_path}")
+            if os.path.isdir(directory):
+                # 遞迴掃描目錄
+                for root, _, filenames in os.walk(directory):
+                    for filename in filenames:
+                        ext = os.path.splitext(filename)[1].lower()
+                        if ext in supported_extensions:
+                            full_path = os.path.join(root, filename)
+                            files.append(full_path)
+                            logger.info(f"找到支援的文件: {full_path}")
+            else:
+                # 如果是單個文件且副檔名符合
+                ext = os.path.splitext(directory)[1].lower()
+                if ext in supported_extensions:
+                    files.append(directory)
+                    logger.info(f"添加單個文件: {directory}")
+                    
         except Exception as e:
             logger.error(f"掃描目錄時發生錯誤 {directory}: {str(e)}")
         
