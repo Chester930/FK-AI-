@@ -214,6 +214,113 @@ class LineBotUI:
             except Exception as reply_error:
                 logger.error(f"發送錯誤訊息失敗: {str(reply_error)}")
 
+    def handle_group_message(self, event):
+        """處理群組消息"""
+        try:
+            text = event.message.text
+            group_id = event.source.group_id
+            reply_token = event.reply_token
+            
+            # 檢查是否為管理員群組
+            admin_group_id = "Ca38140041deeb2d703b16cb45b8f3bf1"  # 從 README 中看到的管理員群組 ID
+            
+            # 處理管理員群組的命令
+            if group_id == admin_group_id and text.startswith('!'):
+                command = text[1:].split(' ')[0]  # 獲取命令部分
+                
+                if command == 'help':
+                    response = """可用指令：
+1. !help - 顯示所有可用指令
+2. !schedule YYYYMMDD-HH:MM group_id message - 設定新的排程通知
+3. !schedules - 查看所有排程
+4. !remove_schedule schedule_id - 刪除指定排程
+5. !groups - 查看所有群組"""
+                
+                elif command == 'schedule':
+                    # 解析排程命令
+                    parts = text[1:].split(' ', 3)  # 分割成 ['schedule', 'datetime', 'group_id', 'message']
+                    if len(parts) >= 4:
+                        _, datetime_str, target_group_id, message = parts
+                        result = self.message_scheduler.schedule_message(target_group_id, datetime_str, message)
+                        response = "排程設定成功！" if result else "排程設定失敗"
+                    else:
+                        response = "格式錯誤。正確格式：!schedule YYYYMMDD-HH:MM group_id message"
+                
+                elif command == 'schedules':
+                    schedules = self.message_scheduler.list_schedules()
+                    if schedules:
+                        response = "目前的排程：\n" + "\n".join([
+                            f"ID: {s['id']}\n時間: {s['scheduled_time']}\n訊息: {s['message']}\n"
+                            for s in schedules
+                        ])
+                    else:
+                        response = "目前沒有排程"
+                
+                elif command == 'remove_schedule':
+                    parts = text[1:].split()
+                    if len(parts) == 2:
+                        schedule_id = parts[1]
+                        if self.message_scheduler.remove_schedule(schedule_id):
+                            response = f"排程 {schedule_id} 已刪除"
+                        else:
+                            response = f"找不到排程 {schedule_id}"
+                    else:
+                        response = "格式錯誤。正確格式：!remove_schedule schedule_id"
+                
+                elif command == 'groups':
+                    # 讀取群組資訊
+                    with open('data/line_groups.json', 'r', encoding='utf-8') as f:
+                        groups = json.load(f)
+                    response = "群組列表：\n" + "\n".join([
+                        f"ID: {group_id}\n名稱: {group_info if isinstance(group_info, str) else group_info.get('name', 'Unknown')}"
+                        for group_id, group_info in groups.items()
+                    ])
+                
+                else:
+                    response = "未知的命令。使用 !help 查看可用命令。"
+                
+                # 發送回應
+                with ApiClient(self.configuration) as api_client:
+                    line_bot_api = MessagingApi(api_client)
+                    line_bot_api.reply_message(
+                        ReplyMessageRequest(
+                            reply_token=reply_token,
+                            messages=[TextMessage(text=response)]
+                        )
+                    )
+            
+            # 處理一般群組的消息
+            else:
+                # 檢查是否有人提到 bot
+                if '@Fight.K AI' in text:
+                    # 移除 @Fight.K AI 並處理剩餘文本
+                    query = text.replace('@Fight.K AI', '').strip()
+                    if query:
+                        # 使用與個人對話相同的邏輯處理問題
+                        knowledge_results = self.knowledge_base.search(query, "FK helper")
+                        search_file = self.web_searcher.search_and_save(query, group_id, is_group=True)
+                        if search_file:
+                            web_results = self.web_searcher.read_search_results(search_file)
+                        else:
+                            web_results = "無法獲取網路搜索結果"
+                        
+                        # 組合結果並生成回應
+                        combined_results = f"知識庫結果：\n{knowledge_results}\n\n網路搜索結果：\n{web_results}"
+                        response = self.ai_engine.generate_response(combined_results)
+                        
+                        # 發送回應
+                        with ApiClient(self.configuration) as api_client:
+                            line_bot_api = MessagingApi(api_client)
+                            line_bot_api.reply_message(
+                                ReplyMessageRequest(
+                                    reply_token=reply_token,
+                                    messages=[TextMessage(text=response)]
+                                )
+                            )
+                
+        except Exception as e:
+            logger.error(f"處理群組訊息時發生錯誤: {str(e)}", exc_info=True)
+
 # 定義角色選項
 ROLE_OPTIONS = {
     'A': 'FK helper',

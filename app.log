@@ -28832,3 +28832,183 @@ Traceback (most recent call last):
     web_results = self.web_searcher.search(text)
 AttributeError: 'WebSearcher' object has no attribute 'search'
 2025-01-15 13:28:09,333 - INFO - 127.0.0.1 - - [15/Jan/2025 13:28:09] "POST /callback HTTP/1.1" 200 -
+2025-01-15 13:32:52,877 - INFO - PyTorch version: 2.5.1+cpu
+2025-01-15 13:32:52,891 - INFO - Sentence-transformers version: 3.3.1
+2025-01-15 13:32:52,924 - INFO - Starting LINE Bot service...
+2025-01-15 13:32:58,064 - INFO - Ngrok URL: https://ad35-218-173-75-139.ngrok-free.app
+2025-01-15 13:32:58,064 - INFO - LINE Bot Webhook URL: https://ad35-218-173-75-139.ngrok-free.app/callback
+2025-01-15 13:33:10,096 - INFO - Scheduler started
+2025-01-15 13:33:10,154 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-15 13:33:10,156 - INFO - Added weekly notification: 123...
+2025-01-15 13:33:10,571 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-15 13:33:10]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-15 13:33:10
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-15 13:33:10,580 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-15 13:33:59,368 - ERROR - Error processing directory data/聖經: 'NoneType' object has no attribute 'add_document'
+2025-01-15 13:34:00,672 - ERROR - Error processing directory data/裝備課程/DNA: 'NoneType' object has no attribute 'add_document'
+2025-01-15 13:34:00,711 - ERROR - Error processing directory data/裝備課程/雲端神學院: 'NoneType' object has no attribute 'add_document'
+2025-01-15 13:34:00,781 - ERROR - Error processing directory data/FK計畫與轉型/家教會: 'NoneType' object has no attribute 'add_document'
+2025-01-15 13:34:00,792 - INFO - LINE Bot service started on port 5000
+2025-01-15 13:34:00,830 - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2025-01-15 13:34:09,377 - INFO - 127.0.0.1 - - [15/Jan/2025 13:34:09] "POST /callback HTTP/1.1" 200 -
+2025-01-15 13:34:11,965 - INFO - 127.0.0.1 - - [15/Jan/2025 13:34:11] "POST /callback HTTP/1.1" 200 -
+2025-01-15 13:34:21,557 - ERROR - Error in search: 'CacheManager' object has no attribute 'get_cached_response'
+2025-01-15 13:34:21,560 - INFO - 已刪除用戶搜尋記錄: search_personal_U449870fffc8fd9e18b66fe46941fc84d_20250113_084308.json
+2025-01-15 13:34:21,561 - INFO - 用戶 U449870fffc8fd9e18b66fe46941fc84d 的搜尋歷史記錄已清除
+2025-01-15 13:34:23,724 - INFO - AI 生成搜尋關鍵字 - 第一組: 台灣 天氣
+2025-01-15 13:34:23,725 - INFO - AI 生成搜尋關鍵字 - 第二組: 天氣 預報
+2025-01-15 13:34:23,725 - INFO - 最終搜尋關鍵字 - 第一組: 台灣 天氣
+2025-01-15 13:34:23,726 - INFO - 最終搜尋關鍵字 - 第二組: 天氣 預報
+2025-01-15 13:34:23,727 - INFO - 第 1 輪搜尋: 台灣 天氣
+2025-01-15 13:34:28,330 - INFO - 第 2 輪搜尋: 天氣 預報
+2025-01-15 13:34:32,667 - ERROR - Error in search: 'CacheManager' object has no attribute 'get_cached_response'
+2025-01-15 13:34:32,694 - INFO - 用戶 U449870fffc8fd9e18b66fe46941fc84d 的搜尋歷史記錄已清除
+2025-01-15 13:34:33,478 - INFO - AI 生成搜尋關鍵字 - 第一組: 好的，針對「你好」這個問題，我會將其轉換成兩組搜尋關鍵字，分別著重於最新資訊和深入細節：
+2025-01-15 13:34:33,479 - INFO - AI 生成搜尋關鍵字 - 第二組: 
+2025-01-15 13:34:33,480 - INFO - 最終搜尋關鍵字 - 第一組: 好的，針對「你好」這個問題，我會將其轉換成兩組搜尋關鍵字，分別著重於最新資訊和深入細節：
+2025-01-15 13:34:33,481 - INFO - 最終搜尋關鍵字 - 第二組: 
+2025-01-15 13:34:33,481 - INFO - 第 1 輪搜尋: 好的，針對「你好」這個問題，我會將其轉換成兩組搜尋關鍵字，分別著重於最新資訊和深入細節：
+2025-01-15 13:34:36,912 - INFO - Cached response for FK helper:現在台灣的天氣如何
+2025-01-15 13:34:37,161 - INFO - 127.0.0.1 - - [15/Jan/2025 13:34:37] "POST /callback HTTP/1.1" 200 -
+2025-01-15 13:34:38,561 - INFO - 第 2 輪搜尋: 
+2025-01-15 13:34:43,028 - INFO - Cached response for FK helper:你好
+2025-01-15 13:34:43,228 - INFO - 127.0.0.1 - - [15/Jan/2025 13:34:43] "POST /callback HTTP/1.1" 200 -
+2025-01-15 13:34:50,581 - INFO - Cache hit for FK helper:你好
+2025-01-15 13:34:50,761 - INFO - 127.0.0.1 - - [15/Jan/2025 13:34:50] "POST /callback HTTP/1.1" 200 -
+2025-01-15 13:35:23,581 - INFO - Cache hit for FK helper:現在台灣的天氣如何
+2025-01-15 13:35:23,747 - ERROR - 處理訊息時發生錯誤: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '32f7b4a9-fd04-4d19-87ae-e9dc159a2c06', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Wed, 15 Jan 2025 05:35:23 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Wed, 15 Jan 2025 05:35:23 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 141, in handle_personal_message
+    line_bot_api.reply_message(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6570, in reply_message
+    return self.reply_message_with_http_info(reply_message_request, **kwargs)  # noqa: E501
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6674, in reply_message_with_http_info
+    return self.api_client.call_api(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 407, in call_api
+    return self.__call_api(resource_path, method,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 222, in __call_api
+    raise e
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 212, in __call_api
+    response_data = self.request(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 451, in request
+    return self.rest_client.post_request(url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 270, in post_request
+    return self.request("POST", url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 229, in request
+    raise ApiException(http_resp=r)
+linebot.v3.messaging.exceptions.ApiException: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '32f7b4a9-fd04-4d19-87ae-e9dc159a2c06', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Wed, 15 Jan 2025 05:35:23 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Wed, 15 Jan 2025 05:35:23 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-15 13:35:24,022 - ERROR - 發送錯誤訊息失敗: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '372920eb-a3f3-493a-a238-adc0da30a607', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Wed, 15 Jan 2025 05:35:23 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Wed, 15 Jan 2025 05:35:23 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-15 13:35:24,027 - INFO - 127.0.0.1 - - [15/Jan/2025 13:35:24] "POST /callback HTTP/1.1" 200 -
+2025-01-15 13:35:34,661 - INFO - Cache hit for FK helper:你好
+2025-01-15 13:35:34,798 - ERROR - 處理訊息時發生錯誤: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '1bb32971-3e58-4aed-be8c-11575b81d864', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Wed, 15 Jan 2025 05:35:34 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Wed, 15 Jan 2025 05:35:34 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+Traceback (most recent call last):
+  File "E:\Python Project\FK_AI_Theology_Doctor\ui\line_bot_ui.py", line 141, in handle_personal_message
+    line_bot_api.reply_message(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6570, in reply_message
+    return self.reply_message_with_http_info(reply_message_request, **kwargs)  # noqa: E501
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 40, in wrapper_function
+    return vd.call(*args, **kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 134, in call
+    return self.execute(m)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\pydantic\v1\decorator.py", line 206, in execute
+    return self.raw_function(**d, **var_kwargs)
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api\messaging_api.py", line 6674, in reply_message_with_http_info
+    return self.api_client.call_api(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 407, in call_api
+    return self.__call_api(resource_path, method,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 222, in __call_api
+    raise e
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 212, in __call_api
+    response_data = self.request(
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\api_client.py", line 451, in request
+    return self.rest_client.post_request(url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 270, in post_request
+    return self.request("POST", url,
+  File "E:\Python Project\FK_AI_Theology_Doctor\venv\lib\site-packages\linebot\v3\messaging\rest.py", line 229, in request
+    raise ApiException(http_resp=r)
+linebot.v3.messaging.exceptions.ApiException: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': '1bb32971-3e58-4aed-be8c-11575b81d864', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Wed, 15 Jan 2025 05:35:34 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Wed, 15 Jan 2025 05:35:34 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-15 13:35:34,956 - ERROR - 發送錯誤訊息失敗: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Server': 'legy', 'Content-Type': 'application/json', 'x-content-type-options': 'nosniff', 'x-frame-options': 'DENY', 'x-line-request-id': 'e8c2ca9d-9fce-4003-8143-871fb044bc18', 'x-xss-protection': '1; mode=block', 'Content-Length': '33', 'Expires': 'Wed, 15 Jan 2025 05:35:34 GMT', 'Cache-Control': 'max-age=0, no-cache, no-store', 'Pragma': 'no-cache', 'Date': 'Wed, 15 Jan 2025 05:35:34 GMT', 'Connection': 'close'})
+HTTP response body: {"message":"Invalid reply token"}
+
+2025-01-15 13:35:34,961 - INFO - 127.0.0.1 - - [15/Jan/2025 13:35:34] "POST /callback HTTP/1.1" 200 -
+2025-01-15 13:37:12,431 - INFO - 127.0.0.1 - - [15/Jan/2025 13:37:12] "POST /callback HTTP/1.1" 200 -
+2025-01-15 13:37:22,572 - INFO - 127.0.0.1 - - [15/Jan/2025 13:37:22] "POST /callback HTTP/1.1" 200 -
+2025-01-15 13:37:54,055 - INFO - 127.0.0.1 - - [15/Jan/2025 13:37:54] "POST /callback HTTP/1.1" 200 -
+2025-01-15 13:38:04,753 - INFO - 127.0.0.1 - - [15/Jan/2025 13:38:04] "POST /callback HTTP/1.1" 200 -
+2025-01-15 13:43:59,948 - INFO - PyTorch version: 2.5.1+cpu
+2025-01-15 13:43:59,950 - INFO - Sentence-transformers version: 3.3.1
+2025-01-15 13:43:59,992 - INFO - Starting LINE Bot service...
+2025-01-15 13:44:05,151 - INFO - Ngrok URL: https://1c6b-218-173-75-139.ngrok-free.app
+2025-01-15 13:44:05,151 - INFO - LINE Bot Webhook URL: https://1c6b-218-173-75-139.ngrok-free.app/callback
+2025-01-15 13:44:15,603 - INFO - Scheduler started
+2025-01-15 13:44:15,626 - INFO - Added job "MessageScheduler.send_message" to job store "default"
+2025-01-15 13:44:15,627 - INFO - Added weekly notification: 123...
+2025-01-15 13:44:15,936 - INFO - Successfully sent message to group Ca38140041deeb2d703b16cb45b8f3bf1: [2025-01-15 13:44:15]
+🤖 Fight.K AI 助手啟動測試
+⏰ 啟動時間：2025-01-15 13:44:15
+
+📋 排程通知列表：
+
+🔄 每日通知：
+
+
+📅 每週通知：
+
+...
+2025-01-15 13:44:15,939 - INFO - Sent startup test message to group Ca38140041deeb2d703b16cb45b8f3bf1
+2025-01-15 13:45:05,172 - ERROR - Error processing directory data/聖經: 'NoneType' object has no attribute 'add_document'
+2025-01-15 13:45:06,706 - ERROR - Error processing directory data/裝備課程/DNA: 'NoneType' object has no attribute 'add_document'
+2025-01-15 13:45:06,722 - ERROR - Error processing directory data/裝備課程/雲端神學院: 'NoneType' object has no attribute 'add_document'
+2025-01-15 13:45:06,765 - ERROR - Error processing directory data/FK計畫與轉型/家教會: 'NoneType' object has no attribute 'add_document'
+2025-01-15 13:45:06,789 - INFO - LINE Bot service started on port 5000
+2025-01-15 13:45:06,816 - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2025-01-15 13:45:37,722 - INFO - 127.0.0.1 - - [15/Jan/2025 13:45:37] "POST /callback HTTP/1.1" 200 -
+2025-01-15 13:46:03,915 - INFO - 127.0.0.1 - - [15/Jan/2025 13:46:03] "POST /callback HTTP/1.1" 200 -
+2025-01-15 13:46:08,350 - INFO - 127.0.0.1 - - [15/Jan/2025 13:46:08] "POST /callback HTTP/1.1" 200 -
