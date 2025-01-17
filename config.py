@@ -105,7 +105,7 @@ KNOWLEDGE_BASE_PATHS = {
             'path': os.path.join(DNA_PATH, "DNA講義"),
             'description': 'DNA 課程講義',
             'keywords': ['DNA', '講義', '課程'],
-            'priority': 3
+            'priority': 2
         },
         'dna_excel': {
             'path': os.path.join(DNA_PATH, "Fight.K DNA.xlsx"),
@@ -143,8 +143,8 @@ GEMINI_API_KEY = os.environ.get("GOOGLE_API_KEY")
 
 # Model settings
 MODEL_NAME = "gemini-2.0-flash-exp"  # 可以更換為其他模型
-MODEL_TEMPERATURE = 0.7    # 控制創意程度 (0.0-1.0)
-MODEL_TOP_P = 0.8         # 控制輸出多樣性
+MODEL_TEMPERATURE = 0.6    # 控制創意程度 (0.0-1.0)
+MODEL_TOP_P = 0.7         # 控制輸出多樣性
 MAX_OUTPUT_TOKENS = 2048  # 最大輸出長度
 
 # Prompt settings
@@ -180,7 +180,7 @@ ADMIN_COMMANDS = {
 # Vector Store Settings
 VECTOR_STORE_SETTINGS = {
     'model_name': 'paraphrase-multilingual-MiniLM-L12-v2',  # 使用多語言模型
-    'min_score': 0.3,  # 最小相似度閾值
+    'min_score': 0.2,  # 最小相似度閾值
     'top_k': 5,  # 默認返回結果數
 }
 
@@ -188,7 +188,7 @@ VECTOR_STORE_SETTINGS = {
 ROLE_SEARCH_SETTINGS = {
     'FK helper': {
         'top_k': 5,
-        'min_score': 0.3,
+        'min_score': 0.25,
         'local_weight': 0.3,   # 本地知識庫權重
         'web_weight': 0.4,     # 網路搜尋權重
         'history_weight': 0.3   # 對話歷史權重
@@ -196,23 +196,23 @@ ROLE_SEARCH_SETTINGS = {
     'FK teacher': {
         'top_k': 5,              # 返回較多相關結果以確保完整性
         'min_score': 0.1,        # 降低相似度門檻以確保返回結果
-        'local_weight': 1.0,     # 只使用本地知識庫
+        'local_weight': 0.8,     # 只使用本地知識庫
         'web_weight': 0.0,       # 禁用網路搜尋
-        'history_weight': 0.0    # 禁用歷史對話影響
+        'history_weight': 0.2    # 禁用歷史對話影響
     },
     'FK Prophet': {
         'top_k': 4,
-        'min_score': 0.35,
-        'local_weight': 0.5,
-        'web_weight': 0.3,
-        'history_weight': 0.2
+        'min_score': 0.15,
+        'local_weight': 0.7,
+        'web_weight': 0.2,
+        'history_weight': 0.1
     },
     'FK Business': {
         'top_k': 4,
-        'min_score': 0.35,
-        'local_weight': 0.4,
-        'web_weight': 0.4,
-        'history_weight': 0.2
+        'min_score': 0.15,
+        'local_weight': 0.6,
+        'web_weight': 0.25,
+        'history_weight': 0.15
     }
 }
 
