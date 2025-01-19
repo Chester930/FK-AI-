@@ -1,22 +1,41 @@
+# 基礎框架
 flask==2.0.1
 werkzeug==2.0.1
 line-bot-sdk==3.5.0
 streamlit==1.22.0
+
+# AI 和 NLP
 google-generativeai==0.3.1
+sentence-transformers>=2.2.2
+scikit-learn>=1.0.2
+torch>=2.0.0
+jieba
+
+# 文件處理
+python-docx
+openpyxl
+PyMuPDF
+PyPDF2
 python-dotenv==0.19.0
 pyyaml==6.0.1
+
+# 網路和爬蟲
 google==3.0.0
 beautifulsoup4
 requests
 youtube-transcript-api==0.6.1
 pytube==15.0.0
+
+# 多媒體處理
 pytesseract==0.3.10
 SpeechRecognition==3.10.0
 vosk==0.3.45
 pyttsx3==2.90
-sentence-transformers>=2.2.2
-scikit-learn>=1.0.2
-torch>=2.0.0
+opencv-python
+pydub
 
+# 排程
+APScheduler
 
-
+# 其他工具
+pytz

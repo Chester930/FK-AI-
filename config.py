@@ -4,6 +4,10 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # 定義常用檔案路徑
+DATA_DIR = os.path.join(BASE_DIR, 'data')
+os.makedirs(DATA_DIR, exist_ok=True)  # 確保目錄存在
+
+# 定義常用檔案路徑
 CORE_DOC_PATH = os.path.join(BASE_DIR, 'data', 'Fight.K核心理念.docx')
 INTRO_DOC_PATH = os.path.join(BASE_DIR, 'data', 'Fight.K簡介.docx')
 HISTORY_DOC_PATH = os.path.join(BASE_DIR, 'data', 'Fight.K歷史.docx')
@@ -148,7 +152,7 @@ MODEL_TOP_P = 0.7         # 控制輸出多樣性
 MAX_OUTPUT_TOKENS = 2048  # 最大輸出長度
 
 # Prompt settings
-PROMPT_TEMPLATE_PATH = os.path.join(os.path.dirname(__file__), "data/prompts.json")
+PROMPT_TEMPLATE_PATH = os.path.join(DATA_DIR, 'prompts.json')
 
 # LINE Bot Settings
 LINE_CHANNEL_SECRET = os.environ.get('LINE_CHANNEL_SECRET')
@@ -179,63 +183,42 @@ ADMIN_COMMANDS = {
 
 # Vector Store Settings
 VECTOR_STORE_SETTINGS = {
-    'model_name': 'paraphrase-multilingual-MiniLM-L12-v2',  # 使用多語言模型
-    'min_score': 0.2,  # 最小相似度閾值
-    'top_k': 5,  # 默認返回結果數
+    'model_name': 'all-MiniLM-L6-v2',
+    'similarity_threshold': 0.75
 }
 
 # Role-specific Search Settings
 ROLE_SEARCH_SETTINGS = {
     'FK helper': {
         'top_k': 5,
-        'min_score': 0.25,
-        'local_weight': 0.3,   # 本地知識庫權重
-        'web_weight': 0.4,     # 網路搜尋權重
-        'history_weight': 0.3   # 對話歷史權重
-    },
-    'FK teacher': {
-        'top_k': 5,              # 返回較多相關結果以確保完整性
-        'min_score': 0.1,        # 降低相似度門檻以確保返回結果
-        'local_weight': 0.8,     # 只使用本地知識庫
-        'web_weight': 0.0,       # 禁用網路搜尋
-        'history_weight': 0.2    # 禁用歷史對話影響
-    },
-    'FK Prophet': {
-        'top_k': 4,
-        'min_score': 0.15,
+        'min_score': 0.2,
         'local_weight': 0.7,
         'web_weight': 0.2,
         'history_weight': 0.1
     },
-    'FK Business': {
-        'top_k': 4,
-        'min_score': 0.15,
-        'local_weight': 0.6,
-        'web_weight': 0.25,
-        'history_weight': 0.15
+    'FK teacher': {
+        'top_k': 3,
+        'min_score': 0.25,
+        'local_weight': 0.8,
+        'web_weight': 0.1,
+        'history_weight': 0.1
     }
 }
 
 # Document Processing Settings
 DOCUMENT_PROCESSING = {
-    'chunk_size': 1000,        # 較大的分塊以保持上下文
-    'chunk_overlap': 200,      # 適當的重疊以確保連貫性
+    'chunk_size': 1000,
+    'chunk_overlap': 200,
     'allowed_extensions': ['.txt', '.docx', '.xlsx', '.pdf'],
     'encoding': 'utf-8'
 }
 
 # 知識庫全局設定
 KNOWLEDGE_BASE_SETTINGS = {
-    'max_results': 5,        # 搜尋結果的最大返回數量
-    'min_similarity': 0.25,   # 最低相似度閾值 (0-1)，低於此值的結果將被過濾
-    'context_length': 1000,  # 每個文檔片段的最大字符長度
-    
-    # 向量存儲的相關設定
-    'vector_store': VECTOR_STORE_SETTINGS,  # 包含模型名稱、相似度閾值等
-    
-    # 不同角色的搜尋設定
-    'role_search': ROLE_SEARCH_SETTINGS,    # 包含各角色的權重、結果數等
-    
-    # 文檔處理相關設定
-    'document_processing': DOCUMENT_PROCESSING  # 包含分塊大小、重疊度等
+    'max_results': 5,
+    'min_similarity': 0.25,
+    'context_length': 1000,
+    'vector_store': VECTOR_STORE_SETTINGS,
+    'role_search': ROLE_SEARCH_SETTINGS,
+    'document_processing': DOCUMENT_PROCESSING
 }
